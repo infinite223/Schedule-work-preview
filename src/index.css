@@ -1,8 +1,7 @@
 body {
   margin: 0;
 
-  /* background-color: rgb(19, 19, 19); */
-  background-image: url('./assets/background.png');
+  background-color: rgb(10, 11, 10);
   background-repeat: no-repeat;
   background-size: cover;
 }

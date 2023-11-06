@@ -1,8 +1,13 @@
 export const downloadApp = async () => {
-    const url = 'https://schedule-work-bi9po30qo-dawids-projects-c0afd572.vercel.app/user/'
-    const res = await fetch(`${url}/downloadApp`, {
-          method: "GET",    
-    })
+    const apkFilePath = '/scheduleWork.apk';
 
-    return res
+    const anchor = document.createElement('a');
+    anchor.href = apkFilePath;
+    anchor.download = 'scheduleWork.apk';
+
+    document.body.appendChild(anchor);
+
+    anchor.click();
+
+    document.body.removeChild(anchor);
 }
