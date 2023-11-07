@@ -1,4 +1,3 @@
-import React from 'react'
 import './../styles/backgroundStyles.scss'
 import background from './../assets/background_3.png'
 
