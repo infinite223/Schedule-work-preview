@@ -17,10 +17,17 @@
     .changesModal__container-content {
         width: 400px;
         height: 600px;
+        max-height: 90vh;
         cursor: default;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+
+        overflow-y: auto;
+
+        @media screen and (max-width: 680px) {
+            width: 90vw;
+        }
 
         background-color: rgb(221, 221, 221);
         border-radius: 10px;
