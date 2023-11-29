@@ -7,46 +7,89 @@
     justify-content: space-between;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
-    .nav__logo {
-        width: 30px;
-    }
-
-    .nav__header-container {
+    .nav_right {
         display: flex;
-        justify-content: center;
-        flex-direction: column;
-        color: white;
         align-items: center;
+        gap: 25px;
 
-        @media screen and (max-width: 680px) {
-            align-items: flex-start;
-        }
-
-        .nav__header {
-            font-weight: 900;
-            font-size: 17px;
+        .nav__logo {    
+            width: 30px;
         }
     
-        .nav__secendHeader {
-            font-weight: 400;
-            color: rgb(213, 213, 213);
+        .nav__header-container {
+            display: flex;
+            flex-direction: column;
+            color: white;
+    
+            @media screen and (max-width: 680px) {
+                align-items: flex-start;
+            }
+    
+            .nav__header {
+                font-weight: 900;
+                font-size: 17px;
+            }
+        
+            .nav__secendHeader {
+                font-weight: 400;
+                color: rgb(213, 213, 213);
+                font-size: 12px;
+            }
+        }
+    }
+
+    .nav_buttons {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        gap: 10px;
+        text-align: left;
+        
+        @media screen and (max-width: 680px) {
+            flex-direction: column-reverse;
+            margin-top: 30px;
+            align-items: flex-end;
+        }
+
+        @media screen and (max-width: 500px) {
+            margin-top: 0px;
+        }
+
+        .nav__button {
+            color: rgb(0, 0, 0);
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 700;
             font-size: 12px;
+            text-align: end;
+            width: min-content;
+    
+            &:hover {
+                opacity: .5;
+                transition: all .2s ease-in-out;
+                cursor: pointer;
+            }
+
+            @media screen and (max-width: 500px) {
+                display: none;
+            }
+        }
+    
+        .nav_loginButton {
+            color: white;
+            background-color: rgb(22, 136, 4);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 700;
+            font-size: 12px;
+    
+            &:hover {
+                opacity: .5;
+                transition: all .2s ease-in-out;
+                cursor: pointer;
+            }
         }
     }
 
-    .nav__button {
-        justify-self: flex-end;
-        color: white;
-        background-color: rgb(22, 136, 4);
-        border-radius: 50px;
-        padding: 8px 20px;
-        font-weight: 700;
-        font-size: 12px;
-
-        &:hover {
-            opacity: .5;
-            transition: all .2s ease-in-out;
-            cursor: pointer;
-        }
-    }
 }
