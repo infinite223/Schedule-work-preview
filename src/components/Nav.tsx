@@ -11,7 +11,7 @@ const Nav = () => {
       {showModal && <ChangesModal setShowModal={setShowModal} />}
 
       <div className="nav_right">
-        <img src={logo} className="nav__logo" />
+        <img alt="logo" src={logo} className="nav__logo" />
         <div className="nav__header-container">
           <div className="nav__header">ScheduleWork</div>
           <div className="nav__secendHeader">Mobile app</div>

@@ -1,12 +1,12 @@
-import './../styles/backgroundStyles.scss'
-import background from './../assets/background_3.png'
+import "./../styles/backgroundStyles.scss";
+import background from "./../assets/background_3.png";
 
 const Background = () => {
   return (
-    <div className='background'>
-      <img src={background} className='background__img'/>
+    <div className="background">
+      <img alt="background" src={background} className="background__img" />
     </div>
-  )
-}
+  );
+};
 
-export default Background
+export default Background;

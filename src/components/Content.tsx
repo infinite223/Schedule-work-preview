@@ -1,6 +1,5 @@
 import "./../styles/contentStyles.scss";
 import android from "./../assets/android.png";
-import apple from "./../assets/apple.png";
 import {constants} from "../Utilis/constansts";
 import {downloadApp} from "../Utilis/downloadApp";
 import presentApp from "./../assets/presentApp.png";
@@ -8,7 +7,7 @@ import presentApp from "./../assets/presentApp.png";
 const Content = () => {
   return (
     <div className="content">
-      <img src={presentApp} className="content__presentApp" />
+      <img alt="presentApp" src={presentApp} className="content__presentApp" />
       {/* <div className="content__description">
         Aplikacja mobilna do zarządzania harmonogramem pracy pracowników.
         Ułatwiająca zapis pracowników w grafiku pracy. Aplikacja umożliwa
@@ -44,7 +43,7 @@ const Content = () => {
 
       <div className="download-link" onClick={downloadApp}>
         Pobierz aplikacjie na androida
-        <img src={android} className="content__button-android" />
+        <img alt="android" src={android} className="content__button-android" />
       </div>
       <div className="content__version">
         Aktualna wersja: {constants.appVersion}
