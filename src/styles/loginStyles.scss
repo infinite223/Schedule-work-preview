@@ -2,10 +2,36 @@
     background-color: white;
     width: 100vw;
     height: 100dvh;
-   
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    .logoApp {
+        width: 230px;
+    }
+
+    h4 {
+        color: gray;
+        font-size: 14px;
+        margin-top: 3px;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+
+    .inputsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7px;
+
+        .basicInput {
+            width: 220px;
+            padding: 10px 17px;
+        }
+    }
 }

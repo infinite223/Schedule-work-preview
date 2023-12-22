@@ -5,20 +5,20 @@ import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonCheck} from "react-icons/bs";
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  const tryLogin = () => {};
-
+  const tryRegister = () => {};
   return (
     <div className="login">
       <BackButton />
       <BsPersonCheck color="var(--baseColor)" size={34} />
-      <h4>Login</h4>
+      <h4>Rejestracja</h4>
       <img alt="logoApp" className="logoApp" src={logoApp} />
-      <h3>Zaloguj się do aplikacji</h3>
+      <h3>Zarejestruj się do aplikacji</h3>
 
       <div className="inputsContainer">
         <input
@@ -35,7 +35,7 @@ export default function Login() {
         />
 
         <button
-          onClick={tryLogin}
+          onClick={tryRegister}
           className="custom-button"
           style={{
             backgroundColor: "var(--baseColor)",
@@ -45,7 +45,7 @@ export default function Login() {
             marginTop: "10px",
           }}
         >
-          Zaloguj się
+          Zarejestruj się
         </button>
       </div>
     </div>

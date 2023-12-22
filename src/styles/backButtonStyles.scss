@@ -2,7 +2,7 @@
     border-radius: 50px;
     padding: 10px;
     background-color: rgb(242, 242, 242);
-    box-shadow: 1px 4px 4px rgb(177, 177, 177);
+    box-shadow: var(--boxShadow);
     position: absolute;
     top: 20px;
     left: 20px;

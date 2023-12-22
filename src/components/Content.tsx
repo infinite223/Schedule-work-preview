@@ -32,6 +32,7 @@ const Content = () => {
         </button>
 
         <button
+          onClick={() => navigate("/Register")}
           className="custom-button"
           style={{
             backgroundColor: "white",

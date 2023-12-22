@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "../components/Nav";
 import Content from "../components/Content";
 import Background from "../components/Background";
-import "./../index.css";
+import "./../index.scss";
 
 export default function Start() {
   return (

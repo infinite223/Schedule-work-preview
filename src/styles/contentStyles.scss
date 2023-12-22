@@ -96,23 +96,4 @@
 
         margin: 10px 0;
     }
-
-    .custom-button {
-        outline: none;
-        padding: 10px;
-        border-radius:  50px;
-        cursor: pointer;
-        border: none;
-
-        width: 200px;
-
-        @media screen and (max-width: 680px) {
-            width: 70%;
-        }
-        
-        &:hover {
-            opacity: .6;
-            transition: all .2s ease-in-out;
-        }
-    }
 }

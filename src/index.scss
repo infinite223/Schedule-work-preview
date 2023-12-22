@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.bg-first {
+    background-color: rgb(17, 122, 17)
+}
+
+:root {
+  --baseColor: rgb(38, 179, 38);
+  --boxShadow: 1px 4px 6px rgb(177, 177, 177);
+}
+
+input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 50px;
+  box-shadow: var(--boxShadow);
+}
+
+.custom-button {
+  outline: none;
+  padding: 10px;
+  border-radius:  50px;
+  cursor: pointer;
+  border: none;
+
+  width: 200px;
+
+  @media screen and (max-width: 680px) {
+      width: 70%;
+  }
+  
+  &:hover {
+      opacity: .6;
+      transition: all .2s ease-in-out;
+  }
+}
