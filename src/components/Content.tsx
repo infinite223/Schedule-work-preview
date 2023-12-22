@@ -3,8 +3,10 @@ import android from "./../assets/android.png";
 import {constants} from "../Utilis/constansts";
 import {downloadApp} from "../Utilis/downloadApp";
 import presentApp from "./../assets/presentApp.png";
+import {useNavigate, useNavigation} from "react-router-dom";
 
 const Content = () => {
+  const navigate = useNavigate();
   return (
     <div className="content">
       <img alt="presentApp" src={presentApp} className="content__presentApp" />
@@ -17,6 +19,7 @@ const Content = () => {
 
       <div className="buttons-container">
         <button
+          onClick={() => navigate("/login")}
           className="custom-button"
           style={{
             backgroundColor: "var(--baseColor)",

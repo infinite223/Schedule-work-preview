@@ -1,16 +1,15 @@
-import React from 'react'
-import "./../styles/loginStyles.scss"
-import {  } from 'react-router-dom'
+import React from "react";
+import "./../styles/loginStyles.scss";
+import {} from "react-router-dom";
+import {BackButton} from "../components/BackButton";
 
 export default function Login() {
-
   return (
     <div className="login">
-         <a href={`/`}>
-            back
-         </a>
-
-        Login page
+      <BackButton />
+      dada
+      <a href={`/`}>back</a>
+      Login page
     </div>
-  )
+  );
 }
