@@ -32,7 +32,7 @@ const Content = () => {
         </button>
 
         <button
-          onClick={() => navigate("/Register")}
+          onClick={() => navigate("register")}
           className="custom-button"
           style={{
             backgroundColor: "white",

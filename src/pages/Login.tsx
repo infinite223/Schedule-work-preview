@@ -25,13 +25,16 @@ export default function Login() {
           placeholder="Podaj email"
           className="basicInput"
           value={email}
-          onChange={(text) => setEmail(text.target.validationMessage)}
+          onChange={(text) => setEmail(text.target.value)}
+          required
         />
         <input
           placeholder="Podaj hasło"
           className="basicInput"
           value={password}
-          onChange={(text) => setPassword(text.target.validationMessage)}
+          onChange={(text) => setPassword(text.target.value)}
+          type="password"
+          required
         />
 
         <button
