@@ -4,13 +4,23 @@ import {useNavigate} from "react-router-dom";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonCheck} from "react-icons/bs";
+import {localVerifyLoginData} from "../Utilis/helpers";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorText, setErrorText] = useState("");
   const navigate = useNavigate();
 
-  const tryLogin = () => {};
+  const tryLogin = () => {
+    const {error, status} = localVerifyLoginData(email, password);
+
+    if (status === 200) {
+    } else {
+      setErrorText(error);
+      console.log(error);
+    }
+  };
 
   return (
     <div className="login">
@@ -54,6 +64,8 @@ export default function Login() {
         >
           Zaloguj się
         </button>
+
+        {process.env.API_KEY}
       </div>
     </div>
   );

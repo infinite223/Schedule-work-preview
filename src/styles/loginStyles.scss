@@ -32,6 +32,10 @@
         .basicInput {
             width: 220px;
             padding: 12px 17px;
+            font-size: 12px;
+            &::placeholder {
+                color: rgb(160, 160, 160);
+            }
         }
     }
 }
