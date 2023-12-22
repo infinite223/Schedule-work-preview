@@ -3,7 +3,7 @@ import "./../styles/loginStyles.scss";
 import {useNavigate} from "react-router-dom";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
-import {BsPersonCheck} from "react-icons/bs";
+import {BsPersonAdd} from "react-icons/bs";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ export default function Register() {
   return (
     <div className="login">
       <BackButton />
-      <BsPersonCheck color="var(--baseColor)" size={34} />
+      <BsPersonAdd color="var(--baseColor)" size={34} />
       <h4>Rejestracja</h4>
       <img alt="logoApp" className="logoApp" src={logoApp} />
       <h3>Zarejestruj się do aplikacji</h3>
@@ -43,6 +43,10 @@ export default function Register() {
             fontWeight: "bold",
             boxShadow: "0px 2px 5px var(--baseColor)",
             marginTop: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "5px",
           }}
         >
           Zarejestruj się

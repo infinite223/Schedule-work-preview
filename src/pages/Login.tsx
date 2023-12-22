@@ -43,6 +43,10 @@ export default function Login() {
             fontWeight: "bold",
             boxShadow: "0px 2px 5px var(--baseColor)",
             marginTop: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "5px",
           }}
         >
           Zaloguj się
