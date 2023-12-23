@@ -10,7 +10,7 @@
     .nav_right {
         display: flex;
         align-items: center;
-        gap: 25px;
+        gap: 15px;
 
         .nav__logo {    
             width: 30px;
@@ -26,13 +26,13 @@
     
             .nav__header {
                 font-weight: 900;
-                font-size: 17px;
+                font-size: 14px;
             }
         
             .nav__secendHeader {
                 font-weight: 400;
                 color: rgb(43, 43, 43);
-                font-size: 12px;
+                font-size: 10px;
             }
         }
     }

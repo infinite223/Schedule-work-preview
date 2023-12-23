@@ -20,6 +20,7 @@
 
     h3 {
         font-size: 15px;
+        color: rgb(64, 64, 64);
     }
 
 
@@ -27,15 +28,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 7px;
+        gap: 10px;
 
         .basicInput {
-            width: 220px;
-            padding: 12px 17px;
-            font-size: 12px;
+            width: 240px;
+            padding: 12px 24px;
+            font-size: 15px;
             &::placeholder {
                 color: rgb(160, 160, 160);
+                font-size: 13px;
             }
+
+            max-width: 90vw;
         }
     }
 }
