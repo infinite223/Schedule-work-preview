@@ -7,6 +7,7 @@ import {BsPersonCheck} from "react-icons/bs";
 import {localVerifyLoginData} from "../Utilis/helpers";
 import {Store} from "react-notifications-component";
 import {setUpNotifications, useNotifications} from "reapop";
+import {IoChevronBackSharp} from "react-icons/io5";
 
 setUpNotifications({
   defaultProps: {

@@ -6,11 +6,8 @@ export const BackButton = () => {
   const navigate = useNavigate();
 
   return (
-    <IoChevronBackSharp
-      size={20}
-      color="black"
-      onClick={() => navigate(-1)}
-      className="backButton"
-    />
+    <div className="backButton" onClick={() => navigate(-1)}>
+      <IoChevronBackSharp size={22} color="black" />
+    </div>
   );
 };
