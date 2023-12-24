@@ -13,14 +13,17 @@
     }
 
     h4 {
-        color: gray;
+        color: rgb(23, 23, 23);
         font-size: 14px;
         margin-top: 3px;
+        margin-bottom: 10px;
     }
 
     h3 {
-        font-size: 15px;
+        font-size: 14px;
         color: rgb(64, 64, 64);
+        font-weight: 700;
+        margin: 15px 0;   
     }
 
 
@@ -32,11 +35,11 @@
 
         .basicInput {
             width: 240px;
-            padding: 12px 24px;
-            font-size: 15px;
+            padding: 12px 18px;
+            font-size: 14px;
             &::placeholder {
                 color: rgb(160, 160, 160);
-                font-size: 13px;
+                font-size: 14px;
             }
 
             max-width: 90vw;

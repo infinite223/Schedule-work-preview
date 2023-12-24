@@ -29,7 +29,6 @@ const notification1 = {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorText, setErrorText] = useState("");
   const navigate = useNavigate();
   const {notify} = useNotifications();
 
@@ -51,7 +50,6 @@ export default function Login() {
         },
       });
     } else {
-      setErrorText(error);
       notify({message: error, status: "error", title: "Błąd logowania"});
       console.log(error);
     }
@@ -102,7 +100,7 @@ export default function Login() {
         </button>
 
         <p className="footerStart">
-          nie masz konta? <a href="./Register">Zarejestrój się</a>
+          nie masz konta? <a href="./Register">Zarejestruj się!</a>
         </p>
       </div>
     </div>

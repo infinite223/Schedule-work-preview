@@ -15,7 +15,7 @@ body {
 
 :root {
   --baseColor: rgb(38, 179, 38);
-  --boxShadow: 1px 4px 6px rgb(217, 217, 217);
+  --boxShadow: 1px 2px 6px rgb(217, 217, 217);
 }
 
 input {
@@ -33,7 +33,7 @@ input {
   cursor: pointer;
   border: none;
 
-  width: 200px;
+  width: 240px;
 
   @media screen and (max-width: 680px) {
       width: 100%;

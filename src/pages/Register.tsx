@@ -57,7 +57,7 @@ export default function Register() {
         </button>
 
         <p className="footerStart">
-          masz już konto? <a href="./Login">Zaloguj się</a>
+          masz już konto? <a href="./Login">Zaloguj się!</a>
         </p>
       </div>
     </div>
