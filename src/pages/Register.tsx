@@ -49,11 +49,16 @@ export default function Register() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            fontSize: "15px",
             gap: "5px",
           }}
         >
           Zarejestruj się
         </button>
+
+        <p className="footerStart">
+          masz już konto? <a href="./Login">Zaloguj się</a>
+        </p>
       </div>
     </div>
   );

@@ -26,6 +26,7 @@ const Content = () => {
             color: "white",
             fontWeight: "bold",
             boxShadow: "0px 2px 5px var(--baseColor)",
+            width: "220px",
           }}
         >
           Zaloguj się

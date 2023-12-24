@@ -5,19 +5,53 @@ import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonCheck} from "react-icons/bs";
 import {localVerifyLoginData} from "../Utilis/helpers";
+import {Store} from "react-notifications-component";
+import {setUpNotifications, useNotifications} from "reapop";
+
+setUpNotifications({
+  defaultProps: {
+    position: "bottom-right",
+    dismissAfter: 2000,
+    dismissible: true,
+  },
+});
+
+const notification1 = {
+  id: "1",
+  title: "Notification 1!",
+  message:
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  dismissible: true,
+  dismissAfter: 3,
+};
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorText, setErrorText] = useState("");
   const navigate = useNavigate();
+  const {notify} = useNotifications();
 
   const tryLogin = () => {
     const {error, status} = localVerifyLoginData(email, password);
 
     if (status === 200) {
+      Store.addNotification({
+        title: "Wonderful!",
+        message: "teodosii@react-notifications-component",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true,
+        },
+      });
     } else {
       setErrorText(error);
+      notify({message: error, status: "error", title: "Błąd logowania"});
       console.log(error);
     }
   };
@@ -59,13 +93,16 @@ export default function Login() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            fontSize: "15px",
             gap: "5px",
           }}
         >
           Zaloguj się
         </button>
 
-        {process.env.API_KEY}
+        <p className="footerStart">
+          nie masz konta? <a href="./Register">Zarejestrój się</a>
+        </p>
       </div>
     </div>
   );
