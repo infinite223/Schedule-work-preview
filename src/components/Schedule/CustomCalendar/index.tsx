@@ -86,15 +86,15 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   }
 
   return (
-    <div className="items-center p-5">
+    <div className="flex flex-col items-center w-full">
       <div className="flex flex-row items-center justify-between pb-7 w-full">
         <button
           style={{padding: "5px"}}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, -1))}
         >
-          <IoChevronBackOutline size={24} />
+          <IoChevronBackOutline size={22} />
         </button>
-        <span>
+        <span className="text-sm">
           {monthNames[selectedMonth.getMonth()]}
           {" " + selectedMonth.getFullYear()}
         </span>
@@ -102,7 +102,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
           style={{padding: "5px"}}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, 1))}
         >
-          <IoChevronForwardOutline size={24} />
+          <IoChevronForwardOutline size={22} />
         </button>
       </div>
 

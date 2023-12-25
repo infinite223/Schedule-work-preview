@@ -12,12 +12,12 @@ interface DayProps {
 
 const Day: FC<DayProps> = ({id, isSelected, users, myId}) => {
   const findUser = users.find((userInDay) => userInDay.user?.id === myId);
-
   return (
     <div
-      className="rounded-full w-10 h-10 flex items-center justify-center gap-1"
+      className="rounded-full w-10 h-10 flex items-center justify-center gap-1 flex-col"
       style={{
         borderColor: isSelected ? colors.baseColor : "white",
+        borderWidth: 1,
         backgroundColor: findUser ? "rgba(11, 250, 43, .1)" : "white",
       }}
     >
