@@ -1,17 +1,36 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import "./../styles/loginStyles.scss";
 import {useNavigate} from "react-router-dom";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonAdd} from "react-icons/bs";
+import {localVerifyRegisterData} from "../Utilis/helpers";
+import {setUpNotifications, useNotifications} from "reapop";
+
+setUpNotifications({
+  defaultProps: {
+    position: "bottom-right",
+    dismissAfter: 2000,
+    dismissible: true,
+  },
+});
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const {notify} = useNotifications();
 
-  const tryRegister = () => {};
+  const tryRegister = () => {
+    const {error, status} = localVerifyRegisterData(email, password);
+
+    if (status === 200) {
+    } else {
+      notify({message: error, status: "error", title: "Błąd rejestracji"});
+    }
+  };
+
   return (
     <div className="login">
       <BackButton />

@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import "./../styles/loginStyles.scss";
-import {useNavigate} from "react-router-dom";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonCheck} from "react-icons/bs";
 import {localVerifyLoginData} from "../Utilis/helpers";
-import {Store} from "react-notifications-component";
 import {setUpNotifications, useNotifications} from "reapop";
-import {IoChevronBackSharp} from "react-icons/io5";
+import {useNavigate} from "react-router-dom";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../services/firebaseConfig";
 
 setUpNotifications({
   defaultProps: {
@@ -17,41 +17,30 @@ setUpNotifications({
   },
 });
 
-const notification1 = {
-  id: "1",
-  title: "Notification 1!",
-  message:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  dismissible: true,
-  dismissAfter: 3,
-};
-
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const {notify} = useNotifications();
-
-  const tryLogin = () => {
+  const navigate = useNavigate();
+  const tryLogin = async () => {
     const {error, status} = localVerifyLoginData(email, password);
-
+    console.log("eee");
     if (status === 200) {
-      Store.addNotification({
-        title: "Wonderful!",
-        message: "teodosii@react-notifications-component",
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true,
-        },
-      });
+      try {
+        const res = await signInWithEmailAndPassword(auth, email, password);
+        if (res.user) {
+          navigate("/Schedule");
+        }
+      } catch (e: any) {
+        console.log(e);
+        notify({
+          message: e.toString(),
+          status: "error",
+          title: "Błąd logowania",
+        });
+      }
     } else {
       notify({message: error, status: "error", title: "Błąd logowania"});
-      console.log(error);
     }
   };
 

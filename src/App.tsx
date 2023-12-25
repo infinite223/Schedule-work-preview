@@ -22,10 +22,10 @@ function App() {
     <React.StrictMode>
       <Routes>
         <Route path="/" element={<Start />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route
-          path="/schedule"
+          path="/Schedule"
           element={
             <ProtectedRoute>
               <Schedule />
