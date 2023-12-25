@@ -7,7 +7,7 @@ export const BackButton = () => {
 
   return (
     <div className="backButton" onClick={() => navigate(-1)}>
-      <IoChevronBackSharp size={22} color="black" />
+      <IoChevronBackSharp size={24} color="black" />
     </div>
   );
 };

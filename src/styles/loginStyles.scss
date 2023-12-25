@@ -37,6 +37,10 @@
             width: 240px;
             padding: 12px 18px;
             font-size: 14px;
+
+            @media screen and (max-width: 680px) {
+                width: 90vw;
+            }
             &::placeholder {
                 color: rgb(160, 160, 160);
                 font-size: 14px;
