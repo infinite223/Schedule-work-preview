@@ -5,7 +5,7 @@ import logoApp from "../assets/logo.png";
 import {BsPersonCheck} from "react-icons/bs";
 import {localVerifyLoginData} from "../Utilis/helpers";
 import {setUpNotifications, useNotifications} from "reapop";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../services/firebaseConfig";
 
@@ -47,9 +47,8 @@ export default function Login() {
   return (
     <div className="login">
       <BackButton />
-      <BsPersonCheck color="var(--baseColor)" size={34} />
-      <h4>Login</h4>
-      <img alt="logoApp" className="logoApp" src={logoApp} />
+      <BsPersonCheck color="var(--baseColor)" size={44} />
+      <img alt="logoApp" className="logoApp mt-5" src={logoApp} />
       <h3>Zaloguj się do aplikacji</h3>
 
       <div className="inputsContainer">
@@ -89,7 +88,7 @@ export default function Login() {
         </button>
 
         <p className="footerStart">
-          nie masz konta? <a href="./Register">Zarejestruj się!</a>
+          nie masz konta? <Link to={"/Register"}>Zarejestruj się!</Link>
         </p>
       </div>
     </div>

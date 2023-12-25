@@ -12,7 +12,7 @@ const Schedule = () => {
     <div className="flex flex-col items-center h-screen justify-between w-full">
       <div className="flex flex-col items-center w-full pr-4 pl-4">
         <h1 className="p-5 text-lg">
-          Harmonogram <span className="font-bold">kierowcy</span>
+          <span className="font-bold uppercase">kierowcy</span>
         </h1>
 
         <CustomCalendar

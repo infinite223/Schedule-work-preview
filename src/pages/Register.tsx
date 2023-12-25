@@ -1,6 +1,6 @@
 import {useState} from "react";
 import "./../styles/loginStyles.scss";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonAdd} from "react-icons/bs";
@@ -34,9 +34,8 @@ export default function Register() {
   return (
     <div className="login">
       <BackButton />
-      <BsPersonAdd color="var(--baseColor)" size={34} />
-      <h4>Rejestracja</h4>
-      <img alt="logoApp" className="logoApp" src={logoApp} />
+      <BsPersonAdd color="var(--baseColor)" size={44} />
+      <img alt="logoApp" className="logoApp mt-5" src={logoApp} />
       <h3>Zarejestruj się do aplikacji</h3>
 
       <div className="inputsContainer">
@@ -76,7 +75,7 @@ export default function Register() {
         </button>
 
         <p className="footerStart">
-          masz już konto? <a href="./Login">Zaloguj się!</a>
+          masz już konto? <Link to={"/Login"}>Zaloguj się!</Link>
         </p>
       </div>
     </div>
