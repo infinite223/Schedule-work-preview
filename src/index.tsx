@@ -11,13 +11,13 @@ import {ATopLevelComponent} from "./components/ATopLevelComponent ";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <BrowserRouter>
         <NotificationsProvider>
           <ATopLevelComponent />
-
           <App />
         </NotificationsProvider>
       </BrowserRouter>

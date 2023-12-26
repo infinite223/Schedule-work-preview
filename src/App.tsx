@@ -16,6 +16,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import {ProtectedRoute} from "./components/ProtectedRoute";
 import Schedule from "./components/Schedule";
+import Settings from "./pages/Settings";
+import Groups from "./pages/Groups";
 
 function App() {
   return (
@@ -29,6 +31,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Schedule />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Groups"
+          element={
+            <ProtectedRoute>
+              <Groups />
             </ProtectedRoute>
           }
         />
