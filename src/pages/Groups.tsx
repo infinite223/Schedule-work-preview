@@ -1,7 +1,10 @@
 import React from "react";
 import Navigation from "../navigation";
+import {Link, useLocation} from "react-router-dom";
 
 const Groups = () => {
+  const location = useLocation();
+
   return (
     <div className="flex flex-col items-center h-screen justify-between w-full">
       <div className="flex flex-col items-center w-full pr-4 pl-4">
@@ -9,7 +12,7 @@ const Groups = () => {
           <span className="font-bold uppercase">Dostępne grupy</span>
         </h1>
       </div>
-      <Navigation type="Other" />
+      <Navigation type="Groups" />
     </div>
   );
 };

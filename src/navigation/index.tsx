@@ -7,7 +7,7 @@ import {FaPlus, FaMinus} from "react-icons/fa";
 import {HiMenuAlt3} from "react-icons/hi";
 
 interface NavigationProps {
-  type: "Schedule" | "Other";
+  type: "Schedule" | "Groups" | "Settings";
   operation?: "plus" | "minus";
 }
 
@@ -15,15 +15,23 @@ const navigateOption = [
   {
     name: "Grupy",
     type: "/Groups",
-    icon: <IoPeopleOutline size={30} color="#555" />,
+    icon: <IoPeopleOutline size={30} />,
   },
-  {name: "Grafik", type: "/Schedule", icon: <BsCalendar2Week size={35} />},
-  {name: "Add", type: "Add", icon: <FaPlus size={18} color="white" />},
-  {name: "Remove", type: "Remove", icon: <FaMinus size={18} color="white" />},
+  {
+    name: "Grafik",
+    type: "/Schedule",
+    icon: <BsCalendar2Week size={35} color="#555" />,
+  },
+  {name: "Add", type: "/JoinToDay", icon: <FaPlus size={18} color="white" />},
+  {
+    name: "Remove",
+    type: "/RemoveFromDay",
+    icon: <FaMinus size={18} color="white" />,
+  },
   {
     name: "Opcje",
     type: "/Settings",
-    icon: <HiMenuAlt3 size={30} color="#555" />,
+    icon: <HiMenuAlt3 size={30} />,
   },
 ];
 const Navigation: FC<NavigationProps> = ({type, operation}) => {
@@ -32,7 +40,10 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
 
   return (
     <div className="flex w-full justify-around mt-auto items-center pb-5 pt-5">
-      <NavigateOption {...navigateOption[0]} />
+      <NavigateOption
+        {...navigateOption[0]}
+        style={{color: type === "Groups" ? "var(--baseColor)" : "gray"}}
+      />
       {isOpenSchedule ? (
         !meInDat ? (
           <NavigateOption
@@ -57,7 +68,10 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
       ) : (
         <NavigateOption {...navigateOption[1]} style={{padding: "8px"}} />
       )}
-      <NavigateOption {...navigateOption[4]} />
+      <NavigateOption
+        {...navigateOption[4]}
+        style={{color: type === "Settings" ? "var(--baseColor)" : "gray"}}
+      />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import {
   Route,
   RouterProvider,
   Routes,
+  useLocation,
 } from "react-router-dom";
 import "./index.scss";
 import Start from "./pages/Start";
@@ -18,11 +19,15 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 import Schedule from "./components/Schedule";
 import Settings from "./pages/Settings";
 import Groups from "./pages/Groups";
+import {JoinToDay} from "./components/modals/JoinToDay";
+import {RemoveFromDay} from "./components/modals/RemoveFromDay";
 
 function App() {
+  const location = useLocation();
+  const previousLocation = location.state?.previousLocation;
   return (
     <React.StrictMode>
-      <Routes>
+      <Routes location={previousLocation || location}>
         <Route path="/" element={<Start />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
@@ -51,6 +56,12 @@ function App() {
           }
         />
       </Routes>
+      {previousLocation && (
+        <Routes>
+          <Route path="/JoinToDay" element={<JoinToDay />} />
+          <Route path="/RemoveFromDay" element={<RemoveFromDay />} />
+        </Routes>
+      )}
     </React.StrictMode>
   );
 }

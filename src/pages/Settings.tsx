@@ -8,7 +8,7 @@ const Settings = () => {
           <span className="font-bold uppercase">Dodatkowe informacje</span>
         </h1>
       </div>
-      <Navigation type="Other" />
+      <Navigation type="Settings" />
     </div>
   );
 };
