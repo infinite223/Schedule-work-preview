@@ -9,7 +9,7 @@ export const JoinToDay = () => {
       onClick={(e) => navigate(-1)}
     >
       <div
-        className="h-1/2 w-2/5 bg-slate-200 p-5 rounded-sm"
+        className="h-1/2 w-2/5 min-w-3.5 bg-slate-200 p-5 rounded-sm"
         onClick={(e) => e.stopPropagation()}
       >
         <h2>JoinToDay</h2>
