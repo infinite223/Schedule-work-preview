@@ -5,7 +5,7 @@ export const RemoveFromDay = () => {
   const navigate = useNavigate();
   return (
     <div
-      className="fixed bg-transparent left-0 top-0 h-screen w-screen flex flex-col items-center justify-center"
+      className="fixed bg-transparent left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"
       onClick={(e) => navigate(-1)}
     >
       <div

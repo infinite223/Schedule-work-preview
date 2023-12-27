@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import CustomCalendar from "./CustomCalendar";
 import {DateWithUsers} from "../../Utilis/types";
 import Navigation from "../../navigation";
+import SelectedDay from "./SelectedDay";
 
 const Schedule = () => {
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
@@ -23,6 +24,7 @@ const Schedule = () => {
           setSelectedDate={setSelectedDate}
         />
       </div>
+      <SelectedDay selectedDate={selectedDate} />
 
       <Navigation type="Schedule" operation={operationType} />
     </div>
