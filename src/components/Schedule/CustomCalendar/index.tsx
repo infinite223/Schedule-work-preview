@@ -87,31 +87,31 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="flex flex-row items-center justify-between pb-7 w-full">
+      <div className="flex flex-row items-center justify-between pb-2 w-full shadow-sm">
         <button
-          style={{padding: "5px"}}
+          style={{padding: "2px "}}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, -1))}
         >
-          <IoChevronBackOutline size={22} />
+          <IoChevronBackOutline size={22} color="var(--baseColor)" />
         </button>
-        <span className="text-sm">
+        <span className="text-sm text-gray-600 dark:text-gray-300">
           {monthNames[selectedMonth.getMonth()]}
           {" " + selectedMonth.getFullYear()}
         </span>
         <button
-          style={{padding: "5px"}}
+          style={{padding: "2px"}}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, 1))}
         >
-          <IoChevronForwardOutline size={22} />
+          <IoChevronForwardOutline size={22} color="var(--baseColor)" />
         </button>
       </div>
 
-      <div className="w-full bg-white rounded-lg">
-        <div className="grid grid-cols-7 gap-2 mb-2">
+      <div className="w-full rounded-lg pt-4">
+        <div className="grid grid-cols-7 gap-2 mb-2 text-gray-500 dark:text-gray-400">
           {shortDayNames.map((item, index) => (
             <span
               key={index}
-              className="w-full flex justify-center text-sm font-light"
+              className="w-full flex justify-center text-xs font-light"
             >
               {item}
             </span>

@@ -12,10 +12,10 @@ const Schedule = () => {
   const operationType = "minus";
 
   return (
-    <div className="flex flex-col items-center h-screen justify-between w-full">
-      <div className="flex flex-col items-center w-full pr-4 pl-4">
-        <h1 className="pt-5 pb-5 pl-2 text-lg self-start">
-          <span className="font-bold uppercase">kierowcy</span>
+    <div className="flex flex-col items-center h-dvh justify-between w-ful bg-white dark:bg-black">
+      <div className="flex flex-col items-center w-full pr-4 pl-4  border-b-2 border-gray-400/10 rounded-b-xl pb-1">
+        <h1 className="pt-3 pb-3 pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
+          Kierowcy
         </h1>
 
         <CustomCalendar

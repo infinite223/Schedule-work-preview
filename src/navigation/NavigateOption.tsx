@@ -7,6 +7,7 @@ interface NavigateOptionProps {
   type: string;
   icon: JSX.Element;
   style?: React.CSSProperties;
+  withShadow?: boolean;
 }
 
 export const NavigateOption: FC<NavigateOptionProps> = ({
@@ -14,6 +15,7 @@ export const NavigateOption: FC<NavigateOptionProps> = ({
   name,
   type,
   style,
+  withShadow,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,7 +29,9 @@ export const NavigateOption: FC<NavigateOptionProps> = ({
       }
     >
       <div
-        className="flex flex-col items-center justify-center pr-5 pl-5"
+        className={`flex flex-col items-center justify-center pr-5 pl-5 ${
+          withShadow ? "shadow-md shadow-green-300" : ""
+        }`}
         style={style}
       >
         {icon}

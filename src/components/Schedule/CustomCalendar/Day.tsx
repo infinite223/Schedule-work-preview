@@ -14,16 +14,14 @@ const Day: FC<DayProps> = ({id, isSelected, users, myId}) => {
   const findUser = users.find((userInDay) => userInDay.user?.id === myId);
   return (
     <div
-      className="rounded-full w-14 h-12 flex items-center justify-center gap-1 flex-col"
+      className="rounded-full w-10 h-10 flex items-center justify-center gap-1 flex-col"
       style={{
-        borderColor: isSelected ? colors.baseColor : "white",
-        borderWidth: 3,
-        backgroundColor: findUser ? "rgba(11, 250, 43, .1)" : "white",
+        borderColor: isSelected ? colors.baseColor : "transparent",
+        borderWidth: 1,
+        backgroundColor: findUser ? "rgba(11, 250, 43, .1)" : "transparent",
       }}
     >
-      <div className="text-lg" style={{color: isSelected ? "black" : "black"}}>
-        {id !== 0 && id}
-      </div>
+      <div className="text-xs dark:text-gray-300">{id !== 0 && id}</div>
 
       <div style={{flexDirection: "row", alignItems: "center", gap: 5}}>
         {users.map((userInDay, id) => (

@@ -15,23 +15,23 @@ const navigateOption = [
   {
     name: "Grupy",
     type: "/Groups",
-    icon: <IoPeopleOutline size={30} />,
+    icon: <IoPeopleOutline size={28} />,
   },
   {
     name: "Grafik",
     type: "/Schedule",
-    icon: <BsCalendar2Week size={35} color="#555" />,
+    icon: <BsCalendar2Week size={30} color="#555" />,
   },
-  {name: "Add", type: "/JoinToDay", icon: <FaPlus size={18} color="white" />},
+  {name: "Add", type: "/JoinToDay", icon: <FaPlus size={14} color="white" />},
   {
     name: "Remove",
     type: "/RemoveFromDay",
-    icon: <FaMinus size={18} color="white" />,
+    icon: <FaMinus size={14} color="white" />,
   },
   {
     name: "Opcje",
     type: "/Settings",
-    icon: <HiMenuAlt3 size={30} />,
+    icon: <HiMenuAlt3 size={28} />,
   },
 ];
 const Navigation: FC<NavigationProps> = ({type, operation}) => {
@@ -39,7 +39,7 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
   const meInDat = operation === "minus";
 
   return (
-    <div className="flex w-full justify-around mt-auto items-center pb-5 pt-5">
+    <div className="flex w-full justify-around mt-auto items-center pb-3 pt-3 border-t-2 border-gray-400/10">
       <NavigateOption
         {...navigateOption[0]}
         style={{color: type === "Groups" ? "var(--baseColor)" : "gray"}}
@@ -61,8 +61,8 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
               backgroundColor: colors.baseColor,
               borderRadius: "50px",
               padding: "16px",
-              boxShadow: "0px 5px 10px rgb(217, 217, 217)",
             }}
+            withShadow={true}
           />
         )
       ) : (

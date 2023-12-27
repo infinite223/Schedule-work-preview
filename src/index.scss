@@ -8,6 +8,9 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+
+  min-height: -webkit-fill-available;
 }
 .bg-first {
     background-color: rgb(17, 122, 17)

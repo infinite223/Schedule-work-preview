@@ -1,6 +1,3 @@
-import Background from "./components/Background";
-import Content from "./components/Content";
-import Nav from "./components/Nav";
 import "./styles/appStyles.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
