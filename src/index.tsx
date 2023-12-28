@@ -7,6 +7,8 @@ import {AuthProvider} from "./hooks/useAuth";
 import {BrowserRouter} from "react-router-dom";
 import {NotificationsProvider} from "reapop";
 import {ATopLevelComponent} from "./components/ATopLevelComponent ";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,14 +16,16 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <BrowserRouter>
-        <NotificationsProvider>
-          <ATopLevelComponent />
-          <App />
-        </NotificationsProvider>
-      </BrowserRouter>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <BrowserRouter>
+          <NotificationsProvider>
+            <ATopLevelComponent />
+            <App />
+          </NotificationsProvider>
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
 

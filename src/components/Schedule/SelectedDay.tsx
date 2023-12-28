@@ -3,18 +3,23 @@ import {DateWithUsers} from "../../Utilis/types";
 import {shortDayNames} from "../../Utilis/data";
 import {doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
+import {useSelector} from "react-redux";
+import {selectedDay} from "../../slices/selectedDaySlice";
 
 interface SelectedDateProps {
   selectedDate: DateWithUsers;
 }
 
 const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
+  const dayData = useSelector(selectedDay);
+
   const testRef = async () => {
     const user: any = await getDoc(doc(db, "usersWithRef", "randomId2"));
     const user2 = await getDoc(user.data().ref);
 
     console.log(user2.data());
   };
+  console.log(dayData);
 
   return (
     <div className="flex text-white p-2 w-full">
