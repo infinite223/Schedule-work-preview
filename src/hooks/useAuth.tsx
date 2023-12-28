@@ -22,7 +22,16 @@ export const AuthProvider = ({children}: any) => {
   useEffect(() => {
     const unlisten = onAuthStateChanged(auth, (_user) => {
       if (_user) {
-        setUser(_user);
+        const getUser = async () => {
+          const user: any = await getDoc(doc(db, "users", _user.uid));
+
+          if (user.exists()) {
+            console.log(user.data());
+            setUser(user.data());
+          }
+        };
+
+        getUser();
       } else {
         setUser(null);
       }

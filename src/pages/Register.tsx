@@ -6,6 +6,9 @@ import logoApp from "../assets/logo.png";
 import {BsPersonAdd} from "react-icons/bs";
 import {localVerifyRegisterData} from "../Utilis/helpers";
 import {setUpNotifications, useNotifications} from "reapop";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth, db} from "../services/firebaseConfig";
+import {doc, setDoc} from "firebase/firestore";
 
 setUpNotifications({
   defaultProps: {
@@ -18,14 +21,24 @@ setUpNotifications({
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nick, setNick] = useState("");
 
   const navigate = useNavigate();
   const {notify} = useNotifications();
 
-  const tryRegister = () => {
+  const tryRegister = async () => {
     const {error, status} = localVerifyRegisterData(email, password);
 
     if (status === 200) {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const createdUserUid = res.user.uid;
+      if (res.user) {
+        await setDoc(doc(db, "users", createdUserUid), {
+          nick,
+          email,
+          uid: createdUserUid,
+        });
+      }
     } else {
       notify({message: error, status: "error", title: "Błąd rejestracji"});
     }
@@ -39,6 +52,13 @@ export default function Register() {
       <h3>Zarejestruj się do aplikacji</h3>
 
       <div className="inputsContainer">
+        <input
+          placeholder="Podaj swój nick"
+          className="basicInput"
+          value={nick}
+          onChange={(text) => setNick(text.target.value)}
+          required
+        />
         <input
           placeholder="Podaj email"
           className="basicInput"
