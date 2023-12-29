@@ -29,7 +29,7 @@ export default function Login() {
       try {
         const res = await signInWithEmailAndPassword(auth, email, password);
         if (res.user) {
-          navigate("/Schedule");
+          navigate("/");
         }
       } catch (e: any) {
         console.log(e);

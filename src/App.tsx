@@ -18,40 +18,49 @@ import Settings from "./pages/Settings";
 import Groups from "./pages/Groups";
 import {JoinToDay} from "./components/modals/JoinToDay";
 import {RemoveFromDay} from "./components/modals/RemoveFromDay";
+import useAuth from "./hooks/useAuth";
 
 function App() {
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;
+  const {user}: any = useAuth();
   return (
     <React.StrictMode>
       <Routes location={previousLocation || location}>
-        <Route path="/" element={<Start />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
-        <Route
-          path="/Schedule"
-          element={
-            <ProtectedRoute>
-              <Schedule />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/Settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/Groups"
-          element={
-            <ProtectedRoute>
-              <Groups />
-            </ProtectedRoute>
-          }
-        />
+        {!user ? (
+          <>
+            <Route path="/" element={<Start />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+          </>
+        ) : (
+          <>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Schedule />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Settings"
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Groups"
+              element={
+                <ProtectedRoute>
+                  <Groups />
+                </ProtectedRoute>
+              }
+            />
+          </>
+        )}
       </Routes>
       {previousLocation && (
         <Routes>
