@@ -8,13 +8,13 @@ export const selectedDaySlice = createSlice({
   name: "selectedDay",
   initialState,
   reducers: {
-    setSelectedDay: (state, action) => {
+    setSelectedDayInStore: (state, action) => {
       state.selectedDay = action.payload;
     },
   },
 });
 
-export const { setSelectedDay } = selectedDaySlice.actions;
+export const { setSelectedDayInStore } = selectedDaySlice.actions;
 export const selectedDay = (state: any) => state.selectedDay;
 
 export default selectedDaySlice.reducer;

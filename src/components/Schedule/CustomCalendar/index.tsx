@@ -15,6 +15,8 @@ import {
   //   firstDayOfMonth,
 } from "../../../Utilis/functions";
 import {IoChevronBackOutline, IoChevronForwardOutline} from "react-icons/io5";
+import {useDispatch} from "react-redux";
+import {setSelectedDayInStore} from "../../../slices/selectedDaySlice";
 
 const widthScreen = "100%"; // Adjust as needed
 const widthDay = "calc((100% - 20px) / 7)"; // Adjust as needed
@@ -39,6 +41,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   );
   //   const selectedGroupId = useSelector(selectSelectedGroupId);
   const [refresh, setRefresh] = useState(false);
+  const dispatch = useDispatch();
 
   //   useEffect(() => {
   //     const tryGetScheduleForMonth = async () => {
@@ -129,6 +132,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
                 className="w-full flex items-center justify-center"
                 onClick={() => {
                   setSelectedDate({date: item.date, users: item.users});
+                  dispatch(setSelectedDayInStore(JSON.stringify(item.date)));
                 }}
               >
                 <Day
