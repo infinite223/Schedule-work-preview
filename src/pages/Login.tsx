@@ -8,6 +8,7 @@ import {setUpNotifications, useNotifications} from "reapop";
 import {Link, useNavigate} from "react-router-dom";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../services/firebaseConfig";
+import useAuth from "../hooks/useAuth";
 
 setUpNotifications({
   defaultProps: {
@@ -21,15 +22,20 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {notify} = useNotifications();
+  const {user}: any = useAuth();
   const navigate = useNavigate();
   const tryLogin = async () => {
     const {error, status} = localVerifyLoginData(email, password);
-    console.log("eee");
     if (status === 200) {
       try {
         const res = await signInWithEmailAndPassword(auth, email, password);
         if (res.user) {
           navigate("/");
+          notify({
+            message: "Udało się zalogować!",
+            status: "success",
+            title: "witaj " + email,
+          });
         }
       } catch (e: any) {
         console.log(e);

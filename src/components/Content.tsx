@@ -4,9 +4,12 @@ import {constants} from "../Utilis/constansts";
 import {downloadApp} from "../Utilis/downloadApp";
 import presentApp from "./../assets/presentApp.png";
 import {useNavigate, useNavigation} from "react-router-dom";
+import {useNotifications} from "reapop";
 
 const Content = () => {
   const navigate = useNavigate();
+  const {notify} = useNotifications();
+
   return (
     <div className="content">
       <img alt="presentApp" src={presentApp} className="content__presentApp" />
@@ -46,7 +49,19 @@ const Content = () => {
         </button>
       </div>
 
-      <div className="download-link" onClick={downloadApp}>
+      <div
+        className="download-link"
+        onClick={() => {
+          downloadApp();
+          notify({
+            dismissAfter: 4000,
+            message: "Pobieranie...",
+            status: "success",
+            title:
+              "Aplikacja mobilna jest wersją testową, nie jest podłączona do orginalnej bazy danych",
+          });
+        }}
+      >
         Pobierz aplikacjie na androida
         <img alt="android" src={android} className="content__button-android" />
       </div>

@@ -19,7 +19,7 @@ const navigateOption = [
   },
   {
     name: "Grafik",
-    type: "/Schedule",
+    type: "/",
     icon: <BsCalendar2Week size={30} color="#555" />,
   },
   {name: "Add", type: "/JoinToDay", icon: <FaPlus size={14} color="white" />},

@@ -37,6 +37,12 @@ export default function Register() {
           nick,
           email,
           uid: createdUserUid,
+          type: "user",
+        });
+        await notify({
+          message: "Zaloguj się do aplikacji",
+          status: "success",
+          title: "Udało się zarejestrować!",
         });
       }
     } else {

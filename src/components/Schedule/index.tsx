@@ -12,8 +12,10 @@ import {
 } from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {addMonthsToDate, formatDateToString} from "../../Utilis/functions";
+import useAuth from "../../hooks/useAuth";
 
 const Schedule = () => {
+  const {user}: any = useAuth();
   const [scheduleDays, setScheduleDays] = useState<
     {users: {nick: string; uid: string; email: string}[]; date: Timestamp}[]
   >([]);
