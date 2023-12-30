@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import CustomCalendar from "./CustomCalendar";
 import {DateWithUsers} from "../../Utilis/types";
 import Navigation from "../../navigation";

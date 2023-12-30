@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import {FC} from "react";
 import {DateWithUsers} from "../../Utilis/types";
 import {shortDayNames} from "../../Utilis/data";
 

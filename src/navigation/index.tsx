@@ -1,7 +1,7 @@
-import React, {FC} from "react";
-import {IoPeopleOutline, IoSettingsOutline} from "react-icons/io5";
+import {FC} from "react";
+import {IoPeopleOutline} from "react-icons/io5";
 import {NavigateOption} from "./NavigateOption";
-import {BsCalendar, BsCalendar2Week, BsPlusLg} from "react-icons/bs";
+import {BsCalendar2Week} from "react-icons/bs";
 import {colors} from "../Utilis/globalStyles";
 import {FaPlus, FaMinus} from "react-icons/fa";
 import {HiMenuAlt3} from "react-icons/hi";

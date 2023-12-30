@@ -33,7 +33,7 @@ const Settings = () => {
         <div className="options"></div>
         <button
           onClick={logOut}
-          className="bg-transparent w-full text-sm hover:bg-green-500 text-red-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+          className="bg-transparent w-full text-sm text-red-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
         >
           Wyloguj mnie
         </button>

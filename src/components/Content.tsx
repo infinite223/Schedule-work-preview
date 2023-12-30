@@ -3,7 +3,7 @@ import android from "./../assets/android.png";
 import {constants} from "../Utilis/constansts";
 import {downloadApp} from "../Utilis/downloadApp";
 import presentApp from "./../assets/presentApp.png";
-import {useNavigate, useNavigation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useNotifications} from "reapop";
 
 const Content = () => {
@@ -13,12 +13,12 @@ const Content = () => {
   return (
     <div className="content">
       <img alt="presentApp" src={presentApp} className="content__presentApp" />
-      {/* <div className="content__description">
+      <div className="content__description text-black mb-2">
         Aplikacja mobilna do zarządzania harmonogramem pracy pracowników.
         Ułatwiająca zapis pracowników w grafiku pracy. Aplikacja umożliwa
         podział na grupy, szybki podgląd najbliższych dni pracy jak i innych
         wspópracowników.
-      </div> */}
+      </div>
 
       <div className="buttons-container">
         <button

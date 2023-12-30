@@ -1,6 +1,5 @@
 import React, {FC} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {JsxElement} from "typescript";
 
 interface NavigateOptionProps {
   name: string;
