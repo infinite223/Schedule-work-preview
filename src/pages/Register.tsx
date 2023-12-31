@@ -4,7 +4,10 @@ import {Link, useNavigate} from "react-router-dom";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonAdd} from "react-icons/bs";
-import {localVerifyRegisterData} from "../Utilis/helpers";
+import {
+  firebaseHandlingErrors,
+  localVerifyRegisterData,
+} from "../Utilis/helpers";
 import {setUpNotifications, useNotifications} from "reapop";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth, db} from "../services/firebaseConfig";
@@ -27,23 +30,29 @@ export default function Register() {
   const {notify} = useNotifications();
 
   const tryRegister = async () => {
-    const {error, status} = localVerifyRegisterData(email, password);
+    const {error, status} = localVerifyRegisterData(email, password, nick);
 
     if (status === 200) {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      const createdUserUid = res.user.uid;
-      if (res.user) {
-        await setDoc(doc(db, "users", createdUserUid), {
-          nick,
-          email,
-          uid: createdUserUid,
-          type: "user",
-        });
-        await notify({
-          message: "Zaloguj się do aplikacji",
-          status: "success",
-          title: "Udało się zarejestrować!",
-        });
+      try {
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        const createdUserUid = res.user.uid;
+        if (res.user) {
+          await setDoc(doc(db, "users", createdUserUid), {
+            nick,
+            email,
+            uid: createdUserUid,
+            type: "user",
+            phonenumber: null,
+          });
+          navigate("/");
+          await notify({
+            message: "Automatyczne logowanie...",
+            status: "success",
+            title: "Udało się zarejestrować!",
+          });
+        }
+      } catch (e: any) {
+        firebaseHandlingErrors(notify, e.code);
       }
     } else {
       notify({message: error, status: "error", title: "Błąd rejestracji"});

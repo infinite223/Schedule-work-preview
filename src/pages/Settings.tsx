@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 import {BsFillPersonFill} from "react-icons/bs";
 import {useNotifications} from "reapop";
 
-// options: add group, edit profile, informations,
 const Settings = () => {
   const navigate = useNavigate();
   const {notify} = useNotifications();

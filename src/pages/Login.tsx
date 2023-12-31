@@ -3,12 +3,11 @@ import "./../styles/loginStyles.scss";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
 import {BsPersonCheck} from "react-icons/bs";
-import {localVerifyLoginData} from "../Utilis/helpers";
+import {firebaseHandlingErrors, localVerifyLoginData} from "../Utilis/helpers";
 import {setUpNotifications, useNotifications} from "reapop";
 import {Link, useNavigate} from "react-router-dom";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../services/firebaseConfig";
-import useAuth from "../hooks/useAuth";
 
 setUpNotifications({
   defaultProps: {
@@ -22,7 +21,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {notify} = useNotifications();
-  const {user}: any = useAuth();
   const navigate = useNavigate();
   const tryLogin = async () => {
     const {error, status} = localVerifyLoginData(email, password);
@@ -38,12 +36,7 @@ export default function Login() {
           });
         }
       } catch (e: any) {
-        console.log(e);
-        notify({
-          message: e.toString(),
-          status: "error",
-          title: "Błąd logowania",
-        });
+        firebaseHandlingErrors(notify, e.code);
       }
     } else {
       notify({message: error, status: "error", title: "Błąd logowania"});
