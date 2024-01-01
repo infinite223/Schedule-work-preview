@@ -23,17 +23,15 @@ const Schedule = () => {
     date: new Date(),
     users: [],
   });
-
   useEffect(() => {
     const schedulesRef = collection(db, "schedule");
-    let start = new Date(
-      `${selectedDate.date.getFullYear()}-${
-        selectedDate.date.getMonth() + 1
-      }-01`
+    const start = new Date(
+      selectedDate.date.getFullYear(),
+      selectedDate.date.getMonth(),
+      1
     );
-    let end = addMonthsToDate(start, 1);
+    const end = addMonthsToDate(start, 1);
 
-    console.log("start", start, "end", end);
     const scheduleQuery = query(
       schedulesRef,
       where("date", ">", start),
@@ -52,11 +50,11 @@ const Schedule = () => {
       unsubscribe();
     };
   }, []);
-
+  console.log(scheduleDays);
   const operationType = scheduleDays.find(
     (day) =>
-      formatDateToString(day.date.toDate()) ===
-      formatDateToString(selectedDate.date)
+      formatDateToString(day.date?.toDate()) ===
+      formatDateToString(selectedDate?.date)
   )
     ? "minus"
     : "plus";

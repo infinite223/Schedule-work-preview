@@ -10,15 +10,16 @@ import {
 } from "react-router-dom";
 import "./index.scss";
 import Start from "./pages/Start";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import {ProtectedRoute} from "./components/ProtectedRoute";
-import Schedule from "./components/Schedule";
-import Settings from "./pages/Settings";
-import Groups from "./pages/Groups";
 import {JoinToDay} from "./components/modals/JoinToDay";
 import {RemoveFromDay} from "./components/modals/RemoveFromDay";
 import useAuth from "./hooks/useAuth";
+
+const Settings = React.lazy(() => import("./pages/Settings"));
+const Groups = React.lazy(() => import("./pages/Groups"));
+const Schedule = React.lazy(() => import("./components/Schedule/index"));
+const Login = React.lazy(() => import("./pages/Login"));
+const Register = React.lazy(() => import("./pages/Register"));
 
 function App() {
   const location = useLocation();
@@ -26,48 +27,50 @@ function App() {
   const {user}: any = useAuth();
   return (
     <React.StrictMode>
-      <Routes location={previousLocation || location}>
-        {!user ? (
-          <>
-            <Route path="/" element={<Start />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
-          </>
-        ) : (
-          <>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Schedule />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/Settings"
-              element={
-                <ProtectedRoute>
-                  <Settings />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/Groups"
-              element={
-                <ProtectedRoute>
-                  <Groups />
-                </ProtectedRoute>
-              }
-            />
-          </>
-        )}
-      </Routes>
-      {previousLocation && (
-        <Routes>
-          <Route path="/JoinToDay" element={<JoinToDay />} />
-          <Route path="/RemoveFromDay" element={<RemoveFromDay />} />
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Routes location={previousLocation || location}>
+          {!user ? (
+            <>
+              <Route path="/" element={<Start />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Register" element={<Register />} />
+            </>
+          ) : (
+            <>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Schedule />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/Settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/Groups"
+                element={
+                  <ProtectedRoute>
+                    <Groups />
+                  </ProtectedRoute>
+                }
+              />
+            </>
+          )}
         </Routes>
-      )}
+        {previousLocation && (
+          <Routes>
+            <Route path="/JoinToDay" element={<JoinToDay />} />
+            <Route path="/RemoveFromDay" element={<RemoveFromDay />} />
+          </Routes>
+        )}
+      </React.Suspense>
     </React.StrictMode>
   );
 }
