@@ -13,17 +13,20 @@ import {
 import {db} from "../../services/firebaseConfig";
 import {addMonthsToDate, formatDateToString} from "../../Utilis/functions";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../Loading";
 
 const Schedule = () => {
   const {user}: any = useAuth();
   const [scheduleDays, setScheduleDays] = useState<
     {users: {nick: string; uid: string; email: string}[]; date: Timestamp}[]
   >([]);
+  const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
     date: new Date(),
     users: [],
   });
   useEffect(() => {
+    setLoading(true);
     const schedulesRef = collection(db, "schedule");
     const start = new Date(
       selectedDate.date.getFullYear(),
@@ -44,13 +47,15 @@ const Schedule = () => {
           return doc.data();
         })
       );
+
+      setLoading(false);
     });
 
     return () => {
       unsubscribe();
     };
   }, []);
-  console.log(scheduleDays);
+
   const operationType = scheduleDays.find(
     (day) =>
       formatDateToString(day.date?.toDate()) ===
@@ -76,6 +81,7 @@ const Schedule = () => {
       </div>
 
       <Navigation type="Schedule" operation={operationType} />
+      {loading && <Loading />}
     </div>
   );
 };

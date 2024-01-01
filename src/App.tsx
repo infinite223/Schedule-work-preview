@@ -14,6 +14,7 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 import {JoinToDay} from "./components/modals/JoinToDay";
 import {RemoveFromDay} from "./components/modals/RemoveFromDay";
 import useAuth from "./hooks/useAuth";
+import Loading from "./components/Loading";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -27,7 +28,7 @@ function App() {
   const {user}: any = useAuth();
   return (
     <React.StrictMode>
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<Loading />}>
         <Routes location={previousLocation || location}>
           {!user ? (
             <>
