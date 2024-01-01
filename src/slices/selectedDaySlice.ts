@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    selectedDay: new Date(),
+    selectedDay: JSON.stringify(new Date()),
 };
 
 export const selectedDaySlice = createSlice({

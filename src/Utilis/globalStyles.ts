@@ -31,6 +31,7 @@
 
 export const colors = {
   baseColor: "#12cf21",
+  baseColor_2: "#128f21",
   errorColor: "#cc2244",
   successColor: "#44aa44",
   fullDayHours: "#f21",

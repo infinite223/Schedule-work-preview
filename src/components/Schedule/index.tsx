@@ -63,17 +63,19 @@ const Schedule = () => {
 
   return (
     <div className="flex flex-col items-center h-dvh justify-between w-ful bg-white dark:bg-black">
-      <div className="flex flex-col items-center w-full pr-4 pl-4  border-b-2 border-gray-400/10 rounded-b-xl pb-1">
-        <h1 className="pt-3 pb-3 pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
-          Kierowcy
-        </h1>
+      <div className="flex flex-col w-full sm:flex-row">
+        <div className="flex flex-col  sm:w-1/2 items-center w-full pr-4 pl-4 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-400/10 rounded-b-xl pb-1">
+          <h1 className="pt-3 pb-3 pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
+            Kierowcy
+          </h1>
 
-        <CustomCalendar
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
+          <CustomCalendar
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+        </div>
+        <SelectedDay selectedDate={selectedDate} />
       </div>
-      <SelectedDay selectedDate={selectedDate} />
 
       <Navigation type="Schedule" operation={operationType} />
     </div>

@@ -29,7 +29,7 @@ export const NavigateOption: FC<NavigateOptionProps> = ({
     >
       <div
         className={`flex flex-col items-center justify-center pr-5 pl-5 ${
-          withShadow ? "shadow-md shadow-green-300" : ""
+          withShadow ? "shadow-md shadow-green-500" : ""
         }`}
         style={style}
       >

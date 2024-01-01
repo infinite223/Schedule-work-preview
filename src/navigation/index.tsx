@@ -49,18 +49,19 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
           <NavigateOption
             {...navigateOption[2]}
             style={{
-              backgroundColor: colors.baseColor,
-              borderRadius: "50px",
-              padding: "16px",
+              backgroundColor: colors.baseColor_2,
+              borderRadius: "16px",
+              padding: "14px",
             }}
+            withShadow={true}
           />
         ) : (
           <NavigateOption
             {...navigateOption[3]}
             style={{
-              backgroundColor: colors.baseColor,
-              borderRadius: "50px",
-              padding: "16px",
+              backgroundColor: colors.baseColor_2,
+              borderRadius: "16px",
+              padding: "14px",
             }}
             withShadow={true}
           />

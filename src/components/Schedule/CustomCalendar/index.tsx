@@ -123,7 +123,9 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
 
         <div className="grid grid-cols-7 gap-2 pt2 pb-2">
           {days.map((item, index) => {
-            const isSelected = item.date === selectedDate.date;
+            const isSelected =
+              formatDateToString(item.date) ===
+              formatDateToString(selectedDate.date);
             const disableDay = item.noDay || loading;
             return (
               <button
