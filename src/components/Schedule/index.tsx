@@ -6,7 +6,6 @@ import SelectedDay from "./SelectedDay";
 import {
   Timestamp,
   collection,
-  collectionGroup,
   onSnapshot,
   query,
   where,
@@ -30,7 +29,6 @@ const Schedule = () => {
   useEffect(() => {
     setLoading(true);
     const schedulesRef = collection(db, "schedule");
-    // const schedulesRef = collectionGroup(db, "schedule");
 
     const start = new Date(
       selectedDate.date.getFullYear(),

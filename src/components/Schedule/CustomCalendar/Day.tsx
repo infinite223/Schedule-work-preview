@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {colors} from "../../../Utilis/globalStyles";
-import {DayData, UserInDay} from "../../../Utilis/types";
+import {DayData} from "../../../Utilis/types";
 import {getColorDot} from "../../../Utilis/functions";
 
 interface DayProps {
@@ -13,6 +13,7 @@ const getUidFromRef = (ref: string) => {
   if (ref.length > 5) {
     return ref.split("/").pop();
   }
+
   return "";
 };
 

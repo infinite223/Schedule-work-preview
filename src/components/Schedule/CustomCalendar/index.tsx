@@ -1,22 +1,13 @@
-import React, {FC, useEffect, useState} from "react";
-// import {useSelector} from "react-redux";
-// import {
-//   selectInvokeFunction,
-//   selectSelectedGroupId,
-// } from "../../slices/invokeFunction";
+import {FC, useEffect, useState} from "react";
 import {DateWithUsers, DayData} from "../../../Utilis/types";
 import {firstDayOfMonth} from "../../../Utilis/scheduleFunctions";
 import Day from "./Day";
 import {monthNames, shortDayNames} from "../../../Utilis/data";
-// import {colors} from "../../utils/globalStyles";
-import {
-  addMonthsToDate,
-  formatDateToString,
-  //   firstDayOfMonth,
-} from "../../../Utilis/functions";
+import {addMonthsToDate, formatDateToString} from "../../../Utilis/functions";
 import {IoChevronBackOutline, IoChevronForwardOutline} from "react-icons/io5";
 import {useDispatch} from "react-redux";
 import {setSelectedDayInStore} from "../../../slices/selectedDaySlice";
+import useAuth from "../../../hooks/useAuth";
 
 interface CustomCalendarProps {
   selectedDate: DateWithUsers;
@@ -32,61 +23,16 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   const [days, setDays] = useState<
     {id: number; date: Date; users: DayData[]; noDay: boolean}[]
   >([]);
-  const [myId, setMyId] = useState("");
-  const [loading, setLoading] = useState(false);
-  //   const invokeFunction = useSelector(selectInvokeFunction);
+  const {user}: any = useAuth();
   const [selectedMonth, setSelectedMonth] = useState(
     new Date(new Date().getFullYear(), new Date().getMonth(), 1)
   );
-  //   const selectedGroupId = useSelector(selectSelectedGroupId);
-  const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
-
-  //   useEffect(() => {
-  //     const tryGetScheduleForMonth = async () => {
-  //       setLoading(true);
-  //       const jsonValue = await AsyncStorage.getItem("my-key");
-
-  //       const year = selectedMonth.getFullYear();
-  //       const month = selectedMonth.getMonth();
-  //       const startDate = new Date(year, month, 1);
-  //       const endDate = new Date(year, month + 1, 1);
-
-  //     //   if (jsonValue != null) {
-  //     //     setMyId(JSON.parse(jsonValue).id);
-  //     //     const res = await getScheduleForMonth(
-  //     //       formatDateToString(startDate),
-  //     //       formatDateToString(endDate)
-  //     //     );
-  //     //     console.log(res.status, "getScheduleForMonth");
-  //     //     if (res.status === 200) {
-  //     //       const groupData = await res.json();
-  //     //       setDays(firstDayOfMonth(selectedMonth, groupData, selectedGroupId));
-  //     //     } else {
-  //     //       router.push("/messageModal");
-  //     //       router.setParams({
-  //     //         message: "Nie udało się pobrać grafiku",
-  //     //         type: "ERROR",
-  //     //       });
-  //     //     }
-  //     //   }
-
-  //       setLoading(false);
-  //       setRefresh(false);
-  //     };
-
-  //     tryGetScheduleForMonth();
-  //   }, [invokeFunction, selectedMonth, selectedGroupId, refresh]);
 
   useEffect(() => {
     setSelectedDate({date: selectedMonth, users: []});
     setDays(firstDayOfMonth(selectedMonth, data, "1"));
   }, [selectedMonth, data]);
-
-  console.log(days, "fd");
-  if (loading) {
-    return <div>Loading </div>;
-  }
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -126,7 +72,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
             const isSelected =
               formatDateToString(new Date(item.date)) ===
               formatDateToString(new Date(selectedDate.date));
-            const disableDay = item.noDay || loading;
+            const disableDay = item.noDay;
             return (
               <button
                 disabled={disableDay}
@@ -141,7 +87,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
                   id={item.id}
                   isSelected={isSelected}
                   users={item.users}
-                  myId={myId}
+                  myId={user.uid}
                 />
               </button>
             );
