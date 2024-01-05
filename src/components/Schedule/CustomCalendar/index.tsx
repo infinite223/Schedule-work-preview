@@ -30,9 +30,16 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setSelectedDate({date: selectedMonth, users: []});
+    dispatch(setSelectedDayInStore(JSON.stringify(new Date())));
     setDays(firstDayOfMonth(selectedMonth, data, "1"));
   }, [selectedMonth, data]);
+
+  useEffect(() => {
+    const currentDayData = days.find((day) => day.date === new Date());
+    if (currentDayData) {
+      setSelectedDate({date: new Date(), users: currentDayData?.users});
+    }
+  }, [days]);
 
   return (
     <div className="flex flex-col items-center w-full">

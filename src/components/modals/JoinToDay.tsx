@@ -5,6 +5,14 @@ import {arrayUnion, doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
 import {shortDayNames} from "../../Utilis/data";
+import {useState} from "react";
+type HoursOption = {
+  text: string;
+  value: {
+    start: string;
+    end: string;
+  };
+};
 
 const hoursOptions = [
   {
@@ -25,13 +33,16 @@ export const JoinToDay = () => {
   const day = useSelector(selectedDay);
   const dayDate = day ? new Date(JSON.parse(day?.selectedDay)) : null;
   const {user}: any = useAuth();
+  const [selectedOption, setSelectedOption] = useState<HoursOption>(
+    hoursOptions[0]
+  );
 
   const joinToDay = async () => {
     if (dayDate) {
       const getUser = await getDoc(doc(db, "users", user.uid));
       await setDoc(doc(db, "schedule", dayDate.toString()), {
-        start: "12:00",
-        end: "22:00",
+        start: selectedOption.value.start,
+        end: selectedOption.value.end,
         userRef: getUser.ref,
         date: new Date(dayDate),
       });
@@ -59,9 +70,18 @@ export const JoinToDay = () => {
         <div className="flex flex-col">
           <p className="text-xs text-gray-400 mb-2">Najczęściej wybierane:</p>
           <div className="flex flex-col gap-1 pb-2 bt-2">
-            {hoursOptions.map((option) => {
+            {hoursOptions.map((option, id) => {
               return (
-                <div className="border-gray-300 dark:border-gray-800 border-b-2 p-1 text-gray-800 cursor-pointer rounded-md hover:border-green-700 dark:text-gray-300">
+                <div
+                  key={id}
+                  onClick={() => setSelectedOption(option)}
+                  style={
+                    selectedOption === option
+                      ? {borderColor: "var(--baseColor)"}
+                      : {}
+                  }
+                  className="border-gray-300 dark:border-gray-800 border-b-2 p-1 text-gray-800 cursor-pointer rounded-md hover:border-green-700 dark:text-gray-300"
+                >
                   {option.text}
                 </div>
               );
