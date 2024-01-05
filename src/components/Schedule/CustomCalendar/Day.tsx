@@ -1,17 +1,23 @@
-import React, {FC} from "react";
+import {FC} from "react";
 import {colors} from "../../../Utilis/globalStyles";
-import {UserInDay} from "../../../Utilis/types";
+import {DayData, UserInDay} from "../../../Utilis/types";
 import {getColorDot} from "../../../Utilis/functions";
 
 interface DayProps {
   id: number;
   isSelected: boolean;
-  users: UserInDay[];
+  users: DayData[];
   myId: string;
 }
+const getUidFromRef = (ref: string) => {
+  if (ref.length > 5) {
+    return ref.split("/").pop();
+  }
+  return "";
+};
 
 const Day: FC<DayProps> = ({id, isSelected, users, myId}) => {
-  const findUser = users.find((userInDay) => userInDay.user?.id === myId);
+  const findUser = users.find((user) => getUidFromRef(user.userRef) === myId);
   return (
     <div
       className="rounded-full w-10 h-10 flex items-center justify-center gap-1 flex-col"
@@ -21,40 +27,21 @@ const Day: FC<DayProps> = ({id, isSelected, users, myId}) => {
         backgroundColor: findUser ? "rgba(11, 250, 43, .1)" : "transparent",
       }}
     >
-      <div className="text-xs dark:text-gray-300">{id !== 0 && id}</div>
+      <div className="text-xs text-gray-700 dark:text-gray-300">
+        {id !== 0 && id}
+      </div>
 
       <div style={{flexDirection: "row", alignItems: "center", gap: 5}}>
         {users.map((userInDay, id) => (
           <div
             key={id}
-            className="rounded-full w-5 h-5"
+            className="rounded-full w-1 h-1"
             style={{backgroundColor: getColorDot(userInDay)}}
           />
         ))}
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    borderRadius: "50px",
-    width: "40px",
-    height: "40px",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: "2px",
-    borderColor: "gray",
-    gap: "2px",
-  },
-  textDay: {
-    fontSize: 14,
-  },
-  dot: {
-    borderRadius: 50,
-    width: 5,
-    height: 5,
-  },
 };
 
 export default Day;

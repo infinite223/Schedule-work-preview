@@ -3,6 +3,8 @@ import {useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {useSelector} from "react-redux";
 import {selectedDay} from "../../slices/selectedDaySlice";
+import {deleteDoc, doc, getDoc, where} from "firebase/firestore";
+import {db} from "../../services/firebaseConfig";
 
 export const RemoveFromDay = () => {
   const navigate = useNavigate();
@@ -10,6 +12,13 @@ export const RemoveFromDay = () => {
   const dayDate = day ? JSON.parse(day?.selectedDay) : null;
   const {user}: any = useAuth();
 
+  const removeUserFromDay = async () => {
+    // const docRef = doc(db, "schedule")
+    // if (dayDate) {
+    //   const getUser = await getDoc(doc(db, "users", user.uid));
+    //   await deleteDoc(doc(db, "schedule", ));
+    // }
+  };
   return (
     <div
       className="fixed bg-transparent left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"

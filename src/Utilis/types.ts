@@ -1,7 +1,10 @@
+import { Timestamp } from "firebase/firestore";
+
 type DateWithUsers = {
   date: Date;
-  users: User[];
+  users: DayData[];
 };
+type DayData = {end: string; start: string; userRef: string; date: Timestamp}
 
 type User = {
   id: string;
@@ -51,4 +54,4 @@ type UserInDay = {
   dayId: string;
 };
 
-export type { Group, User, WorkPlace, UserInDay, Day, DateWithUsers, Log };
+export type { Group, User, WorkPlace, UserInDay, Day, DateWithUsers, Log, DayData };

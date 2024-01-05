@@ -29,12 +29,10 @@ export const JoinToDay = () => {
   const joinToDay = async () => {
     if (dayDate) {
       const getUser = await getDoc(doc(db, "users", user.uid));
-      await setDoc(doc(db, "schedule", dayDate.toString(), "users", user.uid), {
+      await setDoc(doc(db, "schedule", dayDate.toString()), {
         start: "12:00",
         end: "22:00",
         userRef: getUser.ref,
-      });
-      await setDoc(doc(db, "schedule", dayDate.toString()), {
         date: new Date(dayDate),
       });
     }

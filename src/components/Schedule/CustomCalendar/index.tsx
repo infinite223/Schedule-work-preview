@@ -4,7 +4,7 @@ import React, {FC, useEffect, useState} from "react";
 //   selectInvokeFunction,
 //   selectSelectedGroupId,
 // } from "../../slices/invokeFunction";
-import {DateWithUsers} from "../../../Utilis/types";
+import {DateWithUsers, DayData} from "../../../Utilis/types";
 import {firstDayOfMonth} from "../../../Utilis/scheduleFunctions";
 import Day from "./Day";
 import {monthNames, shortDayNames} from "../../../Utilis/data";
@@ -18,20 +18,19 @@ import {IoChevronBackOutline, IoChevronForwardOutline} from "react-icons/io5";
 import {useDispatch} from "react-redux";
 import {setSelectedDayInStore} from "../../../slices/selectedDaySlice";
 
-const widthScreen = "100%"; // Adjust as needed
-const widthDay = "calc((100% - 20px) / 7)"; // Adjust as needed
-
 interface CustomCalendarProps {
   selectedDate: DateWithUsers;
   setSelectedDate: (value: DateWithUsers) => void;
+  data: DayData[];
 }
 
 const CustomCalendar: FC<CustomCalendarProps> = ({
   selectedDate,
   setSelectedDate,
+  data,
 }) => {
   const [days, setDays] = useState<
-    {id: number; date: Date; users: []; noDay: boolean}[]
+    {id: number; date: Date; users: DayData[]; noDay: boolean}[]
   >([]);
   const [myId, setMyId] = useState("");
   const [loading, setLoading] = useState(false);
@@ -81,9 +80,10 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
 
   useEffect(() => {
     setSelectedDate({date: selectedMonth, users: []});
-    setDays(firstDayOfMonth(selectedMonth, [], "1"));
-  }, [selectedMonth]);
+    setDays(firstDayOfMonth(selectedMonth, data, "1"));
+  }, [selectedMonth, data]);
 
+  console.log(days, "fd");
   if (loading) {
     return <div>Loading </div>;
   }
@@ -124,8 +124,8 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
         <div className="grid grid-cols-7 gap-2 pt2 pb-2">
           {days.map((item, index) => {
             const isSelected =
-              formatDateToString(item.date) ===
-              formatDateToString(selectedDate.date);
+              formatDateToString(new Date(item.date)) ===
+              formatDateToString(new Date(selectedDate.date));
             const disableDay = item.noDay || loading;
             return (
               <button

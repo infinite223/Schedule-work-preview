@@ -1,7 +1,7 @@
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 import { colors } from "./globalStyles";
 import { timeCounter } from "./timeCounter";
-import { UserInDay } from "./types";
+import { DayData, UserInDay } from "./types";
 // import { Log, UserInDay } from "./types";
 // import { router } from "expo-router";
 
@@ -98,8 +98,8 @@ export function addMonthsToDate(date: Date, months: number) {
   return newDate;
 }
 
-export const getColorDot = (userInDay: UserInDay) => {
-  const time = timeCounter(userInDay.from, userInDay.to);
+export const getColorDot = (userInDay: DayData) => {
+  const time = timeCounter(userInDay.start, userInDay.end);
 
   if (time.godziny > 7) return colors.fullDayHours;
   if (time.godziny <= 7) return colors.halfDayHours;

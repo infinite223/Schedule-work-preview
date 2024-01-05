@@ -6,6 +6,7 @@ import SelectedDay from "./SelectedDay";
 import {
   Timestamp,
   collection,
+  collectionGroup,
   onSnapshot,
   query,
   where,
@@ -18,8 +19,9 @@ import Loading from "../Loading";
 const Schedule = () => {
   const {user}: any = useAuth();
   const [scheduleDays, setScheduleDays] = useState<
-    {users: {nick: string; uid: string; email: string}[]; date: Timestamp}[]
+    {end: string; start: string; userRef: string; date: Timestamp}[]
   >([]);
+
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
     date: new Date(),
@@ -28,6 +30,8 @@ const Schedule = () => {
   useEffect(() => {
     setLoading(true);
     const schedulesRef = collection(db, "schedule");
+    // const schedulesRef = collectionGroup(db, "schedule");
+
     const start = new Date(
       selectedDate.date.getFullYear(),
       selectedDate.date.getMonth(),
@@ -55,10 +59,9 @@ const Schedule = () => {
       unsubscribe();
     };
   }, []);
-
   const operationType = scheduleDays.find(
     (day) =>
-      formatDateToString(day.date?.toDate()) ===
+      formatDateToString(day.date.toDate()) ===
       formatDateToString(selectedDate?.date)
   )
     ? "minus"
@@ -75,6 +78,7 @@ const Schedule = () => {
           <CustomCalendar
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
+            data={scheduleDays}
           />
         </div>
         <SelectedDay selectedDate={selectedDate} />
