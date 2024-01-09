@@ -44,7 +44,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login">
+    <div className="login bg-white">
       <BackButton />
       <BsPersonCheck color="var(--baseColor)" size={44} />
       <img alt="logoApp" className="logoApp mt-5" src={logoApp} />

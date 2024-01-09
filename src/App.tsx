@@ -1,13 +1,6 @@
 import "./styles/appStyles.scss";
 import * as React from "react";
-import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import "./index.scss";
 import Start from "./pages/Start";
 import {ProtectedRoute} from "./components/ProtectedRoute";
