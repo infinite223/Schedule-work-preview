@@ -90,7 +90,7 @@ export const JoinToDay = () => {
         </div>
 
         <button
-          className="button bg-green-700 hover:bg-green-500 p-1 rounded-md"
+          className="button bg-green-700 hover:bg-green-500 p-1 rounded-md text-sm"
           onClick={joinToDay}
         >
           Dołącz do tego dnia
