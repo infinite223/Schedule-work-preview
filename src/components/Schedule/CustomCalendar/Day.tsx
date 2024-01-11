@@ -8,24 +8,27 @@ interface DayProps {
   isSelected: boolean;
   users: DayData[];
   myId: string;
+  today?: boolean;
 }
 const getUidFromRef = (ref: string) => {
-  if (ref.length > 5) {
+  if (ref && ref.length > 5) {
     return ref.split("/").pop();
   }
 
   return "";
 };
 
-const Day: FC<DayProps> = ({id, isSelected, users, myId}) => {
-  const findUser = users.find((user) => getUidFromRef(user.userRef) === myId);
+const Day: FC<DayProps> = ({id, isSelected, users, myId, today}) => {
+  const findUser = users.find((user: any) => user?.userRef?.id === myId);
+
   return (
     <div
-      className="rounded-full w-10 h-10 flex items-center justify-center gap-1 flex-col"
+      className={`rounded-full w-10 h-10 flex items-center justify-center gap-1 flex-col ${
+        findUser ? "bg-green-700" : today ? "dark:bg-gray-900 bg-gray-300" : ""
+      }`}
       style={{
         borderColor: isSelected ? colors.baseColor : "transparent",
         borderWidth: 1,
-        backgroundColor: findUser ? "rgba(11, 250, 43, .1)" : "transparent",
       }}
     >
       <div className="text-xs text-gray-700 dark:text-gray-300">
