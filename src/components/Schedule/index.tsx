@@ -12,11 +12,9 @@ import {
 } from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {addMonthsToDate, formatDateToString} from "../../Utilis/functions";
-import useAuth from "../../hooks/useAuth";
 import Loading from "../Loading";
 
 const Schedule = () => {
-  const {user}: any = useAuth();
   const [scheduleDays, setScheduleDays] = useState<
     {end: string; start: string; userRef: string; date: Timestamp}[]
   >([]);
@@ -26,13 +24,18 @@ const Schedule = () => {
     date: new Date(),
     users: [],
   });
+
+  const [selectedMonth, setSelectedMonth] = useState(
+    new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+  );
+
   useEffect(() => {
     setLoading(true);
     const schedulesRef = collection(db, "schedule");
 
     const start = new Date(
-      selectedDate.date.getFullYear(),
-      selectedDate.date.getMonth(),
+      selectedMonth.getFullYear(),
+      selectedMonth.getMonth(),
       1
     );
     const end = addMonthsToDate(start, 1);
@@ -44,6 +47,7 @@ const Schedule = () => {
     );
 
     const unsubscribe = onSnapshot(scheduleQuery, async (snapchot) => {
+      console.log("get days from firebase");
       setScheduleDays(
         snapchot.docs.map((doc: any, i) => {
           return doc.data();
@@ -53,10 +57,21 @@ const Schedule = () => {
       setLoading(false);
     });
 
+    if (
+      new Date(
+        selectedMonth.getFullYear(),
+        selectedMonth.getMonth(),
+        0
+      ).getDate() >= selectedDate.date.getDate()
+    ) {
+      setSelectedDate({users: selectedDate.users, date: selectedMonth});
+    }
+
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [selectedMonth]);
+
   const operationType = scheduleDays.find(
     (day) =>
       formatDateToString(day.date.toDate()) ===
@@ -76,6 +91,8 @@ const Schedule = () => {
           <CustomCalendar
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
+            selectedMonth={selectedMonth}
+            setSelectedMonth={setSelectedMonth}
             data={scheduleDays}
           />
         </div>

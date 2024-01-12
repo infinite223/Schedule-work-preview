@@ -23,8 +23,12 @@ const Day: FC<DayProps> = ({id, isSelected, users, myId, today}) => {
 
   return (
     <div
-      className={`rounded-full w-10 h-10 flex items-center justify-center gap-1 flex-col ${
-        findUser ? "bg-green-700" : today ? "dark:bg-gray-900 bg-gray-300" : ""
+      className={`rounded-full w-10 h-10 font-bold flex items-center justify-center gap-1 flex-col ${
+        findUser
+          ? "bg-green-800/40"
+          : today
+          ? "dark:bg-gray-900 bg-gray-200"
+          : ""
       }`}
       style={{
         borderColor: isSelected ? colors.baseColor : "transparent",

@@ -12,21 +12,22 @@ import useAuth from "../../../hooks/useAuth";
 interface CustomCalendarProps {
   selectedDate: DateWithUsers;
   setSelectedDate: (value: DateWithUsers) => void;
+  selectedMonth: Date;
+  setSelectedMonth: (value: Date) => void;
   data: DayData[];
 }
 
 const CustomCalendar: FC<CustomCalendarProps> = ({
   selectedDate,
   setSelectedDate,
+  selectedMonth,
+  setSelectedMonth,
   data,
 }) => {
   const [days, setDays] = useState<
     {id: number; date: Date; users: DayData[]; noDay: boolean}[]
   >([]);
   const {user}: any = useAuth();
-  const [selectedMonth, setSelectedMonth] = useState(
-    new Date(new Date().getFullYear(), new Date().getMonth(), 1)
-  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   }, [days]);
 
   return (
-    <div className="flex flex-col items-center w-full pt-4 rounded-md mb-2">
+    <div className="flex flex-col items-center w-full pt-2 rounded-md mb-2">
       <div className="flex flex-row items-center md:pr-5 md:pl-5 pr-2 pl-2 justify-between pb-2 w-full shadow-sm">
         <button
           style={{padding: "2px "}}
