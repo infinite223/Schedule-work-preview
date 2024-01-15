@@ -31,11 +31,11 @@
 
 export const colors = {
   baseColor: "#12cf21",
-  baseColor_2: "#128f21",
+  baseColor_2: "#328f31",
   errorColor: "#cc2244",
   successColor: "#44aa44",
   fullDayHours: "#f21",
-  halfDayHours: "#55f",
+  halfDayHours: "#1195fa",
 };
 
 export const e = 2

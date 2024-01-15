@@ -50,20 +50,20 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
             {...navigateOption[2]}
             style={{
               backgroundColor: colors.baseColor_2,
-              borderRadius: "16px",
+              borderRadius: "50px",
               padding: "14px",
             }}
-            withShadow={true}
+            withShadow={false}
           />
         ) : (
           <NavigateOption
             {...navigateOption[3]}
             style={{
               backgroundColor: colors.baseColor_2,
-              borderRadius: "16px",
+              borderRadius: "50px",
               padding: "14px",
             }}
-            withShadow={true}
+            withShadow={false}
           />
         )
       ) : (

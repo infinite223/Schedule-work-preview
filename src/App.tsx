@@ -8,6 +8,7 @@ import {JoinToDay} from "./components/modals/JoinToDay";
 import {RemoveFromDay} from "./components/modals/RemoveFromDay";
 import useAuth from "./hooks/useAuth";
 import Loading from "./components/Loading";
+import Page404 from "./pages/404Page";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -23,6 +24,8 @@ function App() {
     <React.StrictMode>
       <React.Suspense fallback={<Loading />}>
         <Routes location={previousLocation || location}>
+          <Route path="*" element={<Page404 />} />
+
           {!user ? (
             <>
               <Route path="/" element={<Start />} />

@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 interface NavigateOptionProps {
   name: string;
@@ -16,7 +16,6 @@ export const NavigateOption: FC<NavigateOptionProps> = ({
   style,
   withShadow,
 }) => {
-  const navigate = useNavigate();
   const location = useLocation();
   return (
     <Link

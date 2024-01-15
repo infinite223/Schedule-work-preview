@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "./../styles/loginStyles.scss";
 import {Link, useNavigate} from "react-router-dom";
 import {BackButton} from "../components/BackButton";
@@ -12,6 +12,7 @@ import {setUpNotifications, useNotifications} from "reapop";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth, db} from "../services/firebaseConfig";
 import {doc, setDoc} from "firebase/firestore";
+import useAuth from "../hooks/useAuth";
 
 setUpNotifications({
   defaultProps: {
@@ -28,6 +29,7 @@ export default function Register() {
 
   const navigate = useNavigate();
   const {notify} = useNotifications();
+  const {user}: any = useAuth();
 
   const tryRegister = async () => {
     const {error, status} = localVerifyRegisterData(email, password, nick);
