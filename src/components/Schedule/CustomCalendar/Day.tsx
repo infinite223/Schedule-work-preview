@@ -10,13 +10,6 @@ interface DayProps {
   myId: string;
   today?: boolean;
 }
-const getUidFromRef = (ref: string) => {
-  if (ref && ref.length > 5) {
-    return ref.split("/").pop();
-  }
-
-  return "";
-};
 
 const Day: FC<DayProps> = ({id, isSelected, users, myId, today}) => {
   const findUser = users.find((user: any) => user?.userRef?.id === myId);

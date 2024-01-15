@@ -14,6 +14,6 @@ export const readsCounterSlice = createSlice({
 });
 
 export const {setReadsCounter} = readsCounterSlice.actions;
-export const selectedReadsCounter = (state: any) => state.reads;
+export const selectedReadsCounter = (state: any) => state.selectedReads.reads;
 
 export default readsCounterSlice.reducer;
