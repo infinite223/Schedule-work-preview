@@ -13,8 +13,11 @@ import {
 import {db} from "../../services/firebaseConfig";
 import {addMonthsToDate, formatDateToString} from "../../Utilis/functions";
 import Loading from "../Loading";
+import {useDispatch} from "react-redux";
+import {setReadsCounter} from "../../slices/readsCounterSlice";
 
 const Schedule = () => {
+  const dispatch = useDispatch();
   const [scheduleDays, setScheduleDays] = useState<
     {end: string; start: string; userRef: string; date: Timestamp}[]
   >([]);
@@ -39,11 +42,12 @@ const Schedule = () => {
       1
     );
     const end = addMonthsToDate(start, 1);
-
+    const groupUid = 1;
     const scheduleQuery = query(
       schedulesRef,
       where("date", ">", start),
-      where("date", "<", end)
+      where("date", "<", end),
+      where("groupUid", "==", groupUid)
     );
 
     const unsubscribe = onSnapshot(scheduleQuery, async (snapchot) => {
@@ -53,6 +57,7 @@ const Schedule = () => {
           return doc.data();
         })
       );
+      dispatch(setReadsCounter(1));
 
       setLoading(false);
     });

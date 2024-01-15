@@ -1,11 +1,12 @@
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {selectedDay} from "../../slices/selectedDaySlice";
-import {arrayUnion, doc, getDoc, setDoc} from "firebase/firestore";
+import {doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
 import {shortDayNames} from "../../Utilis/data";
 import {useState} from "react";
+
 type HoursOption = {
   text: string;
   value: {
@@ -30,8 +31,10 @@ const hoursOptions = [
 ];
 export const JoinToDay = () => {
   const navigate = useNavigate();
+
   const day = useSelector(selectedDay);
-  const dayDate = day ? new Date(JSON.parse(day?.selectedDay)) : null;
+  const dayDate =
+    day && day?.selectedDay ? new Date(JSON.parse(day?.selectedDay)) : null;
   const {user}: any = useAuth();
   const [selectedOption, setSelectedOption] = useState<HoursOption>(
     hoursOptions[0]
@@ -45,6 +48,7 @@ export const JoinToDay = () => {
         end: selectedOption.value.end,
         userRef: getUser.ref,
         date: new Date(dayDate),
+        groupUid: user.groupUid,
       });
     }
   };
