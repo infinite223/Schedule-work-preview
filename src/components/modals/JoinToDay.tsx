@@ -41,7 +41,8 @@ export const JoinToDay = () => {
   );
 
   const joinToDay = async () => {
-    if (dayDate) {
+    if (dayDate && user && user.groupUid) {
+      console.log(dayDate);
       const getUser = await getDoc(doc(db, "users", user.uid));
       await setDoc(doc(db, "schedule", dayDate.toString()), {
         start: selectedOption.value.start,
@@ -81,7 +82,7 @@ export const JoinToDay = () => {
                   onClick={() => setSelectedOption(option)}
                   style={
                     selectedOption === option
-                      ? {borderColor: "var(--baseColor)"}
+                      ? {borderColor: "rgb(34 197 94)"}
                       : {}
                   }
                   className="border-gray-300 dark:border-gray-800 border-b-2 p-1 text-gray-800 cursor-pointer rounded-md hover:border-green-700 dark:text-gray-300"
@@ -94,7 +95,7 @@ export const JoinToDay = () => {
         </div>
 
         <button
-          className="button bg-green-700 hover:bg-green-500 p-1 rounded-md text-sm"
+          className="button bg-green-700 hover:opacity-80 transition-opacity p-1 rounded-md text-sm"
           onClick={joinToDay}
         >
           Dołącz do tego dnia

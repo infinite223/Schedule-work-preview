@@ -39,7 +39,7 @@ export const RemoveFromDay = () => {
           Twoja obecność po usunięciu będzie widoczna na szaro
         </p>
         <button
-          className="button bg-orange-700 hover:bg-orange-600 p-1 rounded-md text-sm"
+          className="button bg-orange-700 hover:opacity-80 transition-opacity p-1 rounded-md text-sm"
           onClick={removeUserFromDay}
         >
           Wycofaj swoją obecność
