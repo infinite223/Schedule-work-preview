@@ -98,7 +98,7 @@ const Settings = () => {
       </div>
       <div className="flex flex-col items-center justify-between h-full w-full pr-4 pl-4 pt-10">
         <h2 className="text-white font-semibold">{user?.nick}</h2>
-        <div className="flex flex-col gap-2 w-full pl-3 pr-3 md:w-fit">
+        <div className="flex flex-col gap-2 w-full pl-3 pr-3 ">
           {SettingsOptions.map((data) => (
             <OptionItem {...data} />
           ))}
@@ -107,7 +107,7 @@ const Settings = () => {
           </div>
         </div>
         <div className="bg-transparent w-full text-green-600/55 text-center text-sm py-2 px-4 hover:border-transparent rounded">
-          @ScheduleWork - for Prato Verde
+          @ScheduleWork v0.1.0 - for Prato Verde
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import "./styles/appStyles.scss";
-import * as React from "react";
+import React, {useEffect} from "react";
 import {Route, Routes, useLocation} from "react-router-dom";
 import "./index.scss";
 import Start from "./pages/Start";
@@ -14,6 +14,7 @@ import {selectedReadsCounter} from "./slices/readsCounterSlice";
 import {setUpNotifications, useNotifications} from "reapop";
 import {signOut} from "firebase/auth";
 import {auth} from "./services/firebaseConfig";
+import {selectedGroups} from "./slices/groupsSlice";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -35,8 +36,8 @@ function App() {
   const {user}: any = useAuth();
   const reads = useSelector(selectedReadsCounter);
   const {notify} = useNotifications();
-
-  React.useEffect(() => {
+  const groups = useSelector(selectedGroups);
+  useEffect(() => {
     console.log("xd ", reads);
     if (reads > 200) {
       notify({
@@ -56,6 +57,12 @@ function App() {
       }
     }
   }, [reads]);
+
+  useEffect(() => {
+    // group to firebase type with user ref
+    // to global store groups data with users data, not ref
+    // reed all groups data from firebase + users
+  }, [groups]);
 
   return (
     <React.StrictMode>
