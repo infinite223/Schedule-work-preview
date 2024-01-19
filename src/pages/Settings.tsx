@@ -6,7 +6,7 @@ import {BsFillPersonFill} from "react-icons/bs";
 import {useNotifications} from "reapop";
 import useAuth from "../hooks/useAuth";
 import {FC} from "react";
-import {FaEdit, FaPeopleCarry} from "react-icons/fa";
+import {FaPeopleCarry} from "react-icons/fa";
 import {
   IoInformationCircleSharp,
   IoLogOut,
@@ -63,6 +63,30 @@ const SettingsOptions: OptionItemProps[] = [
     navigate: "./EditProfile",
     admin: false,
   },
+  {
+    icon: <IoRemoveSharp size={iconSize} />,
+    name: "Usuń konto",
+    navigate: "./EditProfile",
+    admin: false,
+  },
+  {
+    icon: <IoRemoveSharp size={iconSize} />,
+    name: "Usuń konto",
+    navigate: "./EditProfile",
+    admin: false,
+  },
+  {
+    icon: <IoRemoveSharp size={iconSize} />,
+    name: "Usuń konto",
+    navigate: "./EditProfile",
+    admin: false,
+  },
+  {
+    icon: <IoRemoveSharp size={iconSize} />,
+    name: "Usuń konto",
+    navigate: "./EditProfile",
+    admin: false,
+  },
 ];
 
 const logOutOption = {
@@ -87,7 +111,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-dvh justify-between w-full bg-white dark:bg-black">
+    <div className="flex flex-col items-center h-screen max-h-dvh justify-between w-full bg-white dark:bg-black">
       <div className="relative flex items-center justify-center h-1/4 w-full">
         <div
           className="absolute rounded-full p-8 bg-zinc-800"
@@ -96,9 +120,9 @@ const Settings = () => {
           <BsFillPersonFill size={40} color="white" />
         </div>
       </div>
-      <div className="flex flex-col items-center justify-between h-full w-full pr-4 pl-4 pt-10">
+      <div className="flex flex-col items-center justify-between w-full pr-4 pl-4 pt-10 flex-grow overflow-auto h-0">
         <h2 className="text-white font-semibold">{user?.nick}</h2>
-        <div className="flex flex-col gap-2 w-full pl-3 pr-3 ">
+        <div className="flex flex-col gap-2 w-full pl-3 pr-3 overflow-auto h-full">
           {SettingsOptions.map((data) => (
             <OptionItem {...data} />
           ))}
