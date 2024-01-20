@@ -30,7 +30,7 @@ const OptionItem: FC<OptionItemProps> = ({icon, name, navigate, admin}) => {
 
   return (
     <Link to={navigate}>
-      <div className="bg-zinc-900 flex w-full rounded-md p-3 pr-4 pl-4 gap-4 items-center text-zinc-700 dark:text-zinc-200 hover:opacity-90 transition-opacity">
+      <div className="flex w-full rounded-md p-2 pr-1 pl-3 gap-4 items-center text-zinc-700 dark:text-zinc-200 hover:opacity-90 transition-opacity">
         {icon}
         <div>{name}</div>
       </div>
@@ -63,30 +63,6 @@ const SettingsOptions: OptionItemProps[] = [
     navigate: "./EditProfile",
     admin: false,
   },
-  {
-    icon: <IoRemoveSharp size={iconSize} />,
-    name: "Usuń konto",
-    navigate: "./EditProfile",
-    admin: false,
-  },
-  {
-    icon: <IoRemoveSharp size={iconSize} />,
-    name: "Usuń konto",
-    navigate: "./EditProfile",
-    admin: false,
-  },
-  {
-    icon: <IoRemoveSharp size={iconSize} />,
-    name: "Usuń konto",
-    navigate: "./EditProfile",
-    admin: false,
-  },
-  {
-    icon: <IoRemoveSharp size={iconSize} />,
-    name: "Usuń konto",
-    navigate: "./EditProfile",
-    admin: false,
-  },
 ];
 
 const logOutOption = {
@@ -111,17 +87,14 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen max-h-dvh justify-between w-full bg-white dark:bg-black">
-      <div className="relative flex items-center justify-center h-1/4 w-full">
-        <div
-          className="absolute rounded-full p-8 bg-zinc-800"
-          style={{bottom: "-35px"}}
-        >
+    <div className="flex flex-col items-center gap-3 h-screen max-h-dvh justify-between w-full bg-white dark:bg-black">
+      <div className="flex-col flex items-center justify-center w-full gap-2 mt-10">
+        <div className="rounded-full p-8 bg-zinc-800">
           <BsFillPersonFill size={40} color="white" />
         </div>
+        <h2 className="text-white font-semibold">{user?.nick}</h2>
       </div>
       <div className="flex flex-col items-center justify-between w-full pr-4 pl-4 pt-10 flex-grow overflow-auto h-0">
-        <h2 className="text-white font-semibold">{user?.nick}</h2>
         <div className="flex flex-col gap-2 w-full pl-3 pr-3 overflow-auto h-full">
           {SettingsOptions.map((data) => (
             <OptionItem {...data} />

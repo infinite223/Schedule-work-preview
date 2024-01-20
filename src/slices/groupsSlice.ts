@@ -11,21 +11,6 @@ const initGroups = [
         name: "Bar",
         users: [{nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}],
     },
-    {
-      id: "2",
-      name: "Bar",
-      users: [{nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}, {nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}, {nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}],
-  },
-  {
-    id: "2",
-    name: "Bar",
-    users: [{nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}],
-},
-{
-  id: "2",
-  name: "Bar",
-  users: [{nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}, {nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}],
-}
 ]
 const initialState = {groups: initGroups};
 

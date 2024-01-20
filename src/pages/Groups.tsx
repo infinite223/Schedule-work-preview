@@ -18,7 +18,7 @@ type Group = {
 
 const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
   return (
-    <div className="bg-zinc-900 p-3 pr-4 pl-4 rounded-md flex flex-col w-full">
+    <div className="p-3 pr-1 pl-1 rounded-md flex flex-col w-full">
       <div className="flex items-center w-full justify-between gap-2">
         <h1 className="text-white font-semibold flex items-center gap-4">
           <MdOutlineGroups2 size={22} />
@@ -35,7 +35,7 @@ const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
               </div>
             </div>
           )}
-          <div className="flex items-center gap-2 text-xs rounded-md  bg-green-700 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-200">
+          <div className="flex items-center gap-2 text-xs rounded-full font-medium bg-green-700 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100">
             Zobacz grafik
             <IoCalendarSharp size={17} />
           </div>
@@ -44,7 +44,7 @@ const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
 
       {users.map(({nick, id}) => (
         <div
-          className="mt-3 border-t-2 justify-between w-full border-zinc-200 hover:opacity-50 cursor-pointer transition-opacity dark:border-zinc-800 flex items-center pt-2 gap-3  "
+          className="mt-3 border-b-2 justify-between w-full border-zinc-200 hover:opacity-50 cursor-pointer transition-opacity dark:border-zinc-950 flex items-center pb-1 gap-3  "
           key={id}
         >
           <div
@@ -70,7 +70,7 @@ const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
 
 const Groups = () => {
   const groups: Group[] = useSelector(selectedGroups);
-  const isAdmin = true;
+  const isAdmin = false;
 
   return (
     <div className="flex flex-col items-center h-dvh max-h-dvh justify-between w-full bg-white dark:bg-black">
