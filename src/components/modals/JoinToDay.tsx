@@ -6,6 +6,7 @@ import {db} from "../../services/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
 import {shortDayNames} from "../../Utilis/data";
 import {useState} from "react";
+import {useNotifications} from "reapop";
 
 type HoursOption = {
   text: string;
@@ -31,6 +32,7 @@ const hoursOptions = [
 ];
 export const JoinToDay = () => {
   const navigate = useNavigate();
+  const {notify} = useNotifications();
 
   const day = useSelector(selectedDay);
   const dayDate =
@@ -49,6 +51,13 @@ export const JoinToDay = () => {
         userRef: getUser.ref,
         date: new Date(dayDate),
         groupUid: user.groupUid,
+        remove: false,
+        createdAt: new Date(),
+      });
+    } else if (!user.groupId) {
+      notify({
+        status: "error",
+        title: "Nie jesteś przypisany do żadnej grupy",
       });
     }
   };

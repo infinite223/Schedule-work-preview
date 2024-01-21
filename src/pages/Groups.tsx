@@ -18,8 +18,8 @@ type Group = {
 
 const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
   return (
-    <div className="p-3 pr-1 pl-1 rounded-md flex flex-col w-full">
-      <div className="flex items-center w-full justify-between gap-2">
+    <div className="p-2 pr-1 pl-1 rounded-md flex flex-col w-full border-b-2 border-zinc-200 dark:border-zinc-900">
+      <div className="flex items-center w-full justify-between gap-2 mb-1">
         <h1 className="text-white font-semibold flex items-center gap-4">
           <MdOutlineGroups2 size={22} />
           {name}
@@ -44,7 +44,7 @@ const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
 
       {users.map(({nick, id}) => (
         <div
-          className="mt-3 border-b-2 justify-between w-full border-zinc-200 hover:opacity-50 cursor-pointer transition-opacity dark:border-zinc-950 flex items-center pb-1 gap-3  "
+          className="justify-between w-full hover:opacity-50 cursor-pointer transition-opacity dark:border-zinc-950 flex items-center pb-1 gap-1  "
           key={id}
         >
           <div
@@ -78,7 +78,7 @@ const Groups = () => {
         <h1 className="pt-4 pb-5 text-lg pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
           Dostępne grupy
         </h1>
-        <div className="flex flex-col gap-2 p-2 w-full flex-grow overflow-auto h-0">
+        <div className="flex flex-col gap-2 p-2 pt-0 w-full flex-grow overflow-auto h-0">
           {groups.map((data) => (
             <GroupItem {...data} isAdmin={isAdmin} key={data.id} userId={"2"} />
           ))}

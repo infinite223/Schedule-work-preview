@@ -96,8 +96,8 @@ const Settings = () => {
       </div>
       <div className="flex flex-col items-center justify-between w-full pr-4 pl-4 pt-10 flex-grow overflow-auto h-0">
         <div className="flex flex-col gap-2 w-full pl-3 pr-3 overflow-auto h-full">
-          {SettingsOptions.map((data) => (
-            <OptionItem {...data} />
+          {SettingsOptions.map((data, id) => (
+            <OptionItem {...data} key={id} />
           ))}
           <div onClick={logOut}>
             <OptionItem {...logOutOption} />

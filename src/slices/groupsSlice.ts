@@ -20,7 +20,7 @@ export const selectedGroupsSlice = createSlice({
   reducers: {
     setGroups: (state, action) => {
       console.log("groups: " + state.groups);
-      state.groups = state.groups + action.payload;
+      state.groups = action.payload;
     },
   },
 });
