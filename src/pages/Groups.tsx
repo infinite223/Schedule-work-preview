@@ -1,4 +1,4 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Navigation from "../navigation";
 import {selectedGroups} from "../slices/groupsSlice";
 import {FC} from "react";
@@ -7,6 +7,8 @@ import {FaTrashCan} from "react-icons/fa6";
 import {MdOutlineGroups2} from "react-icons/md";
 import {FaPersonCirclePlus} from "react-icons/fa6";
 import {IoCalendarSharp} from "react-icons/io5";
+import {setGroup} from "../slices/selectedGroupSlice";
+import {useNavigate} from "react-router-dom";
 
 type Group = {
   name: string;
@@ -16,7 +18,13 @@ type Group = {
   userId: string;
 };
 
-const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
+const GroupItem: FC<Group> = ({name, users, isAdmin, userId, id}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const trySetGorup = () => {
+    dispatch(setGroup({name, users, id}));
+    navigate("/");
+  };
   return (
     <div className="p-2 pr-1 pl-1 rounded-md flex flex-col w-full border-b-2 border-zinc-200 dark:border-zinc-900">
       <div className="flex items-center w-full justify-between gap-2 mb-1">
@@ -35,7 +43,10 @@ const GroupItem: FC<Group> = ({name, users, isAdmin, userId}) => {
               </div>
             </div>
           )}
-          <div className="flex items-center gap-2 text-xs rounded-full font-medium bg-green-700 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100">
+          <div
+            onClick={trySetGorup}
+            className="flex items-center gap-2 text-xs rounded-full font-medium bg-green-700 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100"
+          >
             Zobacz grafik
             <IoCalendarSharp size={17} />
           </div>

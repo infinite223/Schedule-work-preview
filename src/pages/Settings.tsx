@@ -13,6 +13,7 @@ import {
   IoRemoveSharp,
 } from "react-icons/io5";
 import {BsPersonLinesFill} from "react-icons/bs";
+import {appConfig} from "../appConfig";
 
 interface OptionItemProps {
   icon: any;
@@ -104,7 +105,7 @@ const Settings = () => {
           </div>
         </div>
         <div className="bg-transparent w-full text-green-600/55 text-center text-sm py-2 px-4 hover:border-transparent rounded">
-          @ScheduleWork v0.1.0 - for Prato Verde
+          @ScheduleWork v{appConfig.version} - for Prato Verde
         </div>
       </div>
 
