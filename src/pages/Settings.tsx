@@ -46,12 +46,12 @@ const SettingsOptions: OptionItemProps[] = [
     navigate: "./EditProfile",
     admin: false,
   },
-  {
-    icon: <FaPeopleCarry size={iconSize} />,
-    name: "Utwoórz grupe",
-    navigate: "./CreateGroup",
-    admin: true,
-  },
+  // {
+  //   icon: <FaPeopleCarry size={iconSize} />,
+  //   name: "Utwoórz grupe",
+  //   navigate: "./CreateGroup",
+  //   admin: true,
+  // },
   {
     icon: <IoInformationCircleSharp size={iconSize} />,
     name: "Informacje",

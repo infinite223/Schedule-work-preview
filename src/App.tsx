@@ -1,5 +1,5 @@
 import "./styles/appStyles.scss";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Route, Routes, useLocation} from "react-router-dom";
 import "./index.scss";
 import Start from "./pages/Start";
@@ -9,12 +9,24 @@ import {RemoveFromDay} from "./components/modals/RemoveFromDay";
 import useAuth from "./hooks/useAuth";
 import Loading from "./components/Loading";
 import Page404 from "./pages/404Page";
-import {useSelector} from "react-redux";
-import {selectedReadsCounter} from "./slices/readsCounterSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  selectedReadsCounter,
+  setReadsCounter,
+} from "./slices/readsCounterSlice";
 import {setUpNotifications, useNotifications} from "reapop";
 import {signOut} from "firebase/auth";
-import {auth} from "./services/firebaseConfig";
-import {selectedGroups} from "./slices/groupsSlice";
+import {auth, db} from "./services/firebaseConfig";
+import {setGroups} from "./slices/groupsSlice";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import {GroupFirebase, GroupLocal, User} from "./Utilis/types";
+import {setGroup} from "./slices/selectedGroupSlice";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -32,11 +44,13 @@ setUpNotifications({
 
 function App() {
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const previousLocation = location.state?.previousLocation;
   const {user}: any = useAuth();
   const reads = useSelector(selectedReadsCounter);
   const {notify} = useNotifications();
-  const groups = useSelector(selectedGroups);
+
   useEffect(() => {
     console.log("xd ", reads);
     if (reads > 200) {
@@ -59,10 +73,63 @@ function App() {
   }, [reads]);
 
   useEffect(() => {
-    // group to firebase type with user ref
-    // to global store groups data with users data, not ref
-    // reed all groups data from firebase + users
-  }, [groups]);
+    setLoading(true);
+    const groupsRef = collection(db, "groups");
+
+    const unsubscribe = onSnapshot(groupsRef, async (snapchot) => {
+      console.log("get groups from firebase");
+      const firebaseGroups: GroupFirebase[] = snapchot.docs.map(
+        (doc: any, i) => {
+          return doc.data();
+        }
+      );
+      let _groups: GroupLocal[] = [];
+      for (let i = 0; i < firebaseGroups.length; i++) {
+        if (firebaseGroups[i].users.length > 0) {
+          const usersRef = query(
+            collection(db, "users"),
+            where("uid", "in", firebaseGroups[i].users)
+          );
+          const querySnapshot = await getDocs(usersRef);
+          dispatch(setReadsCounter(1));
+          const users: User[] = querySnapshot.docs.map((doc: any) => {
+            return doc.data();
+          });
+          _groups.push({
+            id: firebaseGroups[i].id,
+            name: firebaseGroups[i].name,
+            users,
+          });
+        } else {
+          _groups.push({
+            id: firebaseGroups[i].id,
+            name: firebaseGroups[i].name,
+            users: [],
+          });
+        }
+      }
+      const findMyGroup = _groups.find((g) =>
+        g?.users?.find((u) => u?.uid === user?.uid)
+      );
+      if (findMyGroup) {
+        dispatch(setGroup(findMyGroup));
+      } else {
+        dispatch(setGroup(_groups[0]));
+      }
+      dispatch(setGroups(_groups));
+      dispatch(setReadsCounter(1));
+      setLoading(false);
+    });
+
+    console.log("da");
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <React.StrictMode>

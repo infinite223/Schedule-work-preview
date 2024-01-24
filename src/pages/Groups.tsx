@@ -9,25 +9,28 @@ import {FaPersonCirclePlus} from "react-icons/fa6";
 import {IoCalendarSharp} from "react-icons/io5";
 import {setGroup} from "../slices/selectedGroupSlice";
 import {useNavigate} from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import {GroupLocal, User} from "../Utilis/types";
 
-type Group = {
+type GroupItemProps = {
   name: string;
   id: string;
-  users: {nick: string; id: string}[];
+  users: User[];
   isAdmin: boolean;
   userId: string;
 };
 
-const GroupItem: FC<Group> = ({name, users, isAdmin, userId, id}) => {
+const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const trySetGorup = () => {
     dispatch(setGroup({name, users, id}));
     navigate("/");
   };
+
   return (
     <div className="p-2 pr-1 pl-1 rounded-md flex flex-col w-full border-b-2 border-zinc-200 dark:border-zinc-900">
-      <div className="flex items-center w-full justify-between gap-2 mb-1">
+      <div className="flex items-center w-full justify-between gap-2 mb-2">
         <h1 className="text-white font-semibold flex items-center gap-4">
           <MdOutlineGroups2 size={22} />
           {name}
@@ -53,14 +56,14 @@ const GroupItem: FC<Group> = ({name, users, isAdmin, userId, id}) => {
         </div>
       </div>
 
-      {users.map(({nick, id}) => (
+      {users.map(({nick, uid}, id) => (
         <div
           className="justify-between w-full hover:opacity-50 cursor-pointer transition-opacity dark:border-zinc-950 flex items-center pb-1 gap-1  "
           key={id}
         >
           <div
             className={
-              userId === id
+              userId === uid
                 ? "text-green-500"
                 : "text-zinc-800 dark:text-zinc-200"
             }
@@ -80,8 +83,9 @@ const GroupItem: FC<Group> = ({name, users, isAdmin, userId, id}) => {
 };
 
 const Groups = () => {
-  const groups: Group[] = useSelector(selectedGroups);
-  const isAdmin = false;
+  const groups: GroupLocal[] = useSelector(selectedGroups);
+  const {user}: any = useAuth();
+  const isAdmin = user.type === "admin";
 
   return (
     <div className="flex flex-col items-center h-dvh max-h-dvh justify-between w-full bg-white dark:bg-black">
@@ -91,7 +95,12 @@ const Groups = () => {
         </h1>
         <div className="flex flex-col gap-2 p-2 pt-0 w-full flex-grow overflow-auto h-0">
           {groups.map((data) => (
-            <GroupItem {...data} isAdmin={isAdmin} key={data.id} userId={"2"} />
+            <GroupItem
+              {...data}
+              isAdmin={isAdmin}
+              key={data.id}
+              userId={user.uid}
+            />
           ))}
         </div>
       </div>

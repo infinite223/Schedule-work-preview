@@ -6,16 +6,26 @@ type DateWithUsers = {
 };
 type DayData = {end: string; start: string; userRef: string; date: Timestamp}
 
-type User = {
+
+type User = { 
+  email: string,
+  nick: string,
+  uid: string,
+  type: "admin" | 'user' 
+}
+
+type GroupFirebase = {
   id: string;
   name: string;
-  userName: string;
-  email: string;
-  phoneNumber?: number;
+  users: string[];
+}
 
-  workPlaceId: string;
-  groupId: string;
-};
+type GroupLocal = {
+  id: string;
+  name: string;
+  users: User[];
+}
+
 
 type WorkPlace = {
   id: string;
@@ -54,4 +64,4 @@ type UserInDay = {
   dayId: string;
 };
 
-export type { Group, User, WorkPlace, UserInDay, Day, DateWithUsers, Log, DayData };
+export type { Group, User, WorkPlace, UserInDay, Day, DateWithUsers, Log, DayData, GroupFirebase, GroupLocal };

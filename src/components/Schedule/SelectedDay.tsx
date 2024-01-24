@@ -8,7 +8,7 @@ interface SelectedDateProps {
 
 const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   return (
-    <div className="flex text-white p-2 w-full h-fit">
+    <div className="flex text-white p-2 w-full h-fit ">
       <div className="border-r-2 border-green-500 p-2 pr-5 pl-5 flex flex-col">
         <span className="font-bold text-lg">{selectedDate.date.getDate()}</span>
         <span className="font-light text-sm">
@@ -18,6 +18,12 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             ]
           }
         </span>
+      </div>
+
+      <div className="flex flex-col">
+        {selectedDate.users.map((user) => (
+          <div>{user.userRef}</div>
+        ))}
       </div>
     </div>
   );

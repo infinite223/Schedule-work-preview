@@ -1,18 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initGroups = [
-    {
-        id: "1",
-        name: "Kierowcy",
-        users: [{nick: "Dawid", id: "2"}, {nick: "Wojtek", id: '4'}],
-    },
-    {
-        id: "2",
-        name: "Bar",
-        users: [{nick: "Karolina",  id: '5'}, {nick: "Marek",  id: '3'}],
-    },
-]
-const initialState = {groups: initGroups};
+const initialState = {groups: []};
 
 export const selectedGroupsSlice = createSlice({
   name: "groups",

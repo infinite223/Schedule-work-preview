@@ -5,6 +5,10 @@ import {BsCalendar2Week} from "react-icons/bs";
 import {colors} from "../Utilis/globalStyles";
 import {FaPlus, FaMinus} from "react-icons/fa";
 import {HiMenuAlt3} from "react-icons/hi";
+import {useSelector} from "react-redux";
+import {selectedGroup} from "../slices/selectedGroupSlice";
+import useAuth from "../hooks/useAuth";
+import {User} from "../Utilis/types";
 
 interface NavigationProps {
   type: "Schedule" | "Groups" | "Settings";
@@ -35,7 +39,10 @@ const navigateOption = [
   },
 ];
 const Navigation: FC<NavigationProps> = ({type, operation}) => {
+  const group = useSelector(selectedGroup);
+  const {user}: any = useAuth();
   const isOpenSchedule = type === "Schedule";
+  const isMyGroup = group.users.find((_user: User) => _user.uid === user.uid);
   const meInDat = operation === "minus";
 
   return (
@@ -44,7 +51,7 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
         {...navigateOption[0]}
         style={{color: type === "Groups" ? "var(--baseColor)" : "gray"}}
       />
-      {isOpenSchedule ? (
+      {isOpenSchedule && isMyGroup ? (
         !meInDat ? (
           <NavigateOption
             {...navigateOption[2]}
