@@ -50,9 +50,9 @@ function App() {
   const {user}: any = useAuth();
   const reads = useSelector(selectedReadsCounter);
   const {notify} = useNotifications();
-
+  const [localGroups, setLocalGroups] = useState<any>(null);
   useEffect(() => {
-    console.log("xd ", reads);
+    // control reads, secure limits
     if (reads > 200) {
       notify({
         message: "Problem z nadmiarową ilością zapytań.... " + reads,
@@ -73,11 +73,11 @@ function App() {
   }, [reads]);
 
   useEffect(() => {
+    // get groups data form firebase
     setLoading(true);
     const groupsRef = collection(db, "groups");
 
     const unsubscribe = onSnapshot(groupsRef, async (snapchot) => {
-      console.log("get groups from firebase");
       const firebaseGroups: GroupFirebase[] = snapchot.docs.map(
         (doc: any, i) => {
           return doc.data();
@@ -108,24 +108,33 @@ function App() {
           });
         }
       }
-      const findMyGroup = _groups.find((g) =>
-        g?.users?.find((u) => u?.uid === user?.uid)
-      );
-      if (findMyGroup) {
-        dispatch(setGroup(findMyGroup));
-      } else {
-        dispatch(setGroup(_groups[0]));
-      }
-      dispatch(setGroups(_groups));
+      setLocalGroups(_groups);
+
       dispatch(setReadsCounter(1));
-      setLoading(false);
     });
 
-    console.log("da");
     return () => {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    // update redux state groups/ selected group
+    if (localGroups) {
+      setLoading(true);
+      const findMyGroups = localGroups.filter((g: any) => {
+        return g.users.find((u: any) => u.uid === user?.uid);
+      });
+
+      if (findMyGroups.length === 1) {
+        dispatch(setGroup(findMyGroups[0]));
+      } else {
+        dispatch(setGroup(localGroups[0]));
+      }
+      dispatch(setGroups(localGroups));
+      setLoading(false);
+    }
+  }, [localGroups]);
 
   if (loading) {
     return <Loading />;

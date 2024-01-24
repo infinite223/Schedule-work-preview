@@ -92,7 +92,7 @@ const Schedule = () => {
       <div className="flex sm:flex-row flex-col w-full sm:flex-ro">
         <div className="flex flex-col sm:w-1/2 items-center w-full pr-4 pl-4 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-400/10 rounded-b-xl pb-2">
           <h1 className="pt-4 pb-3 text-lg pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
-            {group.name}
+            {group?.name}
           </h1>
 
           <CustomCalendar
