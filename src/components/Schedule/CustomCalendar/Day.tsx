@@ -28,18 +28,21 @@ const Day: FC<DayProps> = ({id, isSelected, users, myId, today}) => {
         borderWidth: 1,
       }}
     >
-      <div className="text-xs text-gray-700 dark:text-gray-300">
+      <div className="text-[13px] text-gray-700 dark:text-gray-300">
         {id !== 0 && id}
       </div>
 
       <div style={{flexDirection: "row", alignItems: "center", gap: 5}}>
-        {users.map((userInDay, id) => (
-          <div
-            key={id}
-            className="rounded-full w-1 h-1"
-            style={{backgroundColor: getColorDot(userInDay)}}
-          />
-        ))}
+        {users.map(
+          (userInDay, id) =>
+            !userInDay.remove && (
+              <div
+                key={id}
+                className="rounded-full w-1 h-1"
+                style={{backgroundColor: getColorDot(userInDay)}}
+              />
+            )
+        )}
       </div>
     </div>
   );

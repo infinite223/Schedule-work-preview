@@ -28,11 +28,11 @@ export const RemoveFromDay = () => {
   };
   return (
     <div
-      className="fixed bg-transparent left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"
+      className="fixed bg-white/65 dark:bg-black/65 left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"
       onClick={(e) => navigate(-1)}
     >
       <div
-        className="h-fit w-11/12 sm:w-1/3 gap-2 min-w-3.5 flex flex-col justify-between text-black border border-gray-900 dark:text-white bg-slate-200 dark:bg-gray-950 p-5 rounded-sm"
+        className="h-fit w-11/12 sm:w-1/3 gap-2 min-w-3.5 flex flex-col justify-between text-black dark:text-white bg-zinc-100 dark:bg-zinc-900 p-5 rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
         {dayDate && (
@@ -46,7 +46,7 @@ export const RemoveFromDay = () => {
           Twoja obecność po usunięciu będzie widoczna na szaro
         </p>
         <button
-          className="button bg-orange-700 hover:opacity-80 transition-opacity p-1 rounded-md text-sm"
+          className="button bg-orange-600 text-white font-bold hover:opacity-80 transition-opacity p-1.5 rounded-md text-sm"
           onClick={removeUserFromDay}
         >
           Wycofaj swoją obecność

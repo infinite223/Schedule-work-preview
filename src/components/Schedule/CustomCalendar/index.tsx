@@ -39,9 +39,13 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
     const currentDayData = days.find(
       (day) => formatDateToString(day.date) === formatDateToString(new Date())
     );
+    const nowDate = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate()
+    );
     if (currentDayData) {
-      console.log("tutaj sdadsa  das");
-      setSelectedDate({date: new Date(), users: currentDayData?.users});
+      setSelectedDate({date: nowDate, users: currentDayData?.users});
     } else {
       const firstDayInMonthData = days.find(
         (day) =>
@@ -57,7 +61,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
 
   return (
     <div className="flex flex-col items-center w-full pt-2 rounded-md mb-2">
-      <div className="flex flex-row items-center md:pr-5 md:pl-5 pr-2 pl-2 justify-between pb-2 w-full shadow-sm">
+      <div className="flex flex-row items-center md:pr-5 md:pl-5 pr-1 pl-1 justify-between pb-2 w-full shadow-sm">
         <button
           style={{padding: "2px "}}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, -1))}

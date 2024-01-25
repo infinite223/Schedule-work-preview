@@ -11,6 +11,7 @@ import {setGroup} from "../slices/selectedGroupSlice";
 import {useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import {GroupLocal, User} from "../Utilis/types";
+import logo from "../assets/calendar.png";
 
 type GroupItemProps = {
   name: string;
@@ -31,7 +32,7 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
   return (
     <div className="p-2 pr-1 pl-1 rounded-md flex flex-col w-full border-b-2 border-zinc-200 dark:border-zinc-900">
       <div className="flex items-center w-full justify-between gap-2 mb-3">
-        <h1 className="text-white font-semibold flex items-center gap-3">
+        <h1 className="text-zinc-900 dark:text-zinc-100 font-semibold flex items-center gap-3">
           <MdOutlineGroups2 size={20} />
           {name}
         </h1>
@@ -48,9 +49,9 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
           )}
           <div
             onClick={trySetGorup}
-            className="flex items-center gap-2 text-xs rounded-full font-medium bg-green-700 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100"
+            className="flex items-center font-semibold gap-2 text-xs rounded-full bg-green-600 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100"
           >
-            Zobacz grafik
+            Zobacz
             <IoCalendarSharp size={15} />
           </div>
         </div>
@@ -64,8 +65,8 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
           <div
             className={
               userId === uid
-                ? "text-green-500"
-                : "text-zinc-800 dark:text-zinc-200"
+                ? "text-green-600 font-bold"
+                : "text-zinc-800 dark:text-zinc-100"
             }
           >
             {nick}
@@ -90,9 +91,12 @@ const Groups = () => {
   return (
     <div className="flex flex-col items-center h-dvh max-h-dvh justify-between w-full bg-white dark:bg-black">
       <div className="flex flex-col items-center w-full pr-4 pl-4 h-full">
-        <h1 className="pt-4 pb-5 text-lg pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
-          Dostępne grupy
-        </h1>
+        <div className="flex items-center justify-between w-full">
+          <h1 className="pt-4 pb-5 text-lg pl-1 self-start font-semibold text-zinc-900 dark:text-gray-100">
+            Dostępne grupy
+          </h1>
+          <img src={logo} className="w-[30px] pr-2" />
+        </div>
         <div className="flex flex-col gap-2 p-1 pt-0 w-full flex-grow overflow-auto h-0">
           {groups.map((data) => (
             <GroupItem

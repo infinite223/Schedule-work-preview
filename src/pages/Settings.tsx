@@ -90,7 +90,7 @@ const Settings = () => {
   return (
     <div className="flex flex-col items-center gap-3 h-screen max-h-dvh justify-between w-full bg-white dark:bg-black">
       <div className="flex-col flex items-center justify-center w-full gap-2 mt-10">
-        <div className="rounded-full p-8 bg-zinc-800">
+        <div className="rounded-full p-8 bg-zinc-200 dark:bg-zinc-800">
           <BsFillPersonFill size={40} color="white" />
         </div>
         <h2 className="text-white font-semibold">{user?.nick}</h2>

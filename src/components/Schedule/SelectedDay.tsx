@@ -3,7 +3,7 @@ import {DateWithUsers, DayData, GroupLocal} from "../../Utilis/types";
 import {shortDayNames} from "../../Utilis/data";
 import {useSelector} from "react-redux";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
-import {formatDateToString} from "../../Utilis/functions";
+import {formatDateToString, getColorDot} from "../../Utilis/functions";
 import {selectRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
 
 interface SelectedDateProps {
@@ -34,9 +34,11 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   }, [selectedDate, refreshSelectedDay]);
 
   return (
-    <div className="flex text-white p-2 w-full h-fit ">
+    <div className="flex text-black dark:text-white p-2 w-full h-fit ">
       <div className="border-r-2 border-green-500 p-2 pr-5 pl-5 flex flex-col">
-        <span className="font-bold text-lg">{selectedDate.date.getDate()}</span>
+        <span className="font-bold text-[16px]">
+          {selectedDate.date.getDate()}
+        </span>
         <span className="font-light text-sm">
           {
             shortDayNames[
@@ -54,9 +56,12 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             border-b-2 border-zinc-200 dark:border-zinc-900`}
             style={item.remove ? {opacity: 0.3} : {}}
           >
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full text-sm">
               <div>{item.user.nick}</div>
-              <div className="flex gap-4 items-center text-sm text-black dark:text-zinc-200">
+              <div
+                className={`flex gap-4 items-center text-black dark:text-zinc-200`}
+                style={{color: getColorDot(item)}}
+              >
                 <div className="">od: {item.start}</div>
                 <div>do: {item.end}</div>
               </div>

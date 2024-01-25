@@ -20,7 +20,7 @@ import {
   selectRefreshSelectedDay,
   setRefreshSelectedDay,
 } from "../../slices/refreshSelectedDaySlice";
-import {setSelectedDayInStore} from "../../slices/selectedDaySlice";
+import logo from "../../assets/calendar.png";
 
 const Schedule = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,11 @@ const Schedule = () => {
 
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
-    date: new Date(),
+    date: new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate()
+    ),
     users: [],
   });
 
@@ -87,10 +91,12 @@ const Schedule = () => {
     <div className="flex flex-col items-center h-dvh justify-between w-ful bg-white dark:bg-black">
       <div className="flex sm:flex-row flex-col w-full sm:flex-ro">
         <div className="flex flex-col sm:w-1/2 items-center w-full pr-4 pl-4 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-400/10 rounded-b-xl pb-2">
-          <h1 className="pt-4 pb-3 text-lg pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
-            {group?.name ? group?.name : "Brak grupy"}
-          </h1>
-
+          <div className="flex items-center justify-between w-full">
+            <h1 className="pt-4 pb-3 text-lg pl-2 self-start font-semibold text-zinc-900 dark:text-gray-100">
+              {group?.name ? group?.name : "Brak grupy"}
+            </h1>
+            <img src={logo} className="w-[30px] pr-2" />
+          </div>
           <CustomCalendar
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
