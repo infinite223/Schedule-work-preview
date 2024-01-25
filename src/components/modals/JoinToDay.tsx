@@ -1,12 +1,14 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {selectedDay} from "../../slices/selectedDaySlice";
 import {doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
 import {shortDayNames} from "../../Utilis/data";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNotifications} from "reapop";
+import {selectedGroup} from "../../slices/selectedGroupSlice";
+import {setReadsCounter} from "../../slices/readsCounterSlice";
 
 type HoursOption = {
   text: string;
@@ -33,34 +35,48 @@ const hoursOptions = [
 export const JoinToDay = () => {
   const navigate = useNavigate();
   const {notify} = useNotifications();
-
+  const dispatch = useDispatch();
   const day = useSelector(selectedDay);
   const dayDate =
     day && day?.selectedDay ? new Date(JSON.parse(day?.selectedDay)) : null;
+  const group = useSelector(selectedGroup);
   const {user}: any = useAuth();
+  const isMyGroup = group.users.find((u: any) => u.uid === user.uid);
   const [selectedOption, setSelectedOption] = useState<HoursOption>(
     hoursOptions[0]
   );
 
   const joinToDay = async () => {
-    if (dayDate && user && user.groupUid) {
-      const getUser = await getDoc(doc(db, "users", user.uid));
+    if (dayDate && user && isMyGroup) {
       await setDoc(doc(db, "schedule", dayDate.toString()), {
         start: selectedOption.value.start,
         end: selectedOption.value.end,
-        userRef: getUser.ref,
+        userUid: user.uid,
         date: new Date(dayDate),
-        groupUid: user.groupUid,
+        groupUid: group.id,
         remove: false,
         createdAt: new Date(),
       });
-    } else if (!user.groupId) {
+
+      dispatch(setReadsCounter(1));
+    } else if (!isMyGroup) {
       notify({
         status: "error",
         title: "Nie jesteś przypisany do żadnej grupy",
       });
     }
   };
+
+  useEffect(() => {
+    if (!day && !day.selectedDay) {
+      notify({
+        status: "error",
+        title: "Błąd przy wybieraniu dnia",
+      });
+
+      navigate("/");
+    }
+  }, [day]);
   return (
     <div
       className="fixed bg-transparent left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"

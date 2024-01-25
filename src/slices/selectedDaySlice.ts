@@ -9,7 +9,7 @@ export const selectedDaySlice = createSlice({
   initialState,
   reducers: {
     setSelectedDayInStore: (state, action) => {
-      state.selectedDay = JSON.parse(action.payload);
+      state.selectedDay = action.payload;
     },
   },
 });

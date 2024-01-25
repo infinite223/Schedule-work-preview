@@ -36,7 +36,7 @@ export const firstDayOfMonth = (
     // newArr.push(`${year}/${month}/${i}`);
     const findDaysInData =  data.filter((days) => formatDateToString(days.date.toDate()) === formatDateToString(new Date(year, month, i)))
     if(findDaysInData && findDaysInData.length > 0) {
-      let usersInDay = findDaysInData.map((day) =>  { return ( {userRef: day.userRef, start: day.start, end: day.end, date: day.date} ) })
+      let usersInDay = findDaysInData.map((day) =>  { return ( {userUid: day.userUid, start: day.start, end: day.end, date: day.date} ) })
       arr.push({ id: i, noDay: false, date: new Date(year, month, i), users: usersInDay })
     }
     else {

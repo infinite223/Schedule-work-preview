@@ -21,7 +21,7 @@ const Schedule = () => {
   const dispatch = useDispatch();
   const group = useSelector(selectedGroup);
   const [scheduleDays, setScheduleDays] = useState<
-    {end: string; start: string; userRef: string; date: Timestamp}[]
+    {end: string; start: string; userUid: string; date: Timestamp}[]
   >([]);
 
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ const Schedule = () => {
 
       const scheduleQuery = query(
         schedulesRef,
-        where("date", ">", start),
+        where("date", ">=", start),
         where("date", "<", end),
         where("groupUid", "==", group.id)
       );
