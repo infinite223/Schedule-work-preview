@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    selectedDay: new Date(),
+    selectedDay: JSON.stringify(new Date()),
 };
 
 export const selectedDaySlice = createSlice({
@@ -9,7 +9,7 @@ export const selectedDaySlice = createSlice({
   initialState,
   reducers: {
     setSelectedDayInStore: (state, action) => {
-      state.selectedDay = action.payload;
+      state.selectedDay = JSON.parse(action.payload);
     },
   },
 });

@@ -21,8 +21,8 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
       </div>
 
       <div className="flex flex-col">
-        {selectedDate.users.map((user) => (
-          <div>{user.userRef}</div>
+        {selectedDate.users.map((user, id) => (
+          <div key={id}>{user.userRef}</div>
         ))}
       </div>
     </div>
