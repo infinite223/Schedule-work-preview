@@ -42,7 +42,7 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
   const group = useSelector(selectedGroup);
   const {user}: any = useAuth();
   const isOpenSchedule = type === "Schedule";
-  const isMyGroup = group.users.find((_user: User) => _user.uid === user.uid);
+  const isMyGroup = group?.users?.find((_user: User) => _user.uid === user.uid);
   const meInDat = operation === "minus";
 
   return (

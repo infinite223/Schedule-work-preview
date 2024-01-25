@@ -1,6 +1,6 @@
 import "./styles/appStyles.scss";
 import React, {useEffect, useState} from "react";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import "./index.scss";
 import Start from "./pages/Start";
 import {ProtectedRoute} from "./components/ProtectedRoute";
@@ -51,6 +51,7 @@ function App() {
   const reads = useSelector(selectedReadsCounter);
   const {notify} = useNotifications();
   const [localGroups, setLocalGroups] = useState<any>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     // control reads, secure limits
     if (reads > 200) {
@@ -119,7 +120,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // update redux state groups/ selected group
+    // update redux state groups/selected group
     if (localGroups) {
       setLoading(true);
       const findMyGroups = localGroups.filter((g: any) => {
@@ -128,13 +129,20 @@ function App() {
 
       if (findMyGroups.length === 1) {
         dispatch(setGroup(findMyGroups[0]));
+      } else if (localGroups.length === 0) {
+        notify({
+          message: "Poproś administratora o utworzenie grupy" + reads,
+          status: "error",
+          title: "Brak grup w bazie",
+        });
+        signOut(auth);
       } else {
         dispatch(setGroup(localGroups[0]));
       }
       dispatch(setGroups(localGroups));
       setLoading(false);
     }
-  }, [localGroups]);
+  }, [localGroups, user]);
 
   if (loading) {
     return <Loading />;

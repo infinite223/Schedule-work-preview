@@ -35,48 +35,50 @@ const Schedule = () => {
   );
 
   useEffect(() => {
-    setLoading(true);
-    const schedulesRef = collection(db, "schedule");
+    if (group && group?.id) {
+      setLoading(true);
+      const schedulesRef = collection(db, "schedule");
 
-    const start = new Date(
-      selectedMonth.getFullYear(),
-      selectedMonth.getMonth(),
-      1
-    );
-    const end = addMonthsToDate(start, 1);
-
-    const scheduleQuery = query(
-      schedulesRef,
-      where("date", ">", start),
-      where("date", "<", end),
-      where("groupUid", "==", group.id)
-    );
-
-    const unsubscribe = onSnapshot(scheduleQuery, async (snapchot) => {
-      console.log("get days from firebase");
-      setScheduleDays(
-        snapchot.docs.map((doc: any, i) => {
-          return doc.data();
-        })
-      );
-      dispatch(setReadsCounter(1));
-
-      setLoading(false);
-    });
-
-    if (
-      new Date(
+      const start = new Date(
         selectedMonth.getFullYear(),
         selectedMonth.getMonth(),
-        0
-      ).getDate() >= selectedDate.date.getDate()
-    ) {
-      setSelectedDate({users: selectedDate.users, date: selectedMonth});
-    }
+        1
+      );
+      const end = addMonthsToDate(start, 1);
 
-    return () => {
-      unsubscribe();
-    };
+      const scheduleQuery = query(
+        schedulesRef,
+        where("date", ">", start),
+        where("date", "<", end),
+        where("groupUid", "==", group.id)
+      );
+
+      const unsubscribe = onSnapshot(scheduleQuery, async (snapchot) => {
+        console.log("get days from firebase");
+        setScheduleDays(
+          snapchot.docs.map((doc: any, i) => {
+            return doc.data();
+          })
+        );
+        dispatch(setReadsCounter(1));
+
+        setLoading(false);
+      });
+
+      if (
+        new Date(
+          selectedMonth.getFullYear(),
+          selectedMonth.getMonth(),
+          0
+        ).getDate() >= selectedDate.date.getDate()
+      ) {
+        setSelectedDate({users: selectedDate.users, date: selectedMonth});
+      }
+
+      return () => {
+        unsubscribe();
+      };
+    }
   }, [selectedMonth, group]);
 
   const operationType = scheduleDays.find(
@@ -92,7 +94,7 @@ const Schedule = () => {
       <div className="flex sm:flex-row flex-col w-full sm:flex-ro">
         <div className="flex flex-col sm:w-1/2 items-center w-full pr-4 pl-4 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-400/10 rounded-b-xl pb-2">
           <h1 className="pt-4 pb-3 text-lg pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
-            {group?.name}
+            {group?.name ? group?.name : "Brak grupy"}
           </h1>
 
           <CustomCalendar
