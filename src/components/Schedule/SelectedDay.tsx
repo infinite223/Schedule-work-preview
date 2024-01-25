@@ -3,24 +3,17 @@ import {DateWithUsers, DayData, GroupLocal} from "../../Utilis/types";
 import {shortDayNames} from "../../Utilis/data";
 import {useSelector} from "react-redux";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
-import {Timestamp} from "firebase/firestore";
+import {formatDateToString} from "../../Utilis/functions";
+import {selectRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
 
 interface SelectedDateProps {
   selectedDate: DateWithUsers;
 }
 
-const _users: DayData[] = [
-  {
-    date: Timestamp.now(),
-    end: "10:00",
-    start: "16:00",
-    userUid: "21",
-  },
-];
-
 const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   const group: GroupLocal = useSelector(selectedGroup);
   const [usersInDay, setUsersInDay] = useState<any>([]);
+  const refreshSelectedDay = useSelector(selectRefreshSelectedDay);
 
   useEffect(() => {
     setUsersInDay(
@@ -32,11 +25,13 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             start: user.start,
             end: user.end,
             user: findUser,
+            createdAt: user.createdAt,
+            remove: user.remove,
           };
         }
       })
     );
-  }, []);
+  }, [selectedDate, refreshSelectedDay]);
 
   return (
     <div className="flex text-white p-2 w-full h-fit ">
@@ -51,9 +46,31 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
         </span>
       </div>
 
-      <div className="flex flex-col">
-        {usersInDay.map((user: any, id: string) => (
-          <div key={id}>{user.nick}</div>
+      <div className="flex flex-col pl-4 pr-2 w-full">
+        {usersInDay.map((item: any, id: string) => (
+          <div
+            key={id}
+            className={`flex flex-col text-black dark:text-zinc-100 p-1 w-full justify-between 
+            border-b-2 border-zinc-200 dark:border-zinc-900`}
+            style={item.remove ? {opacity: 0.3} : {}}
+          >
+            <div className="flex items-center justify-between w-full">
+              <div>{item.user.nick}</div>
+              <div className="flex gap-4 items-center text-sm text-black dark:text-zinc-200">
+                <div className="">od: {item.start}</div>
+                <div>do: {item.end}</div>
+              </div>
+            </div>
+
+            <div className="flex pt-1 font-light">
+              <div className="text-[10px] font-light">
+                Dodano:{" "}
+                {formatDateToString(new Date(item.createdAt.seconds * 1000))} o{" "}
+                {new Date(item.createdAt.seconds * 1000).getHours()}:
+                {new Date(item.createdAt.seconds * 1000).getMinutes()}
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>

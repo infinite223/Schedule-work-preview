@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import CustomCalendar from "./CustomCalendar";
-import {DateWithUsers} from "../../Utilis/types";
+import {DateWithUsers, DayData} from "../../Utilis/types";
 import Navigation from "../../navigation";
 import SelectedDay from "./SelectedDay";
 import {
@@ -16,13 +16,16 @@ import Loading from "../Loading";
 import {useDispatch, useSelector} from "react-redux";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
+import {
+  selectRefreshSelectedDay,
+  setRefreshSelectedDay,
+} from "../../slices/refreshSelectedDaySlice";
+import {setSelectedDayInStore} from "../../slices/selectedDaySlice";
 
 const Schedule = () => {
   const dispatch = useDispatch();
   const group = useSelector(selectedGroup);
-  const [scheduleDays, setScheduleDays] = useState<
-    {end: string; start: string; userUid: string; date: Timestamp}[]
-  >([]);
+  const [scheduleDays, setScheduleDays] = useState<DayData[]>([]);
 
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
@@ -65,16 +68,7 @@ const Schedule = () => {
         setLoading(false);
       });
 
-      if (
-        new Date(
-          selectedMonth.getFullYear(),
-          selectedMonth.getMonth(),
-          0
-        ).getDate() >= selectedDate.date.getDate()
-      ) {
-        setSelectedDate({users: selectedDate.users, date: selectedMonth});
-      }
-
+      dispatch(setRefreshSelectedDay(1));
       return () => {
         unsubscribe();
       };
@@ -84,7 +78,7 @@ const Schedule = () => {
   const operationType = scheduleDays.find(
     (day) =>
       formatDateToString(day.date.toDate()) ===
-      formatDateToString(selectedDate?.date)
+        formatDateToString(selectedDate?.date) && !day.remove
   )
     ? "minus"
     : "plus";

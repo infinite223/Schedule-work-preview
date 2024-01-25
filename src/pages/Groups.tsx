@@ -30,14 +30,14 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
 
   return (
     <div className="p-2 pr-1 pl-1 rounded-md flex flex-col w-full border-b-2 border-zinc-200 dark:border-zinc-900">
-      <div className="flex items-center w-full justify-between gap-2 mb-2">
-        <h1 className="text-white font-semibold flex items-center gap-4">
-          <MdOutlineGroups2 size={22} />
+      <div className="flex items-center w-full justify-between gap-2 mb-3">
+        <h1 className="text-white font-semibold flex items-center gap-3">
+          <MdOutlineGroups2 size={20} />
           {name}
         </h1>
         <div className="flex items-center gap-2">
           {isAdmin && (
-            <div className="flex items-center gap-2 text-black  dark:text-zinc-300">
+            <div className="flex items-center gap-1 text-black  dark:text-zinc-300">
               <div className="pr-2 pl-2 hover:text-green-600 cursor-pointer transition-colors">
                 <FaPersonCirclePlus size={19} />
               </div>
@@ -51,7 +51,7 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
             className="flex items-center gap-2 text-xs rounded-full font-medium bg-green-700 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100"
           >
             Zobacz grafik
-            <IoCalendarSharp size={17} />
+            <IoCalendarSharp size={15} />
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@ const Groups = () => {
         <h1 className="pt-4 pb-5 text-lg pl-2 self-start font-semibold text-gray-500 dark:text-gray-200">
           Dostępne grupy
         </h1>
-        <div className="flex flex-col gap-2 p-2 pt-0 w-full flex-grow overflow-auto h-0">
+        <div className="flex flex-col gap-2 p-1 pt-0 w-full flex-grow overflow-auto h-0">
           {groups.map((data) => (
             <GroupItem
               {...data}

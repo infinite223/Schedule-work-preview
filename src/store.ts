@@ -3,12 +3,14 @@ import selectedDaySlice from "./slices/selectedDaySlice";
 import selectedReadsCounter from "./slices/readsCounterSlice";
 import selectedGroupsSlice from "./slices/groupsSlice";
 import selectedGroupSlice from "./slices/selectedGroupSlice";
+import refreshSelectedDaySlice from "./slices/refreshSelectedDaySlice";
 
 export const store = configureStore({
   reducer: {
     selectedDay: selectedDaySlice,
     selectedReads: selectedReadsCounter,
     selectedGroups: selectedGroupsSlice,
-    selectedGroup: selectedGroupSlice
+    selectedGroup: selectedGroupSlice,
+    refreshSelectedDay: refreshSelectedDaySlice
   },
 });

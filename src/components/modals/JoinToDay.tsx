@@ -58,6 +58,8 @@ export const JoinToDay = () => {
         createdAt: new Date(),
       });
 
+      navigate("/");
+
       dispatch(setReadsCounter(1));
     } else if (!isMyGroup) {
       notify({

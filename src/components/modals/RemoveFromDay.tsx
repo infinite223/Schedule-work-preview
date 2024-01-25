@@ -1,25 +1,30 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectedDay} from "../../slices/selectedDaySlice";
-import {deleteDoc, doc, getDoc, where} from "firebase/firestore";
+import {deleteDoc, doc, getDoc, updateDoc, where} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {monthNames} from "../../Utilis/data";
+import {useNotifications} from "reapop";
 
 export const RemoveFromDay = () => {
   const navigate = useNavigate();
+  const {notify} = useNotifications();
+  const dispatch = useDispatch();
   const day = useSelector(selectedDay);
-  const dayDate = day ? JSON.parse(day?.selectedDay) : null;
-  const convertedDayDate = new Date(dayDate);
+  const dayDate =
+    day && day?.selectedDay ? new Date(JSON.parse(day?.selectedDay)) : null;
   const {user}: any = useAuth();
 
   const removeUserFromDay = async () => {
-    // const docRef = doc(db, "schedule")
-    // if (dayDate) {
-    //   const getUser = await getDoc(doc(db, "users", user.uid));
-    //   await deleteDoc(doc(db, "schedule", ));
-    // }
+    if (day && dayDate && user) {
+      await updateDoc(doc(db, "schedule", dayDate.toString()), {
+        remove: true,
+      });
+
+      navigate("/");
+    }
   };
   return (
     <div
@@ -30,12 +35,14 @@ export const RemoveFromDay = () => {
         className="h-fit w-11/12 sm:w-1/3 gap-2 min-w-3.5 flex flex-col justify-between text-black border border-gray-900 dark:text-white bg-slate-200 dark:bg-gray-950 p-5 rounded-sm"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2>
-          Wycofanie obecności z dnia {convertedDayDate?.getDate() + " "}{" "}
-          {monthNames[convertedDayDate.getMonth()]}
-        </h2>
+        {dayDate && (
+          <h2>
+            Wycofanie obecności z dnia {dayDate?.getDate() + " "}{" "}
+            {monthNames[dayDate.getMonth()]}
+          </h2>
+        )}
 
-        <p className="text-gray-700 dark:text-gray-300 text-sm">
+        <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">
           Twoja obecność po usunięciu będzie widoczna na szaro
         </p>
         <button

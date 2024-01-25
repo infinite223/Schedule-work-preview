@@ -4,7 +4,15 @@ type DateWithUsers = {
   date: Date;
   users: DayData[];
 };
-type DayData = {end: string; start: string; userUid: string; date: Timestamp}
+type DayData = {
+  end: string; 
+  start: string; 
+  userUid: string; 
+  date: Timestamp,
+  groupUid: string,
+  createdAt: Timestamp,
+  remove: boolean
+}
 
 
 type User = { 

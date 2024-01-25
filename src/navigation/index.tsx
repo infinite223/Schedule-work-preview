@@ -58,7 +58,7 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
             style={{
               backgroundColor: colors.baseColor_2,
               borderRadius: "50px",
-              padding: "14px",
+              padding: "17px",
             }}
             withShadow={false}
           />
@@ -68,7 +68,7 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
             style={{
               backgroundColor: colors.baseColor_2,
               borderRadius: "50px",
-              padding: "14px",
+              padding: "17px",
             }}
             withShadow={false}
           />
