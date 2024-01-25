@@ -16,7 +16,11 @@ interface CustomCalendarProps {
   setSelectedMonth: (value: Date) => void;
   data: DayData[];
 }
-
+const nowDate = new Date(
+  new Date().getFullYear(),
+  new Date().getMonth(),
+  new Date().getDate()
+);
 const CustomCalendar: FC<CustomCalendarProps> = ({
   selectedDate,
   setSelectedDate,
@@ -31,7 +35,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setSelectedDayInStore(JSON.stringify(new Date())));
+    dispatch(setSelectedDayInStore(JSON.stringify(nowDate)));
     setDays(firstDayOfMonth(selectedMonth, data, "1"));
   }, [selectedMonth, data]);
 
@@ -39,11 +43,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
     const currentDayData = days.find(
       (day) => formatDateToString(day.date) === formatDateToString(new Date())
     );
-    const nowDate = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      new Date().getDate()
-    );
+
     if (currentDayData) {
       setSelectedDate({date: nowDate, users: currentDayData?.users});
     } else {

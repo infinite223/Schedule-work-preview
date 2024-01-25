@@ -1,9 +1,8 @@
-import React from "react";
 import {useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {useDispatch, useSelector} from "react-redux";
 import {selectedDay} from "../../slices/selectedDaySlice";
-import {deleteDoc, doc, getDoc, updateDoc, where} from "firebase/firestore";
+import {doc, updateDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {monthNames} from "../../Utilis/data";
 import {useNotifications} from "reapop";
@@ -19,7 +18,7 @@ export const RemoveFromDay = () => {
 
   const removeUserFromDay = async () => {
     if (day && dayDate && user) {
-      await updateDoc(doc(db, "schedule", dayDate.toString()), {
+      await updateDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
         remove: true,
       });
 

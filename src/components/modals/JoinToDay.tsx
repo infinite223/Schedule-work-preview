@@ -48,7 +48,7 @@ export const JoinToDay = () => {
 
   const joinToDay = async () => {
     if (dayDate && user && isMyGroup) {
-      await setDoc(doc(db, "schedule", dayDate.toString()), {
+      await setDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
         start: selectedOption.value.start,
         end: selectedOption.value.end,
         userUid: user.uid,
