@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
 import {formatDateToString, getColorDot} from "../../Utilis/functions";
 import {selectRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
+import useAuth from "../../hooks/useAuth";
 
 interface SelectedDateProps {
   selectedDate: DateWithUsers;
@@ -14,7 +15,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   const group: GroupLocal = useSelector(selectedGroup);
   const [usersInDay, setUsersInDay] = useState<any>([]);
   const refreshSelectedDay = useSelector(selectRefreshSelectedDay);
-
+  const {user}: any = useAuth();
   useEffect(() => {
     setUsersInDay(
       selectedDate.users.map((user) => {
@@ -57,7 +58,11 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             style={item.remove ? {opacity: 0.3} : {}}
           >
             <div className="flex items-center justify-between w-full text-sm">
-              <div>{item.user.nick}</div>
+              <div
+                className={item.user.uid === user.uid ? `text-green-500` : ""}
+              >
+                {item.user.nick}
+              </div>
               <div
                 className={`flex gap-4 items-center text-black dark:text-zinc-200`}
                 style={{color: getColorDot(item)}}

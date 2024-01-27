@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import {useNotifications} from "reapop";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
+import {formatDateToString} from "../../Utilis/functions";
 
 type HoursOption = {
   text: string;
@@ -41,24 +42,35 @@ export const JoinToDay = () => {
     day && day?.selectedDay ? new Date(JSON.parse(day?.selectedDay)) : null;
   const group = useSelector(selectedGroup);
   const {user}: any = useAuth();
-  const isMyGroup = group.users.find((u: any) => u.uid === user.uid);
+  const isMyGroup = group?.users?.find((u: any) => u.uid === user.uid);
   const [selectedOption, setSelectedOption] = useState<HoursOption>(
     hoursOptions[0]
   );
 
   const joinToDay = async () => {
     if (dayDate && user && isMyGroup) {
-      await setDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
-        start: selectedOption.value.start,
-        end: selectedOption.value.end,
-        userUid: user.uid,
-        date: new Date(dayDate),
-        groupUid: group.id,
-        remove: false,
-        createdAt: new Date(),
-      });
+      try {
+        await setDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
+          start: selectedOption.value.start,
+          end: selectedOption.value.end,
+          userUid: user.uid,
+          date: new Date(dayDate),
+          groupUid: group.id,
+          remove: false,
+          createdAt: new Date(),
+        });
+        navigate("/");
 
-      navigate("/");
+        notify({
+          status: "success",
+          title: "Dodano Cię do dnia " + formatDateToString(new Date(dayDate)),
+        });
+      } catch (error) {
+        notify({
+          status: "error",
+          title: "Coś poszło nie tak, spróbuj od nowa załadować aplikacje",
+        });
+      }
 
       dispatch(setReadsCounter(1));
     } else if (!isMyGroup) {

@@ -40,11 +40,16 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   }, [selectedMonth, data]);
 
   useEffect(() => {
+    const selectedDayData = days.find(
+      (day) =>
+        formatDateToString(day.date) === formatDateToString(selectedDate.date)
+    );
     const currentDayData = days.find(
       (day) => formatDateToString(day.date) === formatDateToString(new Date())
     );
-
-    if (currentDayData) {
+    if (selectedDayData) {
+      setSelectedDate({date: selectedDate.date, users: selectedDayData?.users});
+    } else if (currentDayData) {
       setSelectedDate({date: nowDate, users: currentDayData?.users});
     } else {
       const firstDayInMonthData = days.find(

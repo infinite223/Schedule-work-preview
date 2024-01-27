@@ -6,6 +6,7 @@ import {doc, updateDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {monthNames} from "../../Utilis/data";
 import {useNotifications} from "reapop";
+import {formatDateToString} from "../../Utilis/functions";
 
 export const RemoveFromDay = () => {
   const navigate = useNavigate();
@@ -18,11 +19,22 @@ export const RemoveFromDay = () => {
 
   const removeUserFromDay = async () => {
     if (day && dayDate && user) {
-      await updateDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
-        remove: true,
-      });
+      try {
+        await updateDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
+          remove: true,
+        });
 
-      navigate("/");
+        navigate("/");
+        notify({
+          status: "success",
+          title: "Usunięto Cię z dnia " + formatDateToString(new Date(dayDate)),
+        });
+      } catch (error) {
+        notify({
+          status: "error",
+          title: "Coś poszło nie tak, spróbuj od nowa załadować aplikacje",
+        });
+      }
     }
   };
   return (
