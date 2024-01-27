@@ -31,7 +31,7 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
 
   return (
     <div className="p-2 pr-1 pl-1 rounded-md flex flex-col w-full border-b-2 border-zinc-200 dark:border-zinc-900">
-      <div className="flex items-center w-full justify-between gap-2 mb-3">
+      <div className="flex items-center w-full justify-between gap-2">
         <h1 className="text-zinc-900 dark:text-zinc-100 font-semibold flex items-center gap-3">
           <MdOutlineGroups2 size={20} />
           {name}
@@ -57,6 +57,9 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
         </div>
       </div>
 
+      <div className="text-zinc-800 text-sm dark:text-zinc-300 mb-3">
+        {users.length} osób/a w grupie
+      </div>
       {users.map(({nick, uid}, id) => (
         <div
           className="justify-between w-full hover:opacity-50 cursor-pointer transition-opacity dark:border-zinc-950 flex items-center pb-1 gap-1  "

@@ -27,6 +27,7 @@ import {
 } from "firebase/firestore";
 import {GroupFirebase, GroupLocal, User} from "./Utilis/types";
 import {setGroup} from "./slices/selectedGroupSlice";
+import ReleaseNotes from "./pages/ReleaseNotes";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -183,6 +184,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Groups />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/ReleaseNotes"
+                element={
+                  <ProtectedRoute>
+                    <ReleaseNotes />
                   </ProtectedRoute>
                 }
               />

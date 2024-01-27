@@ -104,9 +104,11 @@ const Settings = () => {
             <OptionItem {...logOutOption} />
           </div>
         </div>
-        <div className="bg-transparent w-full text-green-600/55 text-center text-sm py-2 px-4 hover:border-transparent rounded">
-          @ScheduleWork v{appConfig.version} - for Prato Verde
-        </div>
+        <Link to={"/ReleaseNotes"}>
+          <div className="bg-transparent w-full text-green-600/55 text-center text-sm py-2 px-4 hover:border-transparent rounded">
+            @ScheduleWork v{appConfig.version} - for Prato Verde
+          </div>
+        </Link>
       </div>
 
       <Navigation type="Settings" />

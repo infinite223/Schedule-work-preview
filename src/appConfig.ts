@@ -29,6 +29,14 @@ export const appConfig = {
                 {
                     name: "Zabezpieczenie nieznanych scieżek",
                     description: "Gdy użytkownik wpiszę nieznaną scieżkę, automatyczmie zostanie przekierowany na strone główną."
+                },
+                {
+                    name: "Ilość osób w grupie",
+                    description: "Każda grupa posiada osobny podgląd do ilości osób w grupie."
+                },
+                {
+                    name: "Dodatkowe powiadomienia",
+                    description: "Gdy użytkownik zapisze się do dnia, wyskoczy powiadomienie o udanym lub nieudanym zapisie."
                 }
             ]
         }
