@@ -47,20 +47,28 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
     const currentDayData = days.find(
       (day) => formatDateToString(day.date) === formatDateToString(new Date())
     );
-    if (selectedDayData) {
+    const firstDayInMonthData = days.find(
+      (day) =>
+        formatDateToString(day.date) === formatDateToString(selectedMonth)
+    );
+    if (
+      firstDayInMonthData &&
+      firstDayInMonthData?.date.getMonth() !== nowDate.getMonth()
+    ) {
+      console.log("tutaj 3");
+
+      setSelectedDate({
+        date: selectedMonth,
+        users: firstDayInMonthData?.users,
+      });
+    } else if (selectedDayData) {
+      console.log("tutaj 1");
+
       setSelectedDate({date: selectedDate.date, users: selectedDayData?.users});
     } else if (currentDayData) {
+      console.log("tutaj 2");
+
       setSelectedDate({date: nowDate, users: currentDayData?.users});
-    } else {
-      const firstDayInMonthData = days.find(
-        (day) =>
-          formatDateToString(day.date) === formatDateToString(selectedMonth)
-      );
-      if (firstDayInMonthData)
-        setSelectedDate({
-          date: selectedMonth,
-          users: firstDayInMonthData?.users,
-        });
     }
   }, [days]);
 
