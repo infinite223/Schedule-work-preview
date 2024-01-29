@@ -26,12 +26,16 @@ export const appConfig = {
                     description: "Strona przedstawiająca wszystkie najważniejsze informacje o apliakcji."
                 },
                 {
-                    name: "Możliwość przypisywania do grupy",
-                    description: "Administrator może przypisywać użytkowników do grupy za pomocą osobnego modala."
+                    name: "Ograniczenia podglądu dni",
+                    description: "Ilość wyświetlających kropek w dany dzień jest ograniczona do dwóch, tak aby wygląd kalendarza był niezmienny."
                 },
                 {
                     name: "Przedstawienie planowanych zmian",
                     description: "W zakładce release notes użytkonik może zobaczyć planowane zmiany w nadchodzącej aktualizacji."
+                },
+                {
+                    name: "Możliwość przypisywania do grupy",
+                    description: "Administrator może przypisywać użytkowników do grupy za pomocą osobnego modala."
                 },
             ]
         },

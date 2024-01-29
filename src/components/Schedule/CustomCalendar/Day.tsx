@@ -12,30 +12,40 @@ interface DayProps {
 }
 
 const Day: FC<DayProps> = ({id, isSelected, users, myId, today}) => {
-  const findUser = users.find((user: any) => user?.userRef?.id === myId);
+  const findUser = users.find(
+    (user: any) => user?.userUid === myId && !user.remove
+  );
 
   return (
     <div
       className={`rounded-full w-10 h-10 font-bold flex items-center justify-center gap-1 flex-col ${
-        findUser
-          ? "bg-green-800/40"
-          : today
-          ? "dark:bg-gray-900 bg-gray-200"
-          : ""
+        today ? "dark:bg-zinc-800 bg-zinc-200" : ""
       }`}
       style={{
         borderColor: isSelected ? colors.baseColor : "transparent",
         borderWidth: 1,
       }}
     >
-      <div className="text-[13px] text-gray-700 dark:text-gray-300">
+      <div
+        className={`text-[13px] ${
+          findUser ? "text-green-500" : "text-gray-700 dark:text-gray-300"
+        }`}
+      >
         {id !== 0 && id}
       </div>
 
-      <div style={{flexDirection: "row", alignItems: "center", gap: 5}}>
+      <div
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 5,
+          display: "flex",
+        }}
+      >
         {users.map(
           (userInDay, id) =>
-            !userInDay.remove && (
+            !userInDay.remove &&
+            id < 2 && (
               <div
                 key={id}
                 className="rounded-full w-1 h-1"

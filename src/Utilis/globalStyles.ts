@@ -34,7 +34,7 @@ export const colors = {
   baseColor_2: "#328f31",
   errorColor: "#cc2244",
   successColor: "#44aa44",
-  fullDayHours: "#f21",
+  fullDayHours: "#52ab24",
   halfDayHours: "#1195fa",
 };
 

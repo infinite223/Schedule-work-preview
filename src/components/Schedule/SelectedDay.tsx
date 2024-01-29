@@ -35,8 +35,8 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   }, [selectedDate, refreshSelectedDay]);
 
   return (
-    <div className="flex text-black dark:text-white p-2 w-full h-fit ">
-      <div className="border-r-2 border-green-500 p-2 pr-5 pl-5 flex flex-col">
+    <div className="flex text-black dark:text-white p-2 w-full h-fit">
+      <div className="border-r-2 border-green-500 p-2 pr-5 pl-3 flex flex-col">
         <span className="font-bold text-[16px]">
           {selectedDate.date.getDate()}
         </span>
@@ -49,7 +49,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
         </span>
       </div>
 
-      <div className="flex flex-col pl-4 pr-2 w-full">
+      <div className="flex flex-col pl-4 pr-2 w-full flex-grow overflow-auto">
         {usersInDay.map((item: any, id: string) => (
           <div
             key={id}
@@ -72,7 +72,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
               </div>
             </div>
 
-            <div className="flex pt-1 font-light">
+            <div className="flex pt-1 text-zinc-500">
               <div className="text-[10px] font-light">
                 Dodano:{" "}
                 {formatDateToString(new Date(item.createdAt.seconds * 1000))} o{" "}
