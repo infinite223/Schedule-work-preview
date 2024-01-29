@@ -27,13 +27,14 @@ import {
 } from "firebase/firestore";
 import {GroupFirebase, GroupLocal, User} from "./Utilis/types";
 import {setGroup} from "./slices/selectedGroupSlice";
-import ReleaseNotes from "./pages/ReleaseNotes";
+import Information from "./pages/Information";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
 const Schedule = React.lazy(() => import("./components/Schedule/index"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Register = React.lazy(() => import("./pages/Register"));
+const ReleaseNotes = React.lazy(() => import("./pages/ReleaseNotes"));
 
 setUpNotifications({
   defaultProps: {
@@ -192,6 +193,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <ReleaseNotes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/Information"
+                element={
+                  <ProtectedRoute>
+                    <Information />
                   </ProtectedRoute>
                 }
               />

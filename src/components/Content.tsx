@@ -5,6 +5,7 @@ import {downloadApp} from "../Utilis/downloadApp";
 import presentApp from "./../assets/presentApp.png";
 import {useNavigate} from "react-router-dom";
 import {useNotifications} from "reapop";
+import {appConfig} from "../appConfig";
 
 const Content = () => {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const Content = () => {
         <img alt="android" src={android} className="content__button-android" />
       </div>
       <div className="content__version">
-        Aktualna wersja: {constants.appVersion}
+        Aktualna wersja: {appConfig.version}
       </div>
     </div>
   );

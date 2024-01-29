@@ -1,7 +1,40 @@
 export const appConfig = {
     name: "Schedule Work",
-    version: "0.1.2",
+    version: "0.1.3",
+    commingFetures: 
+        {
+            createdAt: new Date(2024, 1, 9),
+            patch: '0.1.4',
+            features: [
+                {
+                    name: "Możliwość usunięcia konta",
+                    description: "Użytkownik w ustawieniach może usunąć własne konto."
+                },
+            ]
+        },
     releaseNotes: [
+        {
+            createdAt: new Date(2024, 0, 25),
+            patch: '0.1.3',
+            features: [
+                {
+                    name: "Podgląd release notes",
+                    description: "Użytkownik w ustawieniach może sprawdzić jakie zmiany są w najnowszej aktualizcji."
+                },
+                {
+                    name: "Strona informacji o aplikacji",
+                    description: "Strona przedstawiająca wszystkie najważniejsze informacje o apliakcji."
+                },
+                {
+                    name: "Możliwość przypisywania do grupy",
+                    description: "Administrator może przypisywać użytkowników do grupy za pomocą osobnego modala."
+                },
+                {
+                    name: "Przedstawienie planowanych zmian",
+                    description: "W zakładce release notes użytkonik może zobaczyć planowane zmiany w nadchodzącej aktualizacji."
+                },
+            ]
+        },
         {
             createdAt: new Date(2024, 0, 25),
             patch: '0.1.2',
@@ -37,6 +70,14 @@ export const appConfig = {
                 {
                     name: "Dodatkowe powiadomienia",
                     description: "Gdy użytkownik zapisze się do dnia, wyskoczy powiadomienie o udanym lub nieudanym zapisie."
+                },
+                {
+                    name: "Stały nasłuch na zmiany w grafiku",
+                    description: "W momencie gdy użytkownik zmienia coś w grafiku, każda osoba mająca w tej samej chwili włączoną aplikacje, widzi zmiany."
+                },
+                {
+                    name: "Zapis wycofania obecności z dnia",
+                    description: "Gdy użytkownik usunie swoją obecność z danego dnia, zostanie po nim ślad w tym dniu. (szare pole)"
                 }
             ]
         }

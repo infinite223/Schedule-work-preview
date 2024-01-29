@@ -55,19 +55,13 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
       firstDayInMonthData &&
       firstDayInMonthData?.date.getMonth() !== nowDate.getMonth()
     ) {
-      console.log("tutaj 3");
-
       setSelectedDate({
         date: selectedMonth,
         users: firstDayInMonthData?.users,
       });
     } else if (selectedDayData) {
-      console.log("tutaj 1");
-
       setSelectedDate({date: selectedDate.date, users: selectedDayData?.users});
     } else if (currentDayData) {
-      console.log("tutaj 2");
-
       setSelectedDate({date: nowDate, users: currentDayData?.users});
     }
   }, [days]);
