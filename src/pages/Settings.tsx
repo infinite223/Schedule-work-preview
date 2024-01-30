@@ -1,12 +1,11 @@
-import {signOut} from "firebase/auth";
+import {deleteUser, signOut} from "firebase/auth";
 import Navigation from "../navigation";
-import {auth} from "../services/firebaseConfig";
+import {auth, db} from "../services/firebaseConfig";
 import {Link, useNavigate} from "react-router-dom";
 import {BsFillPersonFill} from "react-icons/bs";
 import {useNotifications} from "reapop";
 import useAuth from "../hooks/useAuth";
-import {FC} from "react";
-import {FaPeopleCarry} from "react-icons/fa";
+import {FC, useState} from "react";
 import {
   IoInformationCircleSharp,
   IoLogOut,
@@ -14,6 +13,9 @@ import {
 } from "react-icons/io5";
 import {BsPersonLinesFill} from "react-icons/bs";
 import {appConfig} from "../appConfig";
+import {PromptModal} from "../components/modals/PromptModal";
+import Loading from "../components/Loading";
+import {deleteDoc, doc} from "firebase/firestore";
 
 interface OptionItemProps {
   icon: any;
@@ -46,22 +48,10 @@ const SettingsOptions: OptionItemProps[] = [
     navigate: "./EditProfile",
     admin: false,
   },
-  // {
-  //   icon: <FaPeopleCarry size={iconSize} />,
-  //   name: "Utwoórz grupe",
-  //   navigate: "./CreateGroup",
-  //   admin: true,
-  // },
   {
     icon: <IoInformationCircleSharp size={iconSize} />,
     name: "Informacje",
     navigate: "/Information",
-    admin: false,
-  },
-  {
-    icon: <IoRemoveSharp size={iconSize} />,
-    name: "Usuń konto",
-    navigate: "./EditProfile",
     admin: false,
   },
 ];
@@ -73,10 +63,18 @@ const logOutOption = {
   admin: false,
 };
 
+const RemoveAccountOption = {
+  icon: <IoRemoveSharp size={iconSize} />,
+  name: "Usuń konto",
+  navigate: "./",
+  admin: false,
+};
+
 const Settings = () => {
   const navigate = useNavigate();
   const {notify} = useNotifications();
   const {user}: any = useAuth();
+  const [showPromptModal, setShowPromptModal] = useState(false);
 
   const logOut = async () => {
     await signOut(auth);
@@ -103,6 +101,9 @@ const Settings = () => {
           <div onClick={logOut}>
             <OptionItem {...logOutOption} />
           </div>
+          <div onClick={() => setShowPromptModal(true)}>
+            <OptionItem {...RemoveAccountOption} />
+          </div>
         </div>
         <Link to={"/ReleaseNotes"}>
           <div className="bg-transparent w-full text-green-600/85 text-center text-sm py-2 px-4 hover:border-transparent rounded">
@@ -111,9 +112,94 @@ const Settings = () => {
         </Link>
       </div>
 
+      {showPromptModal && (
+        <PromptModal
+          text="Czy na pewno chcesz usunąć swoje konto? wszyystkie dane zostaną usunięte."
+          title="Zatwierdź"
+          setShowPromptModal={setShowPromptModal}
+          actions={() => (
+            <RemoveAccountActions setShowPromptModal={setShowPromptModal} />
+          )}
+        />
+      )}
       <Navigation type="Settings" />
     </div>
   );
 };
 
 export default Settings;
+
+const RemoveAccountActions: FC<{
+  setShowPromptModal: (value: boolean) => void;
+}> = ({setShowPromptModal}) => {
+  const [loading, setLoading] = useState(false);
+  const {notify} = useNotifications();
+  const {user}: any = useAuth();
+
+  const tryRemoveAccount = () => {
+    setLoading(true);
+    removeAccount(notify, user.uid);
+    setLoading(false);
+  };
+
+  if (loading) return <Loading />;
+
+  return (
+    <div className="flex items-center gap-3">
+      <button
+        className="button bg-zinc-700-600 text-white font-bold hover:opacity-80 transition-opacity p-1.5 rounded-md text-sm"
+        onClick={() => setShowPromptModal(false)}
+      >
+        Wyjdź
+      </button>
+      <button
+        className="button bg-red-600 text-white pl-3 pr-3 font-bold hover:opacity-80 transition-opacity p-1.5 rounded-md text-sm"
+        onClick={tryRemoveAccount}
+      >
+        Usuń konto
+      </button>
+    </div>
+  );
+};
+
+const removeAccount = (notify: any, userUid: string) => {
+  let user = auth.currentUser;
+
+  if (user) {
+    deleteUser(user)
+      .then(() => {
+        notify({
+          status: "success",
+          title: "Udało się usunąć konto!",
+        });
+      })
+      .then(async () => {
+        try {
+          await deleteDoc(doc(db, "users", userUid));
+          notify({
+            status: "success",
+            title: "Udało się usunąć dane konta!",
+          });
+        } catch (error) {
+          notify({
+            status: "error",
+            title: "Coś poszło nie tak!",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if ((error.code = "auth/requires-recent-login")) {
+          notify({
+            status: "error",
+            title: "Aby usunąć konto, zaloguj się ponownie!",
+          });
+        } else {
+          notify({
+            status: "error",
+            title: "Coś poszło nie tak, spróbuj ponownie później",
+          });
+        }
+      });
+  }
+};
