@@ -1,6 +1,4 @@
 import {FC} from "react";
-import {useNavigate} from "react-router-dom";
-import {useNotifications} from "reapop";
 
 interface PromptModalProps {
   actions: () => JSX.Element;
@@ -15,9 +13,6 @@ export const PromptModal: FC<PromptModalProps> = ({
   title,
   setShowPromptModal,
 }) => {
-  const navigate = useNavigate();
-  const {notify} = useNotifications();
-
   return (
     <div
       className="fixed bg-white/65 dark:bg-black/65 left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"

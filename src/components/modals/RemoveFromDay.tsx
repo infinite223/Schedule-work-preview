@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {selectedDay} from "../../slices/selectedDaySlice";
 import {doc, updateDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
@@ -11,7 +11,6 @@ import {formatDateToString} from "../../Utilis/functions";
 export const RemoveFromDay = () => {
   const navigate = useNavigate();
   const {notify} = useNotifications();
-  const dispatch = useDispatch();
   const day = useSelector(selectedDay);
   const dayDate =
     day && day?.selectedDay ? new Date(JSON.parse(day?.selectedDay)) : null;

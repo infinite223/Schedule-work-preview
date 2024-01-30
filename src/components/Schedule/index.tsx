@@ -3,23 +3,14 @@ import CustomCalendar from "./CustomCalendar";
 import {DateWithUsers, DayData} from "../../Utilis/types";
 import Navigation from "../../navigation";
 import SelectedDay from "./SelectedDay";
-import {
-  Timestamp,
-  collection,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import {collection, onSnapshot, query, where} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {addMonthsToDate, formatDateToString} from "../../Utilis/functions";
 import Loading from "../Loading";
 import {useDispatch, useSelector} from "react-redux";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
-import {
-  selectRefreshSelectedDay,
-  setRefreshSelectedDay,
-} from "../../slices/refreshSelectedDaySlice";
+import {setRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
 import logo from "../../assets/calendar.png";
 import useAuth from "../../hooks/useAuth";
 
@@ -84,7 +75,7 @@ const Schedule = () => {
     (day) =>
       formatDateToString(day.date.toDate()) ===
         formatDateToString(selectedDate?.date) &&
-      !day.remove &&
+      !day?.remove &&
       day.userUid === user.uid
   )
     ? "minus"

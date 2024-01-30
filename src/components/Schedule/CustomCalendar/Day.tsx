@@ -1,7 +1,9 @@
 import {FC} from "react";
 import {colors} from "../../../Utilis/globalStyles";
-import {DayData} from "../../../Utilis/types";
+import {DayData, GroupLocal} from "../../../Utilis/types";
 import {getColorDot} from "../../../Utilis/functions";
+import {useSelector} from "react-redux";
+import {selectedGroup} from "../../../slices/selectedGroupSlice";
 
 interface DayProps {
   id: number;
@@ -12,8 +14,9 @@ interface DayProps {
 }
 
 const Day: FC<DayProps> = ({id, isSelected, users, myId, today}) => {
+  const group: GroupLocal = useSelector(selectedGroup);
   const findUser = users.find(
-    (user: any) => user?.userUid === myId && !user.remove
+    (user: any) => user?.userUid === myId && !user?.remove
   );
 
   return (
@@ -44,7 +47,8 @@ const Day: FC<DayProps> = ({id, isSelected, users, myId, today}) => {
       >
         {users.map(
           (userInDay, id) =>
-            !userInDay.remove &&
+            !userInDay?.remove &&
+            group.users.find((g) => g.uid === userInDay.userUid) &&
             id < 2 && (
               <div
                 key={id}

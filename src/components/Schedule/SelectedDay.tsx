@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from "react";
-import {DateWithUsers, DayData, GroupLocal} from "../../Utilis/types";
+import {DateWithUsers, GroupLocal} from "../../Utilis/types";
 import {shortDayNames} from "../../Utilis/data";
 import {useSelector} from "react-redux";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
@@ -19,6 +19,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   useEffect(() => {
     setUsersInDay(
       selectedDate.users.map((user) => {
+        console.log(user, "tu");
         const findUser = group.users.find((u) => u.uid === user.userUid);
         if (findUser) {
           return {
@@ -27,7 +28,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             end: user.end,
             user: findUser,
             createdAt: user.createdAt,
-            remove: user.remove,
+            remove: user?.remove,
           };
         }
       })
@@ -51,36 +52,46 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
 
       <div className="flex flex-col pl-4 pr-2 w-full flex-grow overflow-auto">
         {usersInDay.map((item: any, id: string) => (
-          <div
-            key={id}
-            className={`flex flex-col text-black dark:text-zinc-100 p-1 w-full justify-between 
+          <>
+            {item?.user && item?.end && item?.start && item?.createdAt ? (
+              <div
+                key={id}
+                className={`flex flex-col text-black dark:text-zinc-100 p-1 w-full justify-between 
             border-b-2 border-zinc-200 dark:border-zinc-900`}
-            style={item.remove ? {opacity: 0.3} : {}}
-          >
-            <div className="flex items-center justify-between w-full text-sm">
-              <div
-                className={item.user.uid === user.uid ? `text-green-500` : ""}
+                style={item?.remove ? {opacity: 0.3} : {}}
               >
-                {item.user.nick}
-              </div>
-              <div
-                className={`flex gap-4 items-center text-black dark:text-zinc-200`}
-                style={{color: getColorDot(item)}}
-              >
-                <div className="">od: {item.start}</div>
-                <div>do: {item.end}</div>
-              </div>
-            </div>
+                <div className="flex items-center justify-between w-full text-sm">
+                  <div
+                    className={
+                      item?.user?.uid === user.uid ? `text-green-500` : ""
+                    }
+                  >
+                    {item?.user?.nick}
+                  </div>
+                  <div
+                    className={`flex gap-4 items-center text-black dark:text-zinc-200`}
+                    style={{color: getColorDot(item)}}
+                  >
+                    <div className="">od: {item?.start}</div>
+                    <div>do: {item?.end}</div>
+                  </div>
+                </div>
 
-            <div className="flex pt-1 text-zinc-500">
-              <div className="text-[10px] font-light">
-                Dodano:{" "}
-                {formatDateToString(new Date(item.createdAt.seconds * 1000))} o{" "}
-                {new Date(item.createdAt.seconds * 1000).getHours()}:
-                {new Date(item.createdAt.seconds * 1000).getMinutes()}
+                <div className="flex pt-1 text-zinc-500">
+                  <div className="text-[10px] font-light">
+                    Dodano:{" "}
+                    {formatDateToString(
+                      new Date(item?.createdAt?.seconds * 1000)
+                    )}{" "}
+                    o {new Date(item?.createdAt?.seconds * 1000).getHours()}:
+                    {new Date(item?.createdAt?.seconds * 1000).getMinutes()}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            ) : (
+              <></>
+            )}
+          </>
         ))}
       </div>
     </div>

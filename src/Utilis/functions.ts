@@ -99,11 +99,15 @@ export function addMonthsToDate(date: Date, months: number) {
 }
 
 export const getColorDot = (userInDay: DayData) => {
-  const time = timeCounter(userInDay.start, userInDay.end);
+  if(userInDay?.start && userInDay?.end) {
+    const time = timeCounter(userInDay.start, userInDay.end);
+  
+    if (time.godziny > 7) return colors.fullDayHours;
+    if (time.godziny <= 7) return colors.halfDayHours;
+  }
 
-  if (time.godziny > 7) return colors.fullDayHours;
-  if (time.godziny <= 7) return colors.halfDayHours;
-};
+  return;
+};  
 
 // export const setLogsInStorage = async (newLog: Log) => {
 //   const logsValue = await AsyncStorage.getItem("logs");
