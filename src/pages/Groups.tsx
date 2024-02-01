@@ -12,6 +12,7 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import {GroupLocal, User} from "../Utilis/types";
 import logo from "../assets/calendar.png";
+import {group} from "console";
 
 type GroupItemProps = {
   name: string;
@@ -41,7 +42,13 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
         <div className="flex items-center gap-2">
           {isAdmin && (
             <div className="flex items-center gap-1 text-black  dark:text-zinc-300">
-              <Link to={"/AssignPerson"} state={{previousLocation: location}}>
+              <Link
+                to={"/AssignPerson"}
+                state={{
+                  previousLocation: location,
+                  group: {groupId: id, groupName: name},
+                }}
+              >
                 <div className="pr-2 pl-2 hover:text-green-600 cursor-pointer transition-colors">
                   <FaPersonCirclePlus size={19} />
                 </div>

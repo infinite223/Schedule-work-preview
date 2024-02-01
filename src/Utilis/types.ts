@@ -19,7 +19,8 @@ type User = {
   email: string,
   nick: string,
   uid: string,
-  type: "admin" | 'user' 
+  type: "admin" | 'user',
+  groupId?: string | null
 }
 
 type GroupFirebase = {

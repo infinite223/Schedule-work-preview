@@ -1,25 +1,33 @@
-import {FC, useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {selectedGroups} from "../../slices/groupsSlice";
+import {useEffect, useState} from "react";
 import useAuth from "../../hooks/useAuth";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {User} from "../../Utilis/types";
-
-interface AssignPersonProps {
-  setShowPromptModal: (value: boolean) => void;
-}
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {db} from "../../services/firebaseConfig";
+import {IoClose} from "react-icons/io5";
+import {MdAssignmentAdd} from "react-icons/md";
 
 export const AssignPerson = () => {
-  const groups = useSelector(selectedGroups);
   const [users, setUsers] = useState<User[] | null>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
   const {user}: any = useAuth();
   const isAdmin = user.type === "admin";
+  const {groupName, groupId} = location.state.group;
 
   useEffect(() => {
-    // get users where groupId is null
-    // setLoading(false);
+    const getUsers = async () => {
+      const usersRef = collection(db, "users");
+      const usersRefeQuery = query(usersRef, where("groupId", "==", false));
+      const usersFirebase = await getDocs(usersRefeQuery);
+      if (usersFirebase) {
+        setUsers(usersFirebase.docs.map((doc: any) => doc.data()));
+      }
+      setLoading(false);
+    };
+
+    getUsers();
   }, []);
 
   if (!isAdmin) navigate("/");
@@ -35,17 +43,26 @@ export const AssignPerson = () => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex w-full items-center justify-between">
-          <h2>Przypisz pracownika do grupy</h2>
+          <h2>Przypisz pracownika do grupy {groupName}</h2>
           <button
-            className="button bg-zinc-700-600 text-white font-bold hover:opacity-80 transition-opacity p-1.5 rounded-md text-sm"
+            className="button bg-zinc-700-600 text-white font-bold hover:opacity-80 transition-opacity rounded-md text-sm"
             onClick={() => navigate(-1)}
           >
-            Wyjdź
+            <IoClose size={20} />
           </button>
         </div>
-        <div className="flex flex-col gap-1">
-          {users?.map(() => (
-            <div></div>
+        <div className="flex flex-col gap-1 pt-2 pb-2 text-black dark:text-white">
+          {users?.map((_user) => (
+            <div className="flex items-center justify-between bg-zinc-100 dark:bg-zinc-800 rounded-md p-2 pr-3 pl-3 hover:opacity-55 cursor-pointer transition-opacity">
+              <div className="flex flex-col">
+                <h2>{_user.nick}</h2>
+                <p className="text-sm text-zinc-800 dark:text-zinc-300">
+                  {_user.email}
+                </p>
+              </div>
+
+              <MdAssignmentAdd className="text-green-500" />
+            </div>
           ))}
         </div>
       </div>
