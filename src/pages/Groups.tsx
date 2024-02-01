@@ -8,7 +8,7 @@ import {MdOutlineGroups2} from "react-icons/md";
 import {FaPersonCirclePlus} from "react-icons/fa6";
 import {IoCalendarSharp} from "react-icons/io5";
 import {setGroup} from "../slices/selectedGroupSlice";
-import {useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import {GroupLocal, User} from "../Utilis/types";
 import logo from "../assets/calendar.png";
@@ -24,6 +24,8 @@ type GroupItemProps = {
 const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const trySetGorup = () => {
     dispatch(setGroup({name, users, id}));
     navigate("/");
@@ -39,9 +41,11 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
         <div className="flex items-center gap-2">
           {isAdmin && (
             <div className="flex items-center gap-1 text-black  dark:text-zinc-300">
-              <div className="pr-2 pl-2 hover:text-green-600 cursor-pointer transition-colors">
-                <FaPersonCirclePlus size={19} />
-              </div>
+              <Link to={"/AssignPerson"} state={{previousLocation: location}}>
+                <div className="pr-2 pl-2 hover:text-green-600 cursor-pointer transition-colors">
+                  <FaPersonCirclePlus size={19} />
+                </div>
+              </Link>
               <div className="pr-2 pl-2 hover:text-red-600 cursor-pointer transition-colors">
                 <FaTrashCan size={16} />
               </div>

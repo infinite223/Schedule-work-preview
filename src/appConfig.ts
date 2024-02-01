@@ -7,8 +7,8 @@ export const appConfig = {
             patch: '0.1.4',
             features: [
                 {
-                    name: "Możliwość usunięcia konta",
-                    description: "Użytkownik w ustawieniach może usunąć własne konto."
+                    name: "Podliczanie godzin dla pracownika.",
+                    description: "Użytkownik ma możliwość automatycznie podliczyć sobie godziny w aktualnym miesiącu."
                 },
             ]
         },
@@ -32,6 +32,10 @@ export const appConfig = {
                 {
                     name: "Przedstawienie planowanych zmian",
                     description: "W zakładce release notes użytkonik może zobaczyć planowane zmiany w nadchodzącej aktualizacji."
+                },
+                {
+                    name: "Możliwość usunięcia konta",
+                    description: "Użytkownik w ustawieniach może usunąć własne konto."
                 },
                 {
                     name: "Możliwość przypisywania do grupy",
