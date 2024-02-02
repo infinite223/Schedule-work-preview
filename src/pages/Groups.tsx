@@ -13,6 +13,9 @@ import useAuth from "../hooks/useAuth";
 import {GroupLocal, User} from "../Utilis/types";
 import logo from "../assets/calendar.png";
 import {group} from "console";
+import {useNotifications} from "reapop";
+import {arrayRemove, doc, updateDoc} from "firebase/firestore";
+import {db} from "../services/firebaseConfig";
 
 type GroupItemProps = {
   name: string;
@@ -26,10 +29,35 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const {notify} = useNotifications();
 
   const trySetGorup = () => {
     dispatch(setGroup({name, users, id}));
     navigate("/");
+  };
+
+  const removeUserFromGroup = async (userUid: string) => {
+    if (isAdmin) {
+      try {
+        await updateDoc(doc(db, "users", userUid), {
+          groupId: false,
+        });
+
+        await updateDoc(doc(db, "groups", id), {
+          users: arrayRemove(userUid),
+        });
+
+        notify({
+          status: "success",
+          title: "Pomyślnie usunięto pracownika z grupy",
+        });
+      } catch (error) {
+        notify({
+          status: "error",
+          title: "Nie udało się dodać pracownika",
+        });
+      }
+    }
   };
 
   return (
@@ -87,7 +115,10 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
           </div>
 
           {isAdmin && (
-            <div className="flex items-center gap-2 pr-2 pl-2 text-zinc-800 dark:text-zinc-200">
+            <div
+              onClick={() => removeUserFromGroup(uid)}
+              className="flex items-center gap-2 pr-2 pl-2 text-zinc-800 dark:text-zinc-200"
+            >
               <FaMinus size={12} />
             </div>
           )}

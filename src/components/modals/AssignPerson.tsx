@@ -41,27 +41,30 @@ export const AssignPerson = () => {
 
   const assignUserToGroup = async (userUid: string) => {
     setLoading(true);
-    try {
-      await updateDoc(doc(db, "users", userUid), {
-        groupId,
-      });
+    if (isAdmin) {
+      try {
+        await updateDoc(doc(db, "users", userUid), {
+          groupId,
+        });
 
-      await updateDoc(doc(db, "groups", groupId), {
-        users: arrayUnion(userUid),
-      });
+        await updateDoc(doc(db, "groups", groupId), {
+          users: arrayUnion(userUid),
+        });
 
-      notify({
-        status: "success",
-        title: "Pomyślnie przypisano pracownika do grupy",
-      });
+        notify({
+          status: "success",
+          title: "Pomyślnie przypisano pracownika do grupy",
+        });
 
-      navigate(-1);
-    } catch (error) {
-      notify({
-        status: "error",
-        title: "Nie udało się dodać pracownika",
-      });
+        navigate(-1);
+      } catch (error) {
+        notify({
+          status: "error",
+          title: "Nie udało się dodać pracownika",
+        });
+      }
     }
+    setLoading(false);
   };
 
   if (!isAdmin) navigate("/");
