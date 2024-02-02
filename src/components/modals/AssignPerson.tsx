@@ -2,15 +2,25 @@ import {useEffect, useState} from "react";
 import useAuth from "../../hooks/useAuth";
 import {useLocation, useNavigate} from "react-router-dom";
 import {User} from "../../Utilis/types";
-import {collection, getDocs, query, where} from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {IoClose} from "react-icons/io5";
 import {MdAssignmentAdd} from "react-icons/md";
+import {useNotifications} from "reapop";
 
 export const AssignPerson = () => {
   const [users, setUsers] = useState<User[] | null>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const {notify} = useNotifications();
   const location = useLocation();
   const {user}: any = useAuth();
   const isAdmin = user.type === "admin";
@@ -24,14 +34,44 @@ export const AssignPerson = () => {
       if (usersFirebase) {
         setUsers(usersFirebase.docs.map((doc: any) => doc.data()));
       }
-      setLoading(false);
     };
 
     getUsers();
   }, []);
 
+  const assignUserToGroup = async (userUid: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(db, "users", userUid), {
+        groupId,
+      });
+
+      await updateDoc(doc(db, "groups", groupId), {
+        users: arrayUnion(userUid),
+      });
+
+      notify({
+        status: "success",
+        title: "Pomyślnie przypisano pracownika do grupy",
+      });
+
+      navigate(-1);
+    } catch (error) {
+      notify({
+        status: "error",
+        title: "Nie udało się dodać pracownika",
+      });
+    }
+  };
+
   if (!isAdmin) navigate("/");
-  if (!users && !loading) navigate("/");
+  if (users?.length === 0 && !loading) {
+    navigate("/");
+    notify({
+      status: "error",
+      title: "Brak pracowników do przypisania",
+    });
+  }
 
   return (
     <div
@@ -52,6 +92,7 @@ export const AssignPerson = () => {
           </button>
         </div>
         <div className="flex flex-col gap-1 pt-2 pb-2 text-black dark:text-white">
+          <h2 className="mb-1 text-sm">Nieprzypisani pracownicy:</h2>
           {users?.map((_user) => (
             <div className="flex items-center justify-between bg-zinc-100 dark:bg-zinc-800 rounded-md p-2 pr-3 pl-3 hover:opacity-55 cursor-pointer transition-opacity">
               <div className="flex flex-col">
@@ -61,7 +102,9 @@ export const AssignPerson = () => {
                 </p>
               </div>
 
-              <MdAssignmentAdd className="text-green-500" />
+              <div className="p-1" onClick={() => assignUserToGroup(_user.uid)}>
+                <MdAssignmentAdd className="text-green-500" />
+              </div>
             </div>
           ))}
         </div>
