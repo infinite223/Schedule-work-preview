@@ -81,14 +81,14 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
                   <FaPersonCirclePlus size={19} />
                 </div>
               </Link>
-              <div className="pr-2 pl-2 hover:text-red-600 cursor-pointer transition-colors">
+              {/* <div className="pr-2 pl-2 hover:text-red-600 cursor-pointer transition-colors">
                 <FaTrashCan size={16} />
-              </div>
+              </div> */}
             </div>
           )}
           <div
             onClick={trySetGorup}
-            className="flex items-center font-semibold gap-2 text-xs rounded-full bg-green-600 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100"
+            className="flex items-center font-semibold gap-2 text-xs rounded-full bg-green-700 p-2 pr-3 pl-3 hover:opacity-70 cursor-pointer transition-opacity text-zinc-100"
           >
             Zobacz
             <IoCalendarSharp size={15} />

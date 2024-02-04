@@ -91,7 +91,7 @@ const Settings = () => {
         <div className="rounded-full p-8 bg-zinc-200 dark:bg-zinc-950 border-[5px] border-zinc-400 dark:border-zinc-800">
           <BsFillPersonFill size={40} color="white" />
         </div>
-        <h2 className="text-white font-semibold">{user?.nick}</h2>
+        <h2 className="dark:text-white font-semibold">{user?.nick}</h2>
       </div>
       <div className="flex flex-col items-center justify-between w-full pr-4 pl-4 pt-10 flex-grow overflow-auto h-0">
         <div className="flex flex-col gap-2 w-full pl-3 pr-3 overflow-auto h-full">

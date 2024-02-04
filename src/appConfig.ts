@@ -3,18 +3,30 @@ export const appConfig = {
     version: "0.1.3",
     commingFetures: 
         {
-            createdAt: new Date(2024, 1, 9),
+            createdAt: new Date(2024, 1, 19),
             patch: '0.1.4',
             features: [
                 {
                     name: "Podliczanie godzin dla pracownika.",
                     description: "Użytkownik ma możliwość automatycznie podliczyć sobie godziny w aktualnym miesiącu."
                 },
+                {
+                    name: "Edycja profilu.",
+                    description: "Użytkownik ma możliwość edycji własnego profilu."
+                },
+                {
+                    name: "Możliwość wyczyszczenia harmonogramu dla danego miesiąca.",
+                    description: "Administrator ma możliwość wyczyszczenia całego miesiąca z wpsanych dni (reset)."
+                },
+                {
+                    name: "Możliwość wypisania użytkownika.",
+                    description: "Administrator ma możliwość wypisania wybranego użytkownika z danego dnia pracy."
+                },
             ]
         },
     releaseNotes: [
         {
-            createdAt: new Date(2024, 0, 25),
+            createdAt: new Date(2024, 1, 3),
             patch: '0.1.3',
             features: [
                 {
@@ -40,6 +52,10 @@ export const appConfig = {
                 {
                     name: "Możliwość przypisywania do grupy",
                     description: "Administrator może przypisywać użytkowników do grupy za pomocą osobnego modala."
+                },
+                {
+                    name: "Możliwość usuwania pracownika z grupy przez admina",
+                    description: "Administrator może łatwo usunąć użytkowników z grupy za pomocą osobnego odpowiedniego przycisku w zakładce grupy."
                 },
             ]
         },
@@ -87,6 +103,70 @@ export const appConfig = {
                     name: "Zapis wycofania obecności z dnia",
                     description: "Gdy użytkownik usunie swoją obecność z danego dnia, zostanie po nim ślad w tym dniu. (szare pole)"
                 }
+            ]
+        },
+        {
+            createdAt: new Date(2024, 0, 10),
+            patch: '0.1.1',
+            features: [
+                {
+                    name: "Możliwość dołączania do dnia",
+                    description: "Użytkownik ma możliwość dołączyć do wybranego wcześniej dnia,  wybierając godziny pracy."
+                },
+                {
+                    name: "Wyświetlanie grup",
+                    description: "Każdy użytkownik ma możliwość zobaczenia dostępnych grup w aplikacji."
+                },
+                {
+                    name: "Możliwość podglądu innych grup",
+                    description: "Każdy użytkownik ma możliwość przełączenia do innej grupy tak abby zobaczyć jej harmonogram pracy."
+                },
+                {
+                    name: "Dostęp do ustawień aplikacji",
+                    description: "Aplikacja zawiera w sobie ustawienia w których są dodatkowe opcje."
+                },
+                {
+                    name: "Powiadomienia w aplikacji",
+                    description: "Większość funkcjonalności aplikacji zawiera w sobie dodatkowo powiadomienia tak aby informować użytkownika o powodzeniu danej czynności."
+                },
+                {
+                    name: "ładownaie listy użytkowników z grupy do dnia",
+                    description: "Aby zaoszczędzić ilości pobieranych danych z bazy danych, użytkownicy nie są za wybraniem dnia pobierani na nowo tylko ładowani z pamięci."
+                },
+            ]
+        },
+        {
+            createdAt: new Date(2023, 11, 30),
+            patch: '0.1.0',
+            features: [
+                {
+                    name: "Możliwość przemieszczania się pomiędzy miesiącami",
+                    description: "Użytkownik ma możliwość zmiany wybranego miesiąca w kalendarzu."
+                },
+                {
+                    name: "Możliwość wylogowywania",
+                    description: "Użytkownik ma możliwość wylogować się z aplikacji."
+                },
+                {
+                    name: "Logowanie i rejestracja użytkowników",
+                    description: "Każdy użytkownik ma możliwość stworzenia sobie konta w aplikacji."
+                },
+                {
+                    name: "Informacje na kalendarzu",
+                    description: "Gdy użytkownik jest zapisany w dany dzień, jest to zaznaczone w kalendarzu za pomocą kropki o konkretnym kolorze."
+                },
+                {
+                    name: "Dynamiczne ładowanie się kalendarza",
+                    description: "Nasłuch do bazy jest zaimplememntowany na dany miesiąc."
+                },
+                {
+                    name: "Strona starowa",
+                    description: "Aplikacja posiada podstawową strone startową która ma za zadanie prezentować aplikacje."
+                },
+                {
+                    name: "Nawigacja w apliakcja",
+                    description: "Aplikacja posiada intuicyjną dolną nawigracje, która pozwala się przemieszczać pomiędzy grupami, grafikiem a ustawieniami."
+                },
             ]
         }
     ]

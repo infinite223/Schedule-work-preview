@@ -26,7 +26,6 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nick, setNick] = useState("");
-
   const navigate = useNavigate();
   const {notify} = useNotifications();
   const {user}: any = useAuth();
@@ -44,6 +43,7 @@ export default function Register() {
             email,
             uid: createdUserUid,
             type: "user",
+            groupId: false,
             phonenumber: null,
           });
           navigate("/");
