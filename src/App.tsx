@@ -29,6 +29,7 @@ import {GroupFirebase, GroupLocal, User} from "./Utilis/types";
 import {setGroup} from "./slices/selectedGroupSlice";
 import Information from "./pages/Information";
 import {AssignPerson} from "./components/modals/AssignPerson";
+import {EditUserModal} from "./components/modals/EditUserModal";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -213,6 +214,7 @@ function App() {
             <Route path="/JoinToDay" element={<JoinToDay />} />
             <Route path="/RemoveFromDay" element={<RemoveFromDay />} />
             <Route path="/AssignPerson" element={<AssignPerson />} />
+            <Route path="/EditUserModal" element={<EditUserModal />} />
           </Routes>
         )}
       </React.Suspense>

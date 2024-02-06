@@ -1,7 +1,7 @@
 import {deleteUser, signOut} from "firebase/auth";
 import Navigation from "../navigation";
 import {auth, db} from "../services/firebaseConfig";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {BsFillPersonFill} from "react-icons/bs";
 import {useNotifications} from "reapop";
 import useAuth from "../hooks/useAuth";
@@ -43,12 +43,6 @@ const OptionItem: FC<OptionItemProps> = ({icon, name, navigate, admin}) => {
 
 const SettingsOptions: OptionItemProps[] = [
   {
-    icon: <BsPersonLinesFill size={iconSize} />,
-    name: "Edytuj profil",
-    navigate: "./EditProfile",
-    admin: false,
-  },
-  {
     icon: <IoInformationCircleSharp size={iconSize} />,
     name: "Informacje",
     navigate: "/Information",
@@ -74,6 +68,7 @@ const Settings = () => {
   const navigate = useNavigate();
   const {notify} = useNotifications();
   const {user}: any = useAuth();
+  const location = useLocation();
   const [showPromptModal, setShowPromptModal] = useState(false);
 
   const logOut = async () => {
@@ -95,6 +90,12 @@ const Settings = () => {
       </div>
       <div className="flex flex-col items-center justify-between w-full pr-4 pl-4 pt-10 flex-grow overflow-auto h-0">
         <div className="flex flex-col gap-2 w-full pl-3 pr-3 overflow-auto h-full">
+          <Link to={"/EditUserModal"} state={{previousLocation: location}}>
+            <div className="flex w-full rounded-md p-2 pr-1 pl-3 gap-4 items-center text-zinc-700 dark:text-zinc-200 hover:opacity-90 transition-opacity">
+              <BsPersonLinesFill size={iconSize} />
+              <div>Edytuj profil</div>
+            </div>
+          </Link>
           {SettingsOptions.map((data, id) => (
             <OptionItem {...data} key={id} />
           ))}
