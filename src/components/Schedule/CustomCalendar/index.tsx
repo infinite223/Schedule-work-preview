@@ -16,11 +16,7 @@ interface CustomCalendarProps {
   setSelectedMonth: (value: Date) => void;
   data: DayData[];
 }
-const nowDate = new Date(
-  new Date().getFullYear(),
-  new Date().getMonth(),
-  new Date().getDate()
-);
+const nowDate = new Date();
 const CustomCalendar: FC<CustomCalendarProps> = ({
   selectedDate,
   setSelectedDate,

@@ -97,7 +97,7 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
       </div>
 
       <div className="text-zinc-800 text-sm dark:text-zinc-300 mb-3">
-        {users.length} osób/a w grupie
+        {users.length} osoba/y w grupie
       </div>
       {users.map(({nick, uid}, id) => (
         <div
