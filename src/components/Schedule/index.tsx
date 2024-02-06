@@ -13,12 +13,15 @@ import {selectedGroup} from "../../slices/selectedGroupSlice";
 import {setRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
 import logo from "../../assets/calendar.png";
 import useAuth from "../../hooks/useAuth";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Schedule = () => {
   const dispatch = useDispatch();
   const group = useSelector(selectedGroup);
   const [scheduleDays, setScheduleDays] = useState<DayData[]>([]);
   const {user}: any = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
     date: new Date(
@@ -71,6 +74,12 @@ const Schedule = () => {
     }
   }, [selectedMonth, group]);
 
+  useEffect(() => {
+    if (user && user?.groupId === false) {
+      console.log("elooooo");
+      navigate("/StartNewUser", {state: {previousLocation: location}});
+    }
+  }, [user]);
   const operationType = scheduleDays.find(
     (day) =>
       formatDateToString(day.date.toDate()) ===

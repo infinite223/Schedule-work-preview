@@ -59,8 +59,10 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
         date: selectedMonth,
         users: firstDayInMonthData?.users,
       });
+      dispatch(setSelectedDayInStore(JSON.stringify(selectedMonth)));
     } else if (selectedDayData) {
       setSelectedDate({date: selectedDate.date, users: selectedDayData?.users});
+      dispatch(setSelectedDayInStore(JSON.stringify(selectedDate.date)));
     } else if (currentDayData) {
       setSelectedDate({date: nowDate, users: currentDayData?.users});
     }

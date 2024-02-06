@@ -54,8 +54,12 @@ export const appConfig = {
                     description: "Administrator może przypisywać użytkowników do grupy za pomocą osobnego modala."
                 },
                 {
-                    name: "Możliwość usuwania pracownika z grupy przez admina",
+                    name: "Możliwość usuwania pracownika z grupy przez administratora",
                     description: "Administrator może łatwo usunąć użytkowników z grupy za pomocą osobnego odpowiedniego przycisku w zakładce grupy."
+                },
+                {
+                    name: "Start dla nowego użytkownika",
+                    description: "Gdy mowy użytkownik założy konto i nie jest przypisany do grupy wyświeli się stosowna informacja w osobnym oknie."
                 },
             ]
         },

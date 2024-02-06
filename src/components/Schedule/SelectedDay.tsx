@@ -52,7 +52,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
 
       <div className="flex flex-col pl-4 pr-2 w-full flex-grow overflow-auto">
         {usersInDay.map((item: any, id: string) => (
-          <>
+          <div key={id}>
             {item?.user && item?.end && item?.start && item?.createdAt ? (
               <div
                 key={id}
@@ -91,7 +91,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             ) : (
               <></>
             )}
-          </>
+          </div>
         ))}
       </div>
     </div>

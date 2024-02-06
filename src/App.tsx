@@ -30,6 +30,7 @@ import {setGroup} from "./slices/selectedGroupSlice";
 import Information from "./pages/Information";
 import {AssignPerson} from "./components/modals/AssignPerson";
 import {EditUserModal} from "./components/modals/EditUserModal";
+import {StartNewUser} from "./components/modals/StartNewUser";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -215,6 +216,7 @@ function App() {
             <Route path="/RemoveFromDay" element={<RemoveFromDay />} />
             <Route path="/AssignPerson" element={<AssignPerson />} />
             <Route path="/EditUserModal" element={<EditUserModal />} />
+            <Route path="/StartNewUser" element={<StartNewUser />} />
           </Routes>
         )}
       </React.Suspense>

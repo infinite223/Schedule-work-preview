@@ -14,7 +14,7 @@ export const EditUserModal = () => {
   const [nick, setNick] = useState(user.nick);
   const dispatch = useDispatch();
 
-  const editUser = async () => {
+  const tryEditUser = async () => {
     if (user) {
       try {
         await updateDoc(doc(db, "users", user.uid), {
@@ -38,7 +38,7 @@ export const EditUserModal = () => {
     } else {
       notify({
         status: "error",
-        title: "Coś poszło nie tak, spróbuj później",
+        title: "Coś poszło nie tak, spróbuj później ponownie",
       });
     }
   };
@@ -68,7 +68,7 @@ export const EditUserModal = () => {
 
         <button
           className="button bg-green-600 text-white font-bold hover:opacity-80 transition-opacity p-1.5 rounded-md text-sm"
-          onClick={editUser}
+          onClick={tryEditUser}
         >
           Aktualizuj
         </button>
