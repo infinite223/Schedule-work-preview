@@ -9,7 +9,7 @@ const HoursPrediction: FC<HoursPredictionProps> = ({days, userUid}) => {
   const hoursPrediction = countAllHoursInMonthV2(userUid, days);
   console.log(days, hoursPrediction, "elo");
   return (
-    <span className="text-green-300 text-sm font-light">
+    <span className="text-green-500 text-sm font-light">
       {hoursPrediction[userUid]?.hours > 0 && (
         <span>{hoursPrediction[userUid]?.hours} h</span>
       )}

@@ -1,21 +1,32 @@
 import {FC, useEffect, useState} from "react";
 import {DateWithUsers, GroupLocal} from "../../Utilis/types";
 import {shortDayNames} from "../../Utilis/data";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
 import {formatDateToString, getColorDot} from "../../Utilis/functions";
 import {selectRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
 import useAuth from "../../hooks/useAuth";
+import {doc, updateDoc} from "firebase/firestore";
+import {db} from "../../services/firebaseConfig";
+import {useNavigate} from "react-router-dom";
+import {useNotifications} from "reapop";
+import {setReadsCounter} from "../../slices/readsCounterSlice";
+import {FaLockOpen, FaUserLock} from "react-icons/fa";
 
 interface SelectedDateProps {
   selectedDate: DateWithUsers;
 }
 
 const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
+  const navigate = useNavigate();
+  const {notify} = useNotifications();
   const group: GroupLocal = useSelector(selectedGroup);
+  const dispatch = useDispatch();
+
   const [usersInDay, setUsersInDay] = useState<any>([]);
   const refreshSelectedDay = useSelector(selectRefreshSelectedDay);
   const {user}: any = useAuth();
+  const isAdmin = user?.type === "admin";
   useEffect(() => {
     setUsersInDay(
       selectedDate.users.map((user) => {
@@ -29,11 +40,49 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             user: findUser,
             createdAt: user.createdAt,
             remove: user?.remove,
+            block: user?.block,
           };
         }
       })
     );
   }, [selectedDate, refreshSelectedDay]);
+
+  const blockUserInDay = async (userInDay: any, type: boolean) => {
+    console.log(userInDay);
+    if (user && isAdmin) {
+      try {
+        await updateDoc(
+          doc(
+            db,
+            "schedule",
+            new Date(userInDay.date.seconds * 1000).toString() +
+              userInDay.user.uid
+          ),
+          {
+            block: type,
+          }
+        );
+        navigate("/");
+
+        notify({
+          status: "success",
+          title: "Zablokowano " + userInDay.user.nick,
+        });
+      } catch (error) {
+        notify({
+          status: "error",
+          title: "Coś poszło nie tak, spróbuj od nowa załadować aplikacje",
+        });
+      }
+
+      dispatch(setReadsCounter(1));
+    } else {
+      notify({
+        status: "error",
+        title: "Coś poszło nie tak",
+      });
+    }
+  };
 
   return (
     <div className="flex text-black dark:text-white p-2 w-full h-fit">
@@ -68,12 +117,28 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
                   >
                     {item?.user?.nick}
                   </div>
-                  <div
-                    className={`flex gap-4 items-center text-black dark:text-zinc-200`}
-                    style={{color: getColorDot(item)}}
-                  >
-                    <div className="">od: {item?.start}</div>
-                    <div>do: {item?.end}</div>
+                  <div className="flex items-center gap-4">
+                    <div
+                      className={`flex gap-4 items-center text-black dark:text-zinc-200`}
+                      style={{color: getColorDot(item)}}
+                    >
+                      <div className="">od: {item?.start}</div>
+                      <div>do: {item?.end}</div>
+                    </div>
+                    {isAdmin &&
+                      (item?.block ? (
+                        <FaUserLock
+                          onClick={() => blockUserInDay(item, false)}
+                          className="text-zinc-800 dark:text-zinc-100"
+                          size={16}
+                        />
+                      ) : (
+                        <FaLockOpen
+                          onClick={() => blockUserInDay(item, true)}
+                          className="text-zinc-800 dark:text-zinc-100"
+                          size={16}
+                        />
+                      ))}
                   </div>
                 </div>
 

@@ -1,4 +1,4 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {doc, setDoc, updateDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
@@ -6,6 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import {useState} from "react";
 import {useNotifications} from "reapop";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
+import {GroupLocal} from "../../Utilis/types";
+import {selectedGroups} from "../../slices/groupsSlice";
 
 export const EditUserModal = () => {
   const navigate = useNavigate();
@@ -13,22 +15,34 @@ export const EditUserModal = () => {
   const {user}: any = useAuth();
   const [nick, setNick] = useState(user?.nick);
   const dispatch = useDispatch();
+  const groups: GroupLocal[] = useSelector(selectedGroups);
 
   const tryEditUser = async () => {
     if (nick !== user.nick) {
       if (nick.length > 2 && nick.length < 20) {
         if (user) {
           try {
-            await updateDoc(doc(db, "users", user.uid), {
-              nick,
-            });
+            const findNick = groups.find((_group) =>
+              _group.users.find((_user) => _user.nick === nick)
+            );
 
-            notify({
-              status: "success",
-              title: "Udało się zaaktualizować dane profilu.",
-            });
-            navigate("/");
-            window.location.reload();
+            if (!findNick) {
+              await updateDoc(doc(db, "users", user.uid), {
+                nick,
+              });
+
+              notify({
+                status: "success",
+                title: "Udało się zaaktualizować dane profilu.",
+              });
+              navigate("/");
+              window.location.reload();
+            } else {
+              notify({
+                status: "error",
+                title: "Ten nick jest już zajęty.",
+              });
+            }
           } catch (error) {
             notify({
               status: "error",

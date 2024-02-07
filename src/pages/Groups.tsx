@@ -10,7 +10,7 @@ import {IoCalendarSharp} from "react-icons/io5";
 import {setGroup} from "../slices/selectedGroupSlice";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import {GroupLocal, User} from "../Utilis/types";
+import {Group, GroupLocal, User} from "../Utilis/types";
 import logo from "../assets/calendar.png";
 import {group} from "console";
 import {useNotifications} from "reapop";
@@ -111,7 +111,7 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
                 : "text-zinc-800 dark:text-zinc-100"
             }
           >
-            {nick}
+            - {nick}
           </div>
 
           {isAdmin && (
