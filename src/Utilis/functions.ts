@@ -26,68 +26,32 @@ export const formatStringToDate = (dateString: string) => {
   return date;
 };
 
-export const countAllHoursInMonth = (userUid: string, data: {id: number; date: Date; users: DayData[]; noDay: boolean}[]) => {
-  const currentDate = new Date();
-  const hoursPredictions: any = [];
 
-  let numberHoursFull = { hours: 0, minutes: 0 };
-  let numberHoursNow = { hours: 0, minutes: 0 };
-  let currentMonth = currentDate.getMonth(); //10
-  const sortedAllUsersInDay: any = [];
-
-  data.forEach((userInDay) => {
-    const userInDayDate = userInDay.date;
-    const findUserInDay = userInDay.users.find((_user) => _user.userUid === userUid)
-
-    if(findUserInDay) {
-
-      const time = timeCounter(findUserInDay?.start, findUserInDay.end);
+export const countAllHoursInMonthV2 = (userUid: string, data: {id: number; date: Date; users: DayData[]; noDay: boolean}[]) => {
   
-      sortedAllUsersInDay.push({
-        month: userInDayDate.getMonth(),
-        year: userInDayDate.getFullYear(),
-        day: userInDayDate.getDate(),
-        time: { h: time.godziny, m: time.minuty },
-      });
-    }
-  });
+  const workHoursPerUser: any = {};
 
-  sortedAllUsersInDay?.forEach((element: any) => {
-    if (currentMonth === element.month) {
-      numberHoursFull.hours += element.time.h;
-      numberHoursFull.minutes += element.time.m;
+  data.forEach(day => {
+    if (!day.users || day.users.length === 0) return;
 
-      if (currentDate.getDate() >= element.day) {
-        numberHoursNow.hours += element.time.h;
-        numberHoursNow.minutes += element.time.m;
+    day.users.forEach(user => {
+      if (!workHoursPerUser[user.userUid]) {
+        workHoursPerUser[user.userUid] = { hours: 0, minutes: 0 };
       }
-    }
+
+      const time = timeCounter(user?.start, user.end);
+    
+      workHoursPerUser[user.userUid].hours += time.godziny;
+      workHoursPerUser[user.userUid].minutes += time.minuty;
+
+      if (workHoursPerUser[user.userUid].minutes >= 60) {
+        workHoursPerUser[user.userUid].hours += Math.floor(workHoursPerUser[user.userUid].minutes / 60);
+        workHoursPerUser[user.userUid].minutes = workHoursPerUser[user.userUid].minutes % 60;
+      }
+    });
   });
 
-  if (numberHoursFull.minutes >= 60) {
-    const hours = Math.floor(numberHoursFull.minutes / 60);
-    const minutes = numberHoursFull.minutes % 60;
-
-    numberHoursFull.hours += hours;
-    numberHoursFull.minutes = minutes;
-  }
-
-  if (numberHoursNow.minutes >= 60) {
-    const hours = Math.floor(numberHoursNow.minutes / 60);
-    const minutes = numberHoursNow.minutes % 60;
-
-    numberHoursNow.hours += hours;
-    numberHoursNow.minutes = minutes;
-  }
-
-  hoursPredictions.push({
-    year: currentDate.getFullYear(),
-    month: currentDate.getMonth(),
-    numberHoursFull,
-    numberHoursNow,
-  });
-
-  return hoursPredictions;
+  return workHoursPerUser;
 };
 
 export function addMonthsToDate(date: Date, months: number) {

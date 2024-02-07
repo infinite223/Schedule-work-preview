@@ -77,8 +77,8 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
                   </div>
                 </div>
 
-                <div className="flex pt-1 text-zinc-500">
-                  <div className="text-[10px] font-light">
+                <div className="flex pt-1 text-zinc-400">
+                  <div className="text-[10px]">
                     Dodano:{" "}
                     {formatDateToString(
                       new Date(item?.createdAt?.seconds * 1000)

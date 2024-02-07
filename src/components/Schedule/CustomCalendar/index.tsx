@@ -3,15 +3,12 @@ import {DateWithUsers, DayData} from "../../../Utilis/types";
 import {firstDayOfMonth} from "../../../Utilis/scheduleFunctions";
 import Day from "./Day";
 import {monthNames, shortDayNames} from "../../../Utilis/data";
-import {
-  addMonthsToDate,
-  countAllHoursInMonth,
-  formatDateToString,
-} from "../../../Utilis/functions";
+import {addMonthsToDate, formatDateToString} from "../../../Utilis/functions";
 import {IoChevronBackOutline, IoChevronForwardOutline} from "react-icons/io5";
 import {useDispatch} from "react-redux";
 import {setSelectedDayInStore} from "../../../slices/selectedDaySlice";
 import useAuth from "../../../hooks/useAuth";
+import HoursPrediction from "../../HoursPrediction";
 
 interface CustomCalendarProps {
   selectedDate: DateWithUsers;
@@ -66,10 +63,8 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
     } else if (currentDayData) {
       setSelectedDate({date: nowDate, users: currentDayData?.users});
     }
-
-    const hoursPrediction = countAllHoursInMonth(user.uid, days);
-    console.log(hoursPrediction, "tutaj");
   }, [days]);
+
   return (
     <div className="flex flex-col items-center w-full pt-2 rounded-md mb-2">
       <div className="flex flex-row items-center md:pr-5 md:pl-5 pr-1 pl-1 justify-between pb-2 w-full shadow-sm">
@@ -79,16 +74,14 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
         >
           <IoChevronBackOutline size={22} color="var(--baseColor)" />
         </button>
-        <span className="text-sm text-gray-600 dark:text-gray-300">
-          {monthNames[selectedMonth.getMonth()]}
-          {" " + selectedMonth.getFullYear()}
-        </span>
-        <span className="text-gray-600 dark:text-gray-300 text-sm font-light">
-          {/* {hoursPrediction[0].numberHoursNow.hours}h{" "}
-          {hoursPrediction[0].numberHoursNow.minutes}m /
-          {hoursPrediction[0].numberHoursFull.hours}h{" "}
-          {hoursPrediction[0].numberHoursFull.minutes}m */}
-        </span>
+        <div className="flex items-center gap-3">
+          <HoursPrediction days={days} userUid={user?.uid} />
+
+          <span className="text-sm text-gray-600 dark:text-gray-300">
+            {monthNames[selectedMonth.getMonth()]}
+            {" " + selectedMonth.getFullYear()}
+          </span>
+        </div>
         <button
           style={{padding: "2px"}}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, 1))}
