@@ -26,64 +26,69 @@ export const formatStringToDate = (dateString: string) => {
   return date;
 };
 
-// export const countAllHoursInMonth = (data: UserInDay[]) => {
-//   const currentDate = new Date();
-//   const hoursPredictions: any = [];
+export const countAllHoursInMonth = (userUid: string, data: {id: number; date: Date; users: DayData[]; noDay: boolean}[]) => {
+  const currentDate = new Date();
+  const hoursPredictions: any = [];
 
-//   let numberHoursFull = { hours: 0, minutes: 0 };
-//   let numberHoursNow = { hours: 0, minutes: 0 };
-//   let currentMonth = currentDate.getMonth(); //10
-//   const sortedAllUsersInDay: any = [];
+  let numberHoursFull = { hours: 0, minutes: 0 };
+  let numberHoursNow = { hours: 0, minutes: 0 };
+  let currentMonth = currentDate.getMonth(); //10
+  const sortedAllUsersInDay: any = [];
 
-//   data.forEach((userInDay) => {
-//     const userInDayDate = formatStringToDate(userInDay.day.date);
-//     const time = timeCounter(userInDay.from, userInDay.to);
+  data.forEach((userInDay) => {
+    const userInDayDate = userInDay.date;
+    const findUserInDay = userInDay.users.find((_user) => _user.userUid === userUid)
 
-//     sortedAllUsersInDay.push({
-//       month: userInDayDate.getMonth(),
-//       year: userInDayDate.getFullYear(),
-//       day: userInDayDate.getDate(),
-//       time: { h: time.godziny, m: time.minuty },
-//     });
-//   });
+    if(findUserInDay) {
 
-//   sortedAllUsersInDay?.forEach((element: any) => {
-//     if (currentMonth === element.month) {
-//       numberHoursFull.hours += element.time.h;
-//       numberHoursFull.minutes += element.time.m;
+      const time = timeCounter(findUserInDay?.start, findUserInDay.end);
+  
+      sortedAllUsersInDay.push({
+        month: userInDayDate.getMonth(),
+        year: userInDayDate.getFullYear(),
+        day: userInDayDate.getDate(),
+        time: { h: time.godziny, m: time.minuty },
+      });
+    }
+  });
 
-//       if (currentDate.getDate() >= element.day) {
-//         numberHoursNow.hours += element.time.h;
-//         numberHoursNow.minutes += element.time.m;
-//       }
-//     }
-//   });
+  sortedAllUsersInDay?.forEach((element: any) => {
+    if (currentMonth === element.month) {
+      numberHoursFull.hours += element.time.h;
+      numberHoursFull.minutes += element.time.m;
 
-//   if (numberHoursFull.minutes >= 60) {
-//     const hours = Math.floor(numberHoursFull.minutes / 60);
-//     const minutes = numberHoursFull.minutes % 60;
+      if (currentDate.getDate() >= element.day) {
+        numberHoursNow.hours += element.time.h;
+        numberHoursNow.minutes += element.time.m;
+      }
+    }
+  });
 
-//     numberHoursFull.hours += hours;
-//     numberHoursFull.minutes = minutes;
-//   }
+  if (numberHoursFull.minutes >= 60) {
+    const hours = Math.floor(numberHoursFull.minutes / 60);
+    const minutes = numberHoursFull.minutes % 60;
 
-//   if (numberHoursNow.minutes >= 60) {
-//     const hours = Math.floor(numberHoursNow.minutes / 60);
-//     const minutes = numberHoursNow.minutes % 60;
+    numberHoursFull.hours += hours;
+    numberHoursFull.minutes = minutes;
+  }
 
-//     numberHoursNow.hours += hours;
-//     numberHoursNow.minutes = minutes;
-//   }
+  if (numberHoursNow.minutes >= 60) {
+    const hours = Math.floor(numberHoursNow.minutes / 60);
+    const minutes = numberHoursNow.minutes % 60;
 
-//   hoursPredictions.push({
-//     year: currentDate.getFullYear(),
-//     month: currentDate.getMonth(),
-//     numberHoursFull,
-//     numberHoursNow,
-//   });
+    numberHoursNow.hours += hours;
+    numberHoursNow.minutes = minutes;
+  }
 
-//   return hoursPredictions;
-// };
+  hoursPredictions.push({
+    year: currentDate.getFullYear(),
+    month: currentDate.getMonth(),
+    numberHoursFull,
+    numberHoursNow,
+  });
+
+  return hoursPredictions;
+};
 
 export function addMonthsToDate(date: Date, months: number) {
   const newDate = new Date(date);
@@ -108,6 +113,17 @@ export const getColorDot = (userInDay: DayData) => {
 
   return;
 };  
+
+export const countHoursForMonth = (userUid: string, days: {id: number; date: Date; users: DayData[]; noDay: boolean}[]) => {
+  let hours = 0
+  let fullHours = 0
+
+  for (const day of days) {
+    const userInDay = day.users.find((_user) => _user.userUid === userUid)
+    // hours +=userInDay.
+  }
+  return {hours, fullHours}
+}
 
 // export const setLogsInStorage = async (newLog: Log) => {
 //   const logsValue = await AsyncStorage.getItem("logs");

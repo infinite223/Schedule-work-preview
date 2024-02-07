@@ -11,34 +11,48 @@ export const EditUserModal = () => {
   const navigate = useNavigate();
   const {notify} = useNotifications();
   const {user}: any = useAuth();
-  const [nick, setNick] = useState(user.nick);
+  const [nick, setNick] = useState(user?.nick);
   const dispatch = useDispatch();
 
   const tryEditUser = async () => {
-    if (user) {
-      try {
-        await updateDoc(doc(db, "users", user.uid), {
-          nick,
-        });
+    if (nick !== user.nick) {
+      if (nick.length > 2 && nick.length < 20) {
+        if (user) {
+          try {
+            await updateDoc(doc(db, "users", user.uid), {
+              nick,
+            });
 
-        notify({
-          status: "success",
-          title: "Udało się zaaktualizować dane profilu.",
-        });
-        navigate("/");
-        window.location.reload();
-      } catch (error) {
+            notify({
+              status: "success",
+              title: "Udało się zaaktualizować dane profilu.",
+            });
+            navigate("/");
+            window.location.reload();
+          } catch (error) {
+            notify({
+              status: "error",
+              title: "Coś poszło nie tak, spróbuj od nowa załadować aplikacje",
+            });
+          }
+
+          dispatch(setReadsCounter(1));
+        } else {
+          notify({
+            status: "error",
+            title: "Coś poszło nie tak, spróbuj później ponownie",
+          });
+        }
+      } else {
         notify({
           status: "error",
-          title: "Coś poszło nie tak, spróbuj od nowa załadować aplikacje",
+          title: "Nick musi mieć minimum 3 znaki i maksymalnie 20",
         });
       }
-
-      dispatch(setReadsCounter(1));
     } else {
       notify({
         status: "error",
-        title: "Coś poszło nie tak, spróbuj później ponownie",
+        title: "Brak zmian nicku",
       });
     }
   };
@@ -52,13 +66,13 @@ export const EditUserModal = () => {
         className="h-fit w-11/12 sm:w-1/3 gap-2 min-w-3.5 flex flex-col justify-between text-black dark:text-white bg-zinc-100 dark:bg-zinc-900 p-5 rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-md font-bold mb-1 mt-1">Aktualizuj dane profilu</h2>
         <div className="flex flex-col">
+          <div className="text-md font-bold mb-2">Aktualizuj dane profilu</div>
           <p className="text-zinc-600 dark:text-zinc-300 text-sm mb-2">
             Twój nick w aplikacji
           </p>
           <input
-            className="bg-zinc-100 dark:bg-zinc-800 border-none outline-none shadow-none pl-4 pt-2 pb-2 mb-1 rounded-md"
+            className="bg-zinc-100 text-sm dark:bg-zinc-800 border-none outline-none shadow-none pl-4 pt-1.5 pb-1.5 mb-1 rounded-md"
             placeholder="Podaj swój nick"
             value={nick}
             onChange={(text) => setNick(text.target.value)}
