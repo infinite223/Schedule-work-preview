@@ -58,6 +58,7 @@ export const JoinToDay = () => {
           groupUid: group.id,
           remove: false,
           createdAt: new Date(),
+          block: false,
         });
         navigate("/");
 

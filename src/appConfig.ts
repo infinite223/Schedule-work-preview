@@ -19,8 +19,12 @@ export const appConfig = {
                     description: "Administrator ma możliwość wyczyszczenia całego miesiąca z wpsanych dni (reset)."
                 },
                 {
-                    name: "Możliwość wypisania użytkownika.",
-                    description: "Administrator ma możliwość wypisania wybranego użytkownika z danego dnia pracy."
+                    name: "Możliwość zablokowania użytkownika.",
+                    description: "Administrator ma możliwość zablokowania wybranego użytkownika w danym dniu pracy."
+                },
+                {
+                    name: "Dynamiczne podliczanie godzin na dany miesiąc.",
+                    description: "Gdy użytkownik zmiania miesiące w kalendarzu, automatycznie aktualizuje się status ilości godzin."
                 },
             ]
         },

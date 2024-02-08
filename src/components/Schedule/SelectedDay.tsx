@@ -26,10 +26,10 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   const refreshSelectedDay = useSelector(selectRefreshSelectedDay);
   const {user}: any = useAuth();
   const isAdmin = user?.type === "admin";
+
   useEffect(() => {
     setUsersInDay(
       selectedDate.users.map((user) => {
-        console.log(user, "tu");
         const findUser = group.users.find((u) => u.uid === user.userUid);
         if (findUser) {
           return {

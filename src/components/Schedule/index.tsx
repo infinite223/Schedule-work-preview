@@ -3,7 +3,15 @@ import CustomCalendar from "./CustomCalendar";
 import {DateWithUsers, DayData} from "../../Utilis/types";
 import Navigation from "../../navigation";
 import SelectedDay from "./SelectedDay";
-import {collection, onSnapshot, query, where} from "firebase/firestore";
+import {
+  DocumentData,
+  DocumentReference,
+  collection,
+  deleteDoc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import {addMonthsToDate, formatDateToString} from "../../Utilis/functions";
 import Loading from "../Loading";
@@ -14,13 +22,19 @@ import {setRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
 import logo from "../../assets/calendar.png";
 import useAuth from "../../hooks/useAuth";
 import {useLocation, useNavigate} from "react-router-dom";
+import {useNotifications} from "reapop";
 
 const Schedule = () => {
   const dispatch = useDispatch();
   const group = useSelector(selectedGroup);
   const [scheduleDays, setScheduleDays] = useState<DayData[]>([]);
+  const [scheduleDaysRefs, setScheduleDaysRefs] = useState<
+    DocumentReference<DocumentData, DocumentData>[]
+  >([]);
   const {user}: any = useAuth();
+  const isAdmin = user?.type === "admin";
   const navigate = useNavigate();
+  const {notify} = useNotifications();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
@@ -56,10 +70,14 @@ const Schedule = () => {
       );
 
       const unsubscribe = onSnapshot(scheduleQuery, async (snapchot) => {
-        console.log("get days from firebase");
         setScheduleDays(
           snapchot.docs.map((doc: any, i) => {
             return doc.data();
+          })
+        );
+        setScheduleDaysRefs(
+          snapchot.docs.map((doc, i) => {
+            return doc.ref;
           })
         );
         dispatch(setReadsCounter(1));
@@ -100,6 +118,24 @@ const Schedule = () => {
     ? true
     : false;
 
+  const clearMonth = () => {
+    try {
+      scheduleDaysRefs.forEach(async (scheduleDayRef) => {
+        await deleteDoc(scheduleDayRef);
+      });
+
+      notify({
+        status: "success",
+        title: "Udało się wyczyścić miesiąc.",
+      });
+    } catch (error) {
+      notify({
+        status: "error",
+        title: "Coś poszło nie tak, spróbuj później.",
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col items-center  h-screen max-h-dvh  justify-between w-ful bg-white dark:bg-black">
       <div className="flex sm:flex-row flex-col w-full sm:flex-ro">
@@ -108,6 +144,14 @@ const Schedule = () => {
             <h1 className="pt-4 pb-3 text-lg pl-2 self-start font-semibold text-zinc-900 dark:text-gray-100">
               {group?.name ? group?.name : "Brak grupy"}
             </h1>
+            {isAdmin && (
+              <div
+                onClick={clearMonth}
+                className="p-1 pl-3 pr-3 bg-zinc-200 dark:bg-zinc-600 rounded-md text-white text-xs cursor-pointer transition-opacity hover:opacity-75"
+              >
+                Wyczyść miesiąc
+              </div>
+            )}
             <img src={logo} className="w-[30px] pr-2" />
           </div>
           <CustomCalendar

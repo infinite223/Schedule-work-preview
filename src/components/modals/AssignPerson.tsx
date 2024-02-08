@@ -95,7 +95,11 @@ export const AssignPerson = () => {
           </button>
         </div>
         <div className="flex flex-col gap-1 pt-2 pb-2 text-black dark:text-white">
-          <h2 className="mb-1 text-sm">Nieprzypisani pracownicy:</h2>
+          {users?.length === 0 ? (
+            <h2 className="text-red-500 text-sm">Brak nieprzypisanych osób</h2>
+          ) : (
+            <h2 className="mb-1 text-sm">Nieprzypisani pracownicy:</h2>
+          )}
           {users?.map((_user) => (
             <div className="flex items-center justify-between bg-zinc-100 dark:bg-zinc-800 rounded-md p-2 pr-3 pl-3 hover:opacity-55 cursor-pointer transition-opacity">
               <div className="flex flex-col">

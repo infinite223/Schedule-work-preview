@@ -16,6 +16,7 @@ import {group} from "console";
 import {useNotifications} from "reapop";
 import {arrayRemove, doc, updateDoc} from "firebase/firestore";
 import {db} from "../services/firebaseConfig";
+import {BsDot} from "react-icons/bs";
 
 type GroupItemProps = {
   name: string;
@@ -107,11 +108,11 @@ const GroupItem: FC<GroupItemProps> = ({name, users, isAdmin, userId, id}) => {
           <div
             className={
               userId === uid
-                ? "text-green-600 font-bold"
-                : "text-zinc-800 dark:text-zinc-100"
+                ? "text-green-600 font-bold flex items-center gap-2"
+                : "text-zinc-800 dark:text-zinc-100 flex items-center gap-2"
             }
           >
-            - {nick}
+            <BsDot /> {nick}
           </div>
 
           {isAdmin && (
