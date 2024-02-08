@@ -4,6 +4,17 @@ export const appConfig = {
     commingFetures: 
         {
             createdAt: new Date(2024, 1, 19),
+            patch: '0.1.5',
+            features: [
+                {
+                    name: "Implementacja animacji.",
+                    description: "Proste animacje zostaną zaimplementowane głównie w modalach ale i innych częściach aplikacji."
+                },
+            ]
+        },
+    releaseNotes: [
+        {
+            createdAt: new Date(2024, 1, 8),
             patch: '0.1.4',
             features: [
                 {
@@ -28,7 +39,6 @@ export const appConfig = {
                 },
             ]
         },
-    releaseNotes: [
         {
             createdAt: new Date(2024, 1, 3),
             patch: '0.1.3',
