@@ -13,6 +13,7 @@ import {User} from "../Utilis/types";
 interface NavigationProps {
   type: "Schedule" | "Groups" | "Settings";
   operation?: "plus" | "minus";
+  blocked?: boolean;
 }
 
 const navigateOption = [
@@ -38,7 +39,7 @@ const navigateOption = [
     icon: <HiMenuAlt3 size={28} />,
   },
 ];
-const Navigation: FC<NavigationProps> = ({type, operation}) => {
+const Navigation: FC<NavigationProps> = ({type, operation, blocked}) => {
   const group = useSelector(selectedGroup);
   const {user}: any = useAuth();
   const isOpenSchedule = type === "Schedule";
@@ -51,7 +52,7 @@ const Navigation: FC<NavigationProps> = ({type, operation}) => {
         {...navigateOption[0]}
         style={{color: type === "Groups" ? "var(--baseColor)" : "gray"}}
       />
-      {isOpenSchedule && isMyGroup ? (
+      {isOpenSchedule && isMyGroup && !blocked ? (
         !meInDat ? (
           <NavigateOption
             {...navigateOption[2]}

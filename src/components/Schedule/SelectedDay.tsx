@@ -22,7 +22,6 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   const {notify} = useNotifications();
   const group: GroupLocal = useSelector(selectedGroup);
   const dispatch = useDispatch();
-
   const [usersInDay, setUsersInDay] = useState<any>([]);
   const refreshSelectedDay = useSelector(selectRefreshSelectedDay);
   const {user}: any = useAuth();
@@ -48,7 +47,6 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   }, [selectedDate, refreshSelectedDay]);
 
   const blockUserInDay = async (userInDay: any, type: boolean) => {
-    console.log(userInDay);
     if (user && isAdmin) {
       try {
         await updateDoc(
@@ -60,6 +58,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
           ),
           {
             block: type,
+            remove: type,
           }
         );
         navigate("/");
@@ -129,13 +128,13 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
                       (item?.block ? (
                         <FaUserLock
                           onClick={() => blockUserInDay(item, false)}
-                          className="text-zinc-800 dark:text-zinc-100"
+                          className="text-zinc-800 dark:text-zinc-100 cursor-pointer hover:text-green-600 transition-colors"
                           size={16}
                         />
                       ) : (
                         <FaLockOpen
                           onClick={() => blockUserInDay(item, true)}
-                          className="text-zinc-800 dark:text-zinc-100"
+                          className="text-zinc-800 dark:text-zinc-100 cursor-pointer hover:text-red-600 transition-colors"
                           size={16}
                         />
                       ))}

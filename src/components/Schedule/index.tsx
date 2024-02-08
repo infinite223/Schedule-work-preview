@@ -90,6 +90,16 @@ const Schedule = () => {
     ? "minus"
     : "plus";
 
+  const isBlocked = scheduleDays.find(
+    (day) =>
+      formatDateToString(day.date.toDate()) ===
+        formatDateToString(selectedDate?.date) &&
+      day.userUid === user.uid &&
+      day.block
+  )
+    ? true
+    : false;
+
   return (
     <div className="flex flex-col items-center  h-screen max-h-dvh  justify-between w-ful bg-white dark:bg-black">
       <div className="flex sm:flex-row flex-col w-full sm:flex-ro">
@@ -111,7 +121,11 @@ const Schedule = () => {
         <SelectedDay selectedDate={selectedDate} />
       </div>
 
-      <Navigation type="Schedule" operation={operationType} />
+      <Navigation
+        type="Schedule"
+        operation={operationType}
+        blocked={isBlocked}
+      />
       {loading && <Loading />}
     </div>
   );
