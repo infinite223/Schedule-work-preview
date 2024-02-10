@@ -125,6 +125,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
                       <div>do: {item?.end}</div>
                     </div>
                     {isAdmin &&
+                      item.user.uid !== user.uid &&
                       (item?.block ? (
                         <FaUserLock
                           onClick={() => blockUserInDay(item, false)}

@@ -1,6 +1,6 @@
 export const appConfig = {
     name: "Schedule Work",
-    version: "0.1.3",
+    version: "0.1.4",
     commingFetures: 
         {
             createdAt: new Date(2024, 1, 19),
