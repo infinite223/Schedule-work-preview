@@ -7,7 +7,6 @@ export const readsCounterSlice = createSlice({
   initialState,
   reducers: {
     setReadsCounter: (state, action) => {
-      console.log("reads count: " + state.reads);
       state.reads = state.reads + action.payload;
     },
   },

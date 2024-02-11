@@ -7,7 +7,6 @@ export const selectedGroupsSlice = createSlice({
   initialState,
   reducers: {
     setGroups: (state, action) => {
-      console.log("groups: " + state.groups);
       state.groups = action.payload;
     },
   },

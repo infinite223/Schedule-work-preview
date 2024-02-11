@@ -58,13 +58,13 @@ const Information = () => {
 
         <h1 className="text-xl font-bold pt-3 ml-2">{appConfig.name}</h1>
         <div className="flex flex-col gap-1 w-full">
-          {infoList.map((_info) =>
+          {infoList.map((_info, id) =>
             _info.navigate ? (
-              <Link to={_info.navigate}>
+              <Link to={_info.navigate} key={id}>
                 <InfoItem {..._info} />
               </Link>
             ) : (
-              <InfoItem {..._info} />
+              <InfoItem {..._info} key={id} />
             )
           )}
         </div>

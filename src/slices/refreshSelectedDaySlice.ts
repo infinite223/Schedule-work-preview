@@ -7,7 +7,6 @@ export const refreshSelectedDaySlice = createSlice({
   initialState,
   reducers: {
     setRefreshSelectedDay: (state, action) => {
-      console.log("refres: " + state.value);
       state.value = state.value + action.payload;
     },
   },

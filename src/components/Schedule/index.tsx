@@ -92,12 +92,6 @@ const Schedule = () => {
     }
   }, [selectedMonth, group]);
 
-  useEffect(() => {
-    if (user && user?.groupId === false) {
-      console.log("elooooo");
-      navigate("/StartNewUser", {state: {previousLocation: location}});
-    }
-  }, [user]);
   const operationType = scheduleDays.find(
     (day) =>
       formatDateToString(day.date.toDate()) ===

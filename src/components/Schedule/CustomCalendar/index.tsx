@@ -60,22 +60,18 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
           date: selectedDate.date,
           users: selectedDayData?.users,
         });
-        console.log("2 case");
         dispatch(setSelectedDayInStore(JSON.stringify(selectedDate.date)));
       } else {
         setSelectedDate({
           date: selectedMonth,
           users: firstDayInMonthData?.users,
         });
-        console.log("1 case");
         dispatch(setSelectedDayInStore(JSON.stringify(selectedMonth)));
       }
     } else if (selectedDayData) {
       setSelectedDate({date: selectedDate.date, users: selectedDayData?.users});
-      console.log("2 case");
       dispatch(setSelectedDayInStore(JSON.stringify(selectedDate.date)));
     } else if (currentDayData) {
-      console.log("3 case");
       setSelectedDate({date: nowDate, users: currentDayData?.users});
     }
   }, [days]);

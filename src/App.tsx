@@ -80,49 +80,59 @@ function App() {
 
   useEffect(() => {
     // get groups data form firebase
-    setLoading(true);
-    const groupsRef = collection(db, "groups");
+    if (user) {
+      setLoading(true);
+      const groupsRef = collection(db, "groups");
 
-    const unsubscribe = onSnapshot(groupsRef, async (snapchot) => {
-      const firebaseGroups: GroupFirebase[] = snapchot.docs.map(
-        (doc: any, i) => {
-          return doc.data();
-        }
-      );
-      let _groups: GroupLocal[] = [];
-      for (let i = 0; i < firebaseGroups.length; i++) {
-        if (firebaseGroups[i].users.length > 0) {
-          const usersRef = query(
-            collection(db, "users"),
-            where("uid", "in", firebaseGroups[i].users)
-          );
-          const querySnapshot = await getDocs(usersRef);
-          dispatch(setReadsCounter(1));
-          const users: User[] = querySnapshot.docs.map((doc: any) => {
+      const unsubscribe = onSnapshot(groupsRef, async (snapchot) => {
+        const firebaseGroups: GroupFirebase[] = snapchot.docs.map(
+          (doc: any, i) => {
             return doc.data();
-          });
-          _groups.push({
-            id: firebaseGroups[i].id,
-            name: firebaseGroups[i].name,
-            users,
-          });
-        } else {
-          _groups.push({
-            id: firebaseGroups[i].id,
-            name: firebaseGroups[i].name,
-            users: [],
-          });
+          }
+        );
+        let _groups: GroupLocal[] = [];
+        for (let i = 0; i < firebaseGroups.length; i++) {
+          if (firebaseGroups[i].users.length > 0) {
+            const usersRef = query(
+              collection(db, "users"),
+              where("uid", "in", firebaseGroups[i].users)
+            );
+            const querySnapshot = await getDocs(usersRef);
+            dispatch(setReadsCounter(1));
+            const users: User[] = querySnapshot.docs.map((doc: any) => {
+              return doc.data();
+            });
+            _groups.push({
+              id: firebaseGroups[i].id,
+              name: firebaseGroups[i].name,
+              users,
+            });
+          } else {
+            _groups.push({
+              id: firebaseGroups[i].id,
+              name: firebaseGroups[i].name,
+              users: [],
+            });
+          }
         }
-      }
-      setLocalGroups(_groups);
+        console.log(_groups);
+        setLocalGroups(_groups);
 
-      dispatch(setReadsCounter(1));
-    });
+        dispatch(setReadsCounter(1));
+      });
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user?.groupId === false && user.type !== "admin") {
+      console.log("elooooo");
+      navigate("/StartNewUser", {state: {previousLocation: location}});
+    }
+  }, [user]);
 
   useEffect(() => {
     // update redux state groups/selected group
