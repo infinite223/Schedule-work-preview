@@ -20,7 +20,7 @@ export const firstDayOfMonth = (
   const firstDay = new Date(year, month, 0).getDay();
 
   for (let i = 0; i < firstDay; i++) {
-    arr.push({ id: 0, noDay: true, date: new Date(year, month, 0), users: [] });
+    arr.push({ id: 0, noDay: true, date: new Date(year+1, month, 0), users: [] });
   }
 
   for (let i = 1; i < daysInMonth(selectDate) + 1; i++) {

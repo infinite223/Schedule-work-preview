@@ -38,15 +38,16 @@ export const countAllHoursInMonthV2 = (userUid: string, data: {id: number; date:
       if (!workHoursPerUser[user.userUid]) {
         workHoursPerUser[user.userUid] = { hours: 0, minutes: 0 };
       }
-
-      const time = timeCounter(user?.start, user.end);
-    
-      workHoursPerUser[user.userUid].hours += time.godziny;
-      workHoursPerUser[user.userUid].minutes += time.minuty;
-
-      if (workHoursPerUser[user.userUid].minutes >= 60) {
-        workHoursPerUser[user.userUid].hours += Math.floor(workHoursPerUser[user.userUid].minutes / 60);
-        workHoursPerUser[user.userUid].minutes = workHoursPerUser[user.userUid].minutes % 60;
+      if(!user.block && !user.remove) {
+        const time = timeCounter(user?.start, user.end);
+      
+        workHoursPerUser[user.userUid].hours += time.godziny;
+        workHoursPerUser[user.userUid].minutes += time.minuty;
+  
+        if (workHoursPerUser[user.userUid].minutes >= 60) {
+          workHoursPerUser[user.userUid].hours += Math.floor(workHoursPerUser[user.userUid].minutes / 60);
+          workHoursPerUser[user.userUid].minutes = workHoursPerUser[user.userUid].minutes % 60;
+        }
       }
     });
   });
