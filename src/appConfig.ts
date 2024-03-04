@@ -1,10 +1,10 @@
 export const appConfig = {
     name: "Schedule Work",
-    version: "0.1.4",
+    version: "0.1.5",
     commingFetures: 
         {
             createdAt: new Date(2024, 2, 10),
-            patch: '0.1.5',
+            patch: '0.1.6',
             features: [
                 {
                     name: "Implementacja dodatkowych animacji.",
@@ -13,6 +13,24 @@ export const appConfig = {
             ]
         },
     releaseNotes: [
+        {
+            createdAt: new Date(2024, 2, 4),
+            patch: '0.1.5',
+            features: [
+                {
+                    name: "Potwierdzenie przy wyczyszczeniu grafiku.",
+                    description: "Gdy aministrator usuwa grafik na dany miesiąc, musi on dodatkowo zatwierdzić czynność."
+                },
+                {
+                    name: "Możliwość wybierania konkretnych godzin oraz minut",
+                    description: "Każdy użytkownik może wpisać precyzyjnie godziny w danym dniu."
+                },
+                {
+                    name: "Dostosowanie aplikacji pod przeglądarkę safari",
+                    description: ""
+                },
+            ]
+        },
         {
             createdAt: new Date(2024, 1, 8),
             patch: '0.1.4',

@@ -23,10 +23,12 @@ import logo from "../../assets/calendar.png";
 import useAuth from "../../hooks/useAuth";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useNotifications} from "reapop";
+import {PromptModal} from "../modals/PromptModal";
 
 const Schedule = () => {
   const dispatch = useDispatch();
   const group = useSelector(selectedGroup);
+  const [showPromptModal, setShowPromptModal] = useState(false);
   const [scheduleDays, setScheduleDays] = useState<DayData[]>([]);
   const [scheduleDaysRefs, setScheduleDaysRefs] = useState<
     DocumentReference<DocumentData, DocumentData>[]
@@ -112,7 +114,7 @@ const Schedule = () => {
     ? true
     : false;
 
-  const clearMonth = () => {
+  const tryClearMonth = () => {
     try {
       scheduleDaysRefs.forEach(async (scheduleDayRef) => {
         await deleteDoc(scheduleDayRef);
@@ -122,6 +124,8 @@ const Schedule = () => {
         status: "success",
         title: "Udało się wyczyścić miesiąc.",
       });
+
+      setShowPromptModal(false);
     } catch (error) {
       notify({
         status: "error",
@@ -140,8 +144,8 @@ const Schedule = () => {
             </h1>
             {isAdmin && (
               <div
-                onClick={clearMonth}
-                className="p-1 pl-3 pr-3 bg-zinc-200 dark:bg-zinc-600 rounded-md text-white text-xs cursor-pointer transition-opacity hover:opacity-75"
+                onClick={() => setShowPromptModal(true)}
+                className="p-1 pl-3 pr-3 bg-zinc-200 dark:bg-zinc-600 rounded-md text-zinc-700 dark:text-white text-xs cursor-pointer transition-opacity hover:opacity-75"
               >
                 Wyczyść miesiąc
               </div>
@@ -165,6 +169,30 @@ const Schedule = () => {
         blocked={isBlocked}
       />
       {loading && <Loading />}
+
+      {showPromptModal && (
+        <PromptModal
+          actions={() => (
+            <div className="flex items-center gap-3">
+              <button
+                className="button bg-zinc-700-600 text-zinc-700 dark:text-white font-bold hover:opacity-80 transition-opacity p-1.5 rounded-md text-sm"
+                onClick={() => setShowPromptModal(false)}
+              >
+                Wyjdź
+              </button>
+              <button
+                className="button bg-red-600 text-white pl-3 pr-3 font-bold hover:opacity-80 transition-opacity p-1.5 rounded-md text-sm"
+                onClick={tryClearMonth}
+              >
+                Wyczyść dane
+              </button>
+            </div>
+          )}
+          setShowPromptModal={setShowPromptModal}
+          text="Czy na pewno chcesz wyczyścić grafik w tym miesiącu?"
+          title="Zatwierdź opcje"
+        />
+      )}
     </div>
   );
 };

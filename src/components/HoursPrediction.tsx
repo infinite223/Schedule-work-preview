@@ -13,7 +13,7 @@ const HoursPrediction: FC<HoursPredictionProps> = ({days, userUid}) => {
         <span>{hoursPrediction[userUid]?.hours} h</span>
       )}
       {hoursPrediction[userUid]?.minutes > 0 && (
-        <span>{hoursPrediction[userUid]?.minutes}m</span>
+        <span> {hoursPrediction[userUid]?.minutes}m</span>
       )}
     </span>
   );

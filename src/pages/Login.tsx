@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import "./../styles/loginStyles.scss";
 import {BackButton} from "../components/BackButton";
 import logoApp from "../assets/logo.png";
@@ -8,7 +8,6 @@ import {setUpNotifications, useNotifications} from "reapop";
 import {Link, useNavigate} from "react-router-dom";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../services/firebaseConfig";
-import useAuth from "../hooks/useAuth";
 
 setUpNotifications({
   defaultProps: {
@@ -23,7 +22,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const {notify} = useNotifications();
   const navigate = useNavigate();
-  const {user}: any = useAuth();
+
   const tryLogin = async () => {
     const {error, status} = localVerifyLoginData(email, password);
     if (status === 200) {

@@ -83,7 +83,7 @@ export const EditUserModal = () => {
         <div className="flex flex-col">
           <div className="text-md font-bold mb-2">Aktualizuj dane profilu</div>
           <p className="text-zinc-600 dark:text-zinc-300 text-sm mb-2">
-            Twój nick w aplikacji
+            Twój nick w aplikacji:
           </p>
           <input
             className="bg-zinc-100 text-sm dark:bg-zinc-800 border-none outline-none shadow-none pl-4 pt-1.5 pb-1.5 mb-1 rounded-md"

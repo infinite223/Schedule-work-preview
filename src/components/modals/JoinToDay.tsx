@@ -10,6 +10,8 @@ import {useNotifications} from "reapop";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
 import {formatDateToString} from "../../Utilis/functions";
+import DateTime from "react-datetime";
+import "react-datetime/css/react-datetime.css";
 
 type HoursOption = {
   text: string;
@@ -47,38 +49,77 @@ export const JoinToDay = () => {
     hoursOptions[0]
   );
 
-  const joinToDay = async () => {
-    if (dayDate && user && isMyGroup) {
-      try {
-        await setDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
-          start: selectedOption.value.start,
-          end: selectedOption.value.end,
-          userUid: user.uid,
-          date: new Date(dayDate),
-          groupUid: group.id,
-          remove: false,
-          createdAt: new Date(),
-          block: false,
-        });
-        navigate("/");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
-        notify({
-          status: "success",
-          title: "Dodano Cię do dnia " + formatDateToString(new Date(dayDate)),
-        });
-      } catch (error) {
+  const handleStartTimeChange = (e: any) => {
+    setSelectedOption({text: "", value: {end: "", start: ""}});
+    setStartTime(e.target.value);
+  };
+
+  const handleEndTimeChange = (e: any) => {
+    setEndTime(e.target.value);
+  };
+
+  const joinToDay = async () => {
+    if (compareTimes()) {
+      if (dayDate && user && isMyGroup) {
+        try {
+          await setDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
+            start: startTime,
+            end: endTime,
+            userUid: user.uid,
+            date: new Date(dayDate),
+            groupUid: group.id,
+            remove: false,
+            createdAt: new Date(),
+            block: false,
+          });
+          navigate("/");
+
+          notify({
+            status: "success",
+            title:
+              "Dodano Cię do dnia " + formatDateToString(new Date(dayDate)),
+          });
+        } catch (error) {
+          notify({
+            status: "error",
+            title: "Coś poszło nie tak, spróbuj od nowa załadować aplikacje",
+          });
+        }
+
+        dispatch(setReadsCounter(1));
+      } else if (!isMyGroup) {
         notify({
           status: "error",
-          title: "Coś poszło nie tak, spróbuj od nowa załadować aplikacje",
+          title: "Nie jesteś przypisany do żadnej grupy",
         });
       }
+    }
+  };
 
-      dispatch(setReadsCounter(1));
-    } else if (!isMyGroup) {
+  const compareTimes = () => {
+    const startTimeParts = startTime.split(":");
+    const endTimeParts = endTime.split(":");
+
+    const startHour = parseInt(startTimeParts[0], 10);
+    const startMinute = parseInt(startTimeParts[1], 10);
+    const endHour = parseInt(endTimeParts[0], 10);
+    const endMinute = parseInt(endTimeParts[1], 10);
+
+    if (
+      startHour > endHour ||
+      (startHour === endHour && startMinute > endMinute)
+    ) {
       notify({
         status: "error",
-        title: "Nie jesteś przypisany do żadnej grupy",
+        title: "niepoprawne godziny pracy",
       });
+
+      return false;
+    } else {
+      return true;
     }
   };
 
@@ -92,6 +133,31 @@ export const JoinToDay = () => {
       navigate("/");
     }
   }, [day]);
+
+  useEffect(() => {
+    if (selectedOption.text.length > 0) {
+      setStartTime(selectedOption.value.start);
+      setEndTime(selectedOption.value.end);
+    }
+  }, [selectedOption]);
+
+  const generateHoursOptions = () => {
+    const options = [];
+    for (let hour = 0; hour <= 23; hour++) {
+      for (let minute = 0; minute <= 45; minute += 15) {
+        const time = `${hour.toString().padStart(2, "0")}:${minute
+          .toString()
+          .padStart(2, "0")}`;
+        options.push(
+          <option key={time} value={time}>
+            {time}
+          </option>
+        );
+      }
+    }
+    return options;
+  };
+
   return (
     <div
       className="fixed bg-white/65 dark:bg-black/65 left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"
@@ -130,6 +196,45 @@ export const JoinToDay = () => {
                 </div>
               );
             })}
+
+            <div className="flex items-center mt-4 justify-center">
+              <div className="flex items-center">
+                <label>od:</label>
+                {/* <input
+                  type="time"
+                  value={startTime}
+                  name="time"
+                  onChange={handleStartTimeChange}
+                  className="text-black h-7 w-min rounded-md shadow-none outline-none border-none dark:text-white bg-zinc-200 dark:bg-zinc-700 ml-2 mr-2"
+                /> */}
+                <select
+                  value={startTime}
+                  onChange={handleStartTimeChange}
+                  onBlur={compareTimes}
+                  className="text-black h-7 w-min pl-1 pr-1 rounded-md shadow-none outline-none border-none dark:text-white bg-zinc-200 dark:bg-zinc-700 ml-2 mr-2"
+                >
+                  {generateHoursOptions()}
+                </select>
+              </div>
+              <div className="flex items-center">
+                <label>do:</label>
+                {/* <input
+                  type="time"
+                  step="3600"
+                  value={endTime}
+                  onChange={handleEndTimeChange}
+                  className="text-black w-min h-7 rounded-md shadow-none outline-none border-none dark:text-white bg-zinc-200 dark:bg-zinc-700 ml-2 mr-2"
+                /> */}
+                <select
+                  value={endTime}
+                  onChange={handleEndTimeChange}
+                  onBlur={compareTimes}
+                  className="text-black h-7 w-min pl-1 pr-1 rounded-md shadow-none outline-none border-none dark:text-white bg-zinc-200 dark:bg-zinc-700 ml-2 mr-2"
+                >
+                  {generateHoursOptions()}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 
