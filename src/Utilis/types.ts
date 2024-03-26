@@ -12,7 +12,8 @@ type DayData = {
   groupUid: string,
   createdAt: Timestamp,
   remove: boolean,
-  block?:boolean
+  block?:boolean,
+  id: string
 }
 
 

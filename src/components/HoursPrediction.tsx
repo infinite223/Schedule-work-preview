@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import {FC} from "react";
 import {countAllHoursInMonthV2} from "../Utilis/functions";
 import {DayData} from "../Utilis/types";
 interface HoursPredictionProps {

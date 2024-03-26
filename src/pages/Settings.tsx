@@ -189,7 +189,6 @@ const removeAccount = (notify: any, userUid: string) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         if ((error.code = "auth/requires-recent-login")) {
           notify({
             status: "error",

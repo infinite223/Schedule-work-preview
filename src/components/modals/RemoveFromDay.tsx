@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {useSelector} from "react-redux";
 import {selectedDay} from "../../slices/selectedDaySlice";
@@ -10,6 +10,7 @@ import {formatDateToString} from "../../Utilis/functions";
 
 export const RemoveFromDay = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const {notify} = useNotifications();
   const day = useSelector(selectedDay);
   const dayDate =
@@ -19,15 +20,18 @@ export const RemoveFromDay = () => {
   const removeUserFromDay = async () => {
     if (day && dayDate && user) {
       try {
-        await updateDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
-          remove: true,
-        });
+        if (location.state.dayId) {
+          await updateDoc(doc(db, "schedule", location.state.dayId), {
+            remove: true,
+          });
 
-        navigate("/");
-        notify({
-          status: "success",
-          title: "Usunięto Cię z dnia " + formatDateToString(new Date(dayDate)),
-        });
+          navigate("/");
+          notify({
+            status: "success",
+            title:
+              "Usunięto Cię z dnia " + formatDateToString(new Date(dayDate)),
+          });
+        }
       } catch (error) {
         notify({
           status: "error",

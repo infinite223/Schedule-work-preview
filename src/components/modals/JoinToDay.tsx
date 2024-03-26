@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {selectedDay} from "../../slices/selectedDaySlice";
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import {doc, setDoc} from "firebase/firestore";
 import {db} from "../../services/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
 import {shortDayNames} from "../../Utilis/data";
@@ -10,7 +10,6 @@ import {useNotifications} from "reapop";
 import {selectedGroup} from "../../slices/selectedGroupSlice";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
 import {formatDateToString} from "../../Utilis/functions";
-import DateTime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 
 type HoursOption = {
@@ -39,6 +38,8 @@ export const JoinToDay = () => {
   const navigate = useNavigate();
   const {notify} = useNotifications();
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const day = useSelector(selectedDay);
   const dayDate =
     day && day?.selectedDay ? new Date(JSON.parse(day?.selectedDay)) : null;
@@ -65,16 +66,25 @@ export const JoinToDay = () => {
     if (compareTimes()) {
       if (dayDate && user && isMyGroup) {
         try {
-          await setDoc(doc(db, "schedule", dayDate.toString() + user.uid), {
-            start: startTime,
-            end: endTime,
-            userUid: user.uid,
-            date: new Date(dayDate),
-            groupUid: group.id,
-            remove: false,
-            createdAt: new Date(),
-            block: false,
-          });
+          await setDoc(
+            doc(
+              db,
+              "schedule",
+              location.state.dayId
+                ? location.state.dayId
+                : dayDate.toString() + user.uid
+            ),
+            {
+              start: startTime,
+              end: endTime,
+              userUid: user.uid,
+              date: new Date(dayDate),
+              groupUid: group.id,
+              remove: false,
+              createdAt: new Date(),
+              block: false,
+            }
+          );
           navigate("/");
 
           notify({
@@ -200,13 +210,6 @@ export const JoinToDay = () => {
             <div className="flex items-center mt-4 justify-center">
               <div className="flex items-center">
                 <label>od:</label>
-                {/* <input
-                  type="time"
-                  value={startTime}
-                  name="time"
-                  onChange={handleStartTimeChange}
-                  className="text-black h-7 w-min rounded-md shadow-none outline-none border-none dark:text-white bg-zinc-200 dark:bg-zinc-700 ml-2 mr-2"
-                /> */}
                 <select
                   value={startTime}
                   onChange={handleStartTimeChange}
@@ -218,13 +221,6 @@ export const JoinToDay = () => {
               </div>
               <div className="flex items-center">
                 <label>do:</label>
-                {/* <input
-                  type="time"
-                  step="3600"
-                  value={endTime}
-                  onChange={handleEndTimeChange}
-                  className="text-black w-min h-7 rounded-md shadow-none outline-none border-none dark:text-white bg-zinc-200 dark:bg-zinc-700 ml-2 mr-2"
-                /> */}
                 <select
                   value={endTime}
                   onChange={handleEndTimeChange}

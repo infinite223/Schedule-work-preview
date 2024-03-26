@@ -1,10 +1,10 @@
 export const appConfig = {
     name: "Schedule Work",
-    version: "0.1.5",
+    version: "0.1.6",
     commingFetures: 
         {
-            createdAt: new Date(2024, 2, 10),
-            patch: '0.1.6',
+            createdAt: new Date(2024, 2, 25),
+            patch: '0.1.7',
             features: [
                 {
                     name: "Implementacja dodatkowych animacji.",
@@ -13,6 +13,24 @@ export const appConfig = {
             ]
         },
     releaseNotes: [
+        {
+            createdAt: new Date(2024, 2, 15),
+            patch: '0.1.6',
+            features: [
+                {
+                    name: "Nowa logika indeksowania dni",
+                    description: "Dni są indeksowane do bazy w taki sposób aby były one rozumiane przez aplikacje mobilną."
+                },
+                {
+                    name: "Performance upgrade",
+                    description: "Dane grup zostały przeniesione do globalnego stanu w aplikacji, co zmniejszy częstotliwość ich pobierania."
+                },
+                {
+                    name: "Dodatkowe zabezpieczenia z brakiem danych.",
+                    description: "Zostały zaimplementowane zabezpieczenia weryfikujące przetwarzane dane dotyczące dni i użytkowników."
+                },
+            ]
+        },
         {
             createdAt: new Date(2024, 2, 4),
             patch: '0.1.5',

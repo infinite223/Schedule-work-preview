@@ -3,6 +3,8 @@ import {appConfig} from "../appConfig";
 import logo from "../assets/calendar.png";
 import Navigation from "../navigation";
 import {FC} from "react";
+import {downloadApp} from "../Utilis/downloadApp";
+import {HiDownload} from "react-icons/hi";
 
 const infoList = [
   {
@@ -53,7 +55,7 @@ const Information = () => {
           <h1 className="pt-4 pb-5 text-lg pl-1 self-start font-semibold text-zinc-900 dark:text-gray-100">
             Informacje
           </h1>
-          <img src={logo} className="w-[30px] pr-2" />
+          <img src={logo} alt="logo" className="w-[30px] pr-2" />
         </div>
 
         <h1 className="text-xl font-bold pt-3 ml-2">{appConfig.name}</h1>
@@ -67,6 +69,14 @@ const Information = () => {
               <InfoItem {..._info} key={id} />
             )
           )}
+        </div>
+
+        <div
+          onClick={() => downloadApp()}
+          className="hover:opacity-50 cursor-pointer transition-opacity flex items-center gap-2 mt-2 bg-zinc-200 dark:bg-zinc-900 rounded-md p-2 w-full"
+        >
+          <HiDownload size={17} />
+          <div>Pobierz aplikacje na androida</div>
         </div>
       </div>
       <Navigation type="Settings" />

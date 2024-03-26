@@ -14,6 +14,7 @@ interface NavigationProps {
   type: "Schedule" | "Groups" | "Settings";
   operation?: "plus" | "minus";
   blocked?: boolean;
+  dayId?: string;
 }
 
 const navigateOption = [
@@ -39,7 +40,7 @@ const navigateOption = [
     icon: <HiMenuAlt3 size={28} />,
   },
 ];
-const Navigation: FC<NavigationProps> = ({type, operation, blocked}) => {
+const Navigation: FC<NavigationProps> = ({type, operation, blocked, dayId}) => {
   const group = useSelector(selectedGroup);
   const {user}: any = useAuth();
   const isOpenSchedule = type === "Schedule";
@@ -61,6 +62,7 @@ const Navigation: FC<NavigationProps> = ({type, operation, blocked}) => {
               borderRadius: "50px",
               padding: "17px",
             }}
+            dayId={dayId}
             withShadow={false}
           />
         ) : (
@@ -71,6 +73,7 @@ const Navigation: FC<NavigationProps> = ({type, operation, blocked}) => {
               borderRadius: "50px",
               padding: "17px",
             }}
+            dayId={dayId}
             withShadow={false}
           />
         )

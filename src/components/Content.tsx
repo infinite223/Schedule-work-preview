@@ -1,6 +1,5 @@
 import "./../styles/contentStyles.scss";
 import android from "./../assets/android.png";
-import {constants} from "../Utilis/constansts";
 import {downloadApp} from "../Utilis/downloadApp";
 import presentApp from "./../assets/presentApp.png";
 import {useNavigate} from "react-router-dom";
@@ -58,8 +57,7 @@ const Content = () => {
             dismissAfter: 4000,
             message: "Pobieranie...",
             status: "success",
-            title:
-              "Aplikacja mobilna jest wersją testową, nie jest podłączona do orginalnej bazy danych",
+            title: "Aplikacja mobilna jest w wersji testowej",
           });
         }}
       >

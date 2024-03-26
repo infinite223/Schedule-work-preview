@@ -11,11 +11,6 @@ body {
   min-height: 100vh;
 
   min-height: -webkit-fill-available;
-  font-size: 16px;
-}
-
-input[type="text"] {
-  font-size: inherit;
 }
 .bg-first {
     background-color: rgb(17, 122, 17)
@@ -32,31 +27,6 @@ input {
   padding: 10px;
   border-radius: 50px;
   box-shadow: var(--boxShadow);
-}
-
-input[type="color"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"],
-select:focus,
-textarea {
-  font-size: 16px;
-}
-
-input[type='text'],
-input[type='number'],
-textarea {
-  font-size: 16px;
 }
 
 .custom-button {

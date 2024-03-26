@@ -115,7 +115,6 @@ function App() {
             });
           }
         }
-        console.log(_groups);
         setLocalGroups(_groups);
 
         dispatch(setReadsCounter(1));
@@ -129,7 +128,6 @@ function App() {
 
   useEffect(() => {
     if (user && user?.groupId === false && user.type !== "admin") {
-      console.log("elooooo");
       navigate("/StartNewUser", {state: {previousLocation: location}});
     }
   }, [user]);

@@ -7,6 +7,7 @@ interface NavigateOptionProps {
   icon: JSX.Element;
   style?: React.CSSProperties;
   withShadow?: boolean;
+  dayId?: string;
 }
 
 export const NavigateOption: FC<NavigateOptionProps> = ({
@@ -15,6 +16,7 @@ export const NavigateOption: FC<NavigateOptionProps> = ({
   type,
   style,
   withShadow,
+  dayId,
 }) => {
   const location = useLocation();
   return (
@@ -22,7 +24,7 @@ export const NavigateOption: FC<NavigateOptionProps> = ({
       to={type}
       state={
         type === "/JoinToDay" || type === "/RemoveFromDay"
-          ? {previousLocation: location}
+          ? {previousLocation: location, dayId}
           : {}
       }
     >

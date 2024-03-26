@@ -21,7 +21,6 @@ import {selectedGroup} from "../../slices/selectedGroupSlice";
 import {setRefreshSelectedDay} from "../../slices/refreshSelectedDaySlice";
 import logo from "../../assets/calendar.png";
 import useAuth from "../../hooks/useAuth";
-import {useLocation, useNavigate} from "react-router-dom";
 import {useNotifications} from "reapop";
 import {PromptModal} from "../modals/PromptModal";
 
@@ -35,9 +34,7 @@ const Schedule = () => {
   >([]);
   const {user}: any = useAuth();
   const isAdmin = user?.type === "admin";
-  const navigate = useNavigate();
   const {notify} = useNotifications();
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<DateWithUsers>({
     date: new Date(
@@ -74,7 +71,7 @@ const Schedule = () => {
       const unsubscribe = onSnapshot(scheduleQuery, async (snapchot) => {
         setScheduleDays(
           snapchot.docs.map((doc: any, i) => {
-            return doc.data();
+            return {...doc.data(), id: doc.id};
           })
         );
         setScheduleDaysRefs(
@@ -150,7 +147,7 @@ const Schedule = () => {
                 Wyczyść miesiąc
               </div>
             )}
-            <img src={logo} className="w-[30px] pr-2" />
+            <img src={logo} alt="logo" className="w-[30px] pr-2" />
           </div>
           <CustomCalendar
             selectedDate={selectedDate}
@@ -167,6 +164,7 @@ const Schedule = () => {
         type="Schedule"
         operation={operationType}
         blocked={isBlocked}
+        dayId={selectedDate.users.find((u) => u.userUid === user.uid)?.id}
       />
       {loading && <Loading />}
 

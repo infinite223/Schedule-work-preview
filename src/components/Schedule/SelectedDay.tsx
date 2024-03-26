@@ -31,6 +31,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
     setUsersInDay(
       selectedDate.users.map((user) => {
         const findUser = group.users.find((u) => u.uid === user.userUid);
+
         if (findUser) {
           return {
             date: user.date,
@@ -40,6 +41,7 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
             createdAt: user.createdAt,
             remove: user?.remove,
             block: user?.block,
+            id: user?.id,
           };
         }
       })
@@ -47,25 +49,17 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   }, [selectedDate, refreshSelectedDay]);
 
   const blockUserInDay = async (userInDay: any, type: boolean) => {
-    if (user && isAdmin) {
+    if (user && isAdmin && userInDay.id) {
       try {
-        await updateDoc(
-          doc(
-            db,
-            "schedule",
-            new Date(userInDay.date.seconds * 1000).toString() +
-              userInDay.user.uid
-          ),
-          {
-            block: type,
-            remove: type,
-          }
-        );
+        await updateDoc(doc(db, "schedule", userInDay.id), {
+          block: type,
+          remove: type,
+        });
         navigate("/");
 
         notify({
           status: "success",
-          title: "Zablokowano " + userInDay.user.nick,
+          title: type ? "Zablokowano " : "Odblokowano" + userInDay.user.nick,
         });
       } catch (error) {
         notify({
