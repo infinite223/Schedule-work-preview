@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/Schedule-work-preview/static/css/main.be553f2a.css",
+    "main.js": "/Schedule-work-preview/static/js/main.c5dea710.js",
+    "static/js/235.26a187ec.chunk.js": "/Schedule-work-preview/static/js/235.26a187ec.chunk.js",
+    "static/js/307.7ab57e8b.chunk.js": "/Schedule-work-preview/static/js/307.7ab57e8b.chunk.js",
+    "static/js/685.1b58b4f4.chunk.js": "/Schedule-work-preview/static/js/685.1b58b4f4.chunk.js",
+    "static/css/107.192a54d7.chunk.css": "/Schedule-work-preview/static/css/107.192a54d7.chunk.css",
+    "static/js/107.f911ce33.chunk.js": "/Schedule-work-preview/static/js/107.f911ce33.chunk.js",
+    "static/css/67.192a54d7.chunk.css": "/Schedule-work-preview/static/css/67.192a54d7.chunk.css",
+    "static/js/67.cb966a41.chunk.js": "/Schedule-work-preview/static/js/67.cb966a41.chunk.js",
+    "static/js/878.9c1f18ce.chunk.js": "/Schedule-work-preview/static/js/878.9c1f18ce.chunk.js",
+    "static/js/787.8456b4ca.chunk.js": "/Schedule-work-preview/static/js/787.8456b4ca.chunk.js",
+    "static/js/203.a3e823b2.chunk.js": "/Schedule-work-preview/static/js/203.a3e823b2.chunk.js",
+    "static/media/presentApp.png": "/Schedule-work-preview/static/media/presentApp.f5333d76039a299ca148.png",
+    "static/media/calendar.png": "/Schedule-work-preview/static/media/calendar.7b095cde9e55c5d8b1a6.png",
+    "static/media/icon.png": "/Schedule-work-preview/static/media/icon.15c9b619693404579514.png",
+    "static/media/android.png": "/Schedule-work-preview/static/media/android.89fe62949d3bc9befac2.png",
+    "index.html": "/Schedule-work-preview/index.html",
+    "main.be553f2a.css.map": "/Schedule-work-preview/static/css/main.be553f2a.css.map",
+    "main.c5dea710.js.map": "/Schedule-work-preview/static/js/main.c5dea710.js.map",
+    "235.26a187ec.chunk.js.map": "/Schedule-work-preview/static/js/235.26a187ec.chunk.js.map",
+    "307.7ab57e8b.chunk.js.map": "/Schedule-work-preview/static/js/307.7ab57e8b.chunk.js.map",
+    "685.1b58b4f4.chunk.js.map": "/Schedule-work-preview/static/js/685.1b58b4f4.chunk.js.map",
+    "107.192a54d7.chunk.css.map": "/Schedule-work-preview/static/css/107.192a54d7.chunk.css.map",
+    "107.f911ce33.chunk.js.map": "/Schedule-work-preview/static/js/107.f911ce33.chunk.js.map",
+    "67.192a54d7.chunk.css.map": "/Schedule-work-preview/static/css/67.192a54d7.chunk.css.map",
+    "67.cb966a41.chunk.js.map": "/Schedule-work-preview/static/js/67.cb966a41.chunk.js.map",
+    "878.9c1f18ce.chunk.js.map": "/Schedule-work-preview/static/js/878.9c1f18ce.chunk.js.map",
+    "787.8456b4ca.chunk.js.map": "/Schedule-work-preview/static/js/787.8456b4ca.chunk.js.map",
+    "203.a3e823b2.chunk.js.map": "/Schedule-work-preview/static/js/203.a3e823b2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be553f2a.css",
+    "static/js/main.c5dea710.js"
+  ]
+}
