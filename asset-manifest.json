@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Schedule-work-preview/static/css/main.be553f2a.css",
-    "main.js": "/Schedule-work-preview/static/js/main.c10ac360.js",
+    "main.js": "/Schedule-work-preview/static/js/main.c5dea710.js",
     "static/js/235.26a187ec.chunk.js": "/Schedule-work-preview/static/js/235.26a187ec.chunk.js",
     "static/js/307.7ab57e8b.chunk.js": "/Schedule-work-preview/static/js/307.7ab57e8b.chunk.js",
     "static/js/685.1b58b4f4.chunk.js": "/Schedule-work-preview/static/js/685.1b58b4f4.chunk.js",
@@ -18,7 +18,7 @@
     "static/media/android.png": "/Schedule-work-preview/static/media/android.89fe62949d3bc9befac2.png",
     "index.html": "/Schedule-work-preview/index.html",
     "main.be553f2a.css.map": "/Schedule-work-preview/static/css/main.be553f2a.css.map",
-    "main.c10ac360.js.map": "/Schedule-work-preview/static/js/main.c10ac360.js.map",
+    "main.c5dea710.js.map": "/Schedule-work-preview/static/js/main.c5dea710.js.map",
     "235.26a187ec.chunk.js.map": "/Schedule-work-preview/static/js/235.26a187ec.chunk.js.map",
     "307.7ab57e8b.chunk.js.map": "/Schedule-work-preview/static/js/307.7ab57e8b.chunk.js.map",
     "685.1b58b4f4.chunk.js.map": "/Schedule-work-preview/static/js/685.1b58b4f4.chunk.js.map",
@@ -32,6 +32,6 @@
   },
   "entrypoints": [
     "static/css/main.be553f2a.css",
-    "static/js/main.c10ac360.js"
+    "static/js/main.c5dea710.js"
   ]
 }
