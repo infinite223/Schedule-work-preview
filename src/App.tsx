@@ -31,6 +31,7 @@ import Information from "./pages/Information";
 import {AssignPerson} from "./components/modals/AssignPerson";
 import {EditUserModal} from "./components/modals/EditUserModal";
 import {StartNewUser} from "./components/modals/StartNewUser";
+import {AnimatePresence} from "framer-motion";
 
 const Settings = React.lazy(() => import("./pages/Settings"));
 const Groups = React.lazy(() => import("./pages/Groups"));
@@ -219,13 +220,15 @@ function App() {
           )}
         </Routes>
         {previousLocation && (
-          <Routes>
-            <Route path="/JoinToDay" element={<JoinToDay />} />
-            <Route path="/RemoveFromDay" element={<RemoveFromDay />} />
-            <Route path="/AssignPerson" element={<AssignPerson />} />
-            <Route path="/EditUserModal" element={<EditUserModal />} />
-            <Route path="/StartNewUser" element={<StartNewUser />} />
-          </Routes>
+          <AnimatePresence>
+            <Routes>
+              <Route path="/JoinToDay" element={<JoinToDay />} />
+              <Route path="/RemoveFromDay" element={<RemoveFromDay />} />
+              <Route path="/AssignPerson" element={<AssignPerson />} />
+              <Route path="/EditUserModal" element={<EditUserModal />} />
+              <Route path="/StartNewUser" element={<StartNewUser />} />
+            </Routes>
+          </AnimatePresence>
         )}
       </React.Suspense>
     </React.StrictMode>

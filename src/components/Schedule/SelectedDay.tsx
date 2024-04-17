@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 import {useNotifications} from "reapop";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
 import {FaLockOpen, FaUserLock} from "react-icons/fa";
+import {AnimatePresence, motion} from "framer-motion";
 
 interface SelectedDateProps {
   selectedDate: DateWithUsers;
@@ -78,82 +79,95 @@ const SelectedDay: FC<SelectedDateProps> = ({selectedDate}) => {
   };
 
   return (
-    <div className="flex text-black dark:text-white p-2 w-full h-fit">
-      <div className="border-r-2 border-green-500 p-2 pr-5 pl-3 flex flex-col">
-        <span className="font-bold text-[16px]">
-          {selectedDate.date.getDate()}
-        </span>
-        <span className="font-light text-sm">
-          {
-            shortDayNames[
-              selectedDate.date.getDay() ? selectedDate.date.getDay() - 1 : 6
-            ]
-          }
-        </span>
-      </div>
-
-      <div className="flex flex-col pl-4 pr-2 w-full flex-grow overflow-auto">
-        {usersInDay.map((item: any, id: string) => (
-          <div key={id}>
-            {item?.user && item?.end && item?.start && item?.createdAt ? (
-              <div
-                key={id}
-                className={`flex flex-col text-black dark:text-zinc-100 p-1 w-full justify-between 
-            border-b-2 border-zinc-200 dark:border-zinc-900`}
-                style={item?.remove ? {opacity: 0.3} : {}}
-              >
-                <div className="flex items-center justify-between w-full text-sm">
-                  <div
-                    className={
-                      item?.user?.uid === user.uid ? `text-green-500` : ""
-                    }
-                  >
-                    {item?.user?.nick}
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`flex gap-4 items-center text-black dark:text-zinc-200`}
-                      style={{color: getColorDot(item)}}
-                    >
-                      <div className="">od: {item?.start}</div>
-                      <div>do: {item?.end}</div>
-                    </div>
-                    {isAdmin &&
-                      item.user.uid !== user.uid &&
-                      (item?.block ? (
-                        <FaUserLock
-                          onClick={() => blockUserInDay(item, false)}
-                          className="text-zinc-800 dark:text-zinc-100 cursor-pointer hover:text-green-600 transition-colors"
-                          size={16}
-                        />
-                      ) : (
-                        <FaLockOpen
-                          onClick={() => blockUserInDay(item, true)}
-                          className="text-zinc-800 dark:text-zinc-100 cursor-pointer hover:text-red-600 transition-colors"
-                          size={16}
-                        />
-                      ))}
-                  </div>
-                </div>
-
-                <div className="flex pt-1 text-zinc-400">
-                  <div className="text-[10px]">
-                    Dodano:{" "}
-                    {formatDateToString(
-                      new Date(item?.createdAt?.seconds * 1000)
-                    )}{" "}
-                    o {new Date(item?.createdAt?.seconds * 1000).getHours()}:
-                    {new Date(item?.createdAt?.seconds * 1000).getMinutes()}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <></>
-            )}
+    <AnimatePresence>
+      {selectedDate && (
+        <motion.div className="flex text-black dark:text-white p-2 w-full h-fit">
+          <div className="border-r-2 border-green-500 p-2 pr-5 pl-3 flex flex-col">
+            <span className="font-bold text-[16px]">
+              {selectedDate.date.getDate()}
+            </span>
+            <span className="font-light text-sm">
+              {
+                shortDayNames[
+                  selectedDate.date.getDay()
+                    ? selectedDate.date.getDay() - 1
+                    : 6
+                ]
+              }
+            </span>
           </div>
-        ))}
-      </div>
-    </div>
+
+          <motion.div
+            key={selectedDate.date.toDateString()}
+            className="flex flex-col pl-4 pr-2 w-full flex-grow overflow-auto"
+            initial={{opacity: 0.3}}
+            animate={{opacity: 1, transition: {duration: 0.5}}}
+            exit={{opacity: 0, transition: {duration: 0.1}}}
+          >
+            {usersInDay.map((item: any, id: string) => (
+              <div key={id}>
+                {item?.user && item?.end && item?.start && item?.createdAt ? (
+                  <div
+                    key={id}
+                    className={`flex flex-col text-black dark:text-zinc-100 p-1 w-full justify-between 
+              border-b-2 border-zinc-200 dark:border-zinc-900`}
+                    style={item?.remove ? {opacity: 0.3} : {}}
+                  >
+                    <div className="flex items-center justify-between w-full text-sm">
+                      <div
+                        className={
+                          item?.user?.uid === user.uid ? `text-green-500` : ""
+                        }
+                      >
+                        {item?.user?.nick}
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`flex gap-4 items-center text-black dark:text-zinc-200`}
+                          style={{color: getColorDot(item)}}
+                        >
+                          <div className="">od: {item?.start}</div>
+                          <div>do: {item?.end}</div>
+                        </div>
+                        {isAdmin &&
+                          item.user.uid !== user.uid &&
+                          (item?.block ? (
+                            <FaUserLock
+                              onClick={() => blockUserInDay(item, false)}
+                              className="text-zinc-800 dark:text-zinc-100 cursor-pointer hover:text-green-600 transition-colors"
+                              size={16}
+                            />
+                          ) : (
+                            <FaLockOpen
+                              onClick={() => blockUserInDay(item, true)}
+                              className="text-zinc-800 dark:text-zinc-100 cursor-pointer hover:text-red-600 transition-colors"
+                              size={16}
+                            />
+                          ))}
+                      </div>
+                    </div>
+
+                    <div className="flex pt-1 text-zinc-400">
+                      <div className="text-[10px]">
+                        Dodano:{" "}
+                        {formatDateToString(
+                          new Date(item?.createdAt?.seconds * 1000)
+                        )}{" "}
+                        o {new Date(item?.createdAt?.seconds * 1000).getHours()}
+                        :
+                        {new Date(item?.createdAt?.seconds * 1000).getMinutes()}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -3,7 +3,8 @@ export const appConfig = {
     version: "0.1.6",
     commingFetures: 
         {
-            createdAt: new Date(2024, 2, 25),
+            display: false,
+            createdAt: new Date(2024, 4, 25),
             patch: '0.1.7',
             features: [
                 {
@@ -13,6 +14,20 @@ export const appConfig = {
             ]
         },
     releaseNotes: [
+        {
+            createdAt: new Date(2024, 3, 17),
+            patch: '0.1.7',
+            features: [
+                {
+                    name: "Implementacja dodatkowych animacji.",
+                    description: "Proste animacje zostaną zaimplementowane głównie w modalach ale i innych częściach aplikacji."
+                },
+                {
+                    name: "Optymalizacja assetów",
+                    description: "Kilka zdjęć w aplikacji dostało teksty alternatywne, ich jakość została zoptymalizowana."
+                },
+            ]
+        },
         {
             createdAt: new Date(2024, 2, 15),
             patch: '0.1.6',

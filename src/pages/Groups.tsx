@@ -139,7 +139,7 @@ const Groups = () => {
           <h1 className="pt-4 pb-5 text-lg pl-1 self-start font-semibold text-zinc-900 dark:text-gray-100">
             Dostępne grupy
           </h1>
-          <img src={logo} className="w-[30px] pr-2" />
+          <img src={logo} alt="logo" className="w-[30px] pr-2" />
         </div>
         <div className="flex flex-col gap-2 p-1 pt-0 w-full flex-grow overflow-auto h-0">
           {groups.map((data) => (
