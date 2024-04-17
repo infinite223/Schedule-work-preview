@@ -8,6 +8,7 @@ import {useNotifications} from "reapop";
 import {setReadsCounter} from "../../slices/readsCounterSlice";
 import {GroupLocal} from "../../Utilis/types";
 import {selectedGroups} from "../../slices/groupsSlice";
+import {motion} from "framer-motion";
 
 export const EditUserModal = () => {
   const navigate = useNavigate();
@@ -72,9 +73,12 @@ export const EditUserModal = () => {
   };
 
   return (
-    <div
+    <motion.div
       className="fixed bg-white/65 dark:bg-black/65 left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"
       onClick={(e) => navigate(-1)}
+      initial={{opacity: 0}}
+      animate={{opacity: 1, transition: {duration: 0.2}}}
+      exit={{opacity: 0, transition: {duration: 0.1}}}
     >
       <div
         className="h-fit w-11/12 sm:w-1/3 gap-2 min-w-3.5 flex flex-col justify-between text-black dark:text-white bg-zinc-100 dark:bg-zinc-900 p-5 rounded-md"
@@ -101,6 +105,6 @@ export const EditUserModal = () => {
           Aktualizuj
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };

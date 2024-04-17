@@ -1,5 +1,4 @@
 {
-  "homepage": "https://infinite223.github.io/Schedule-work-preview",
   "name": "present.app",
   "version": "0.1.0",
   "private": true,
@@ -13,6 +12,7 @@
     "@types/react": "^18.2.34",
     "@types/react-dom": "^18.2.14",
     "firebase": "^10.7.1",
+    "framer-motion": "^11.1.3",
     "moment": "^2.30.1",
     "path": "^0.12.7",
     "react": "^18.2.0",

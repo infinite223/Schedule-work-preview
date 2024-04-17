@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import {setSelectedDayInStore} from "../../../slices/selectedDaySlice";
 import useAuth from "../../../hooks/useAuth";
 import HoursPrediction from "../../HoursPrediction";
+import {motion} from "framer-motion";
 
 interface CustomCalendarProps {
   selectedDate: DateWithUsers;
@@ -113,7 +114,13 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-2 pt2 pb-2">
+        <motion.div
+          className="grid grid-cols-7 gap-2 pt2 pb-2"
+          key={selectedMonth.getMonth()}
+          initial={{opacity: 0.3}}
+          animate={{opacity: 1, transition: {duration: 0.5}}}
+          exit={{opacity: 0, transition: {duration: 0.1}}}
+        >
           {days.map((item, index) => {
             const isSelected =
               formatDateToString(new Date(item.date)) ===
@@ -142,7 +149,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
               </button>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

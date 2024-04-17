@@ -23,6 +23,7 @@ import logo from "../../assets/calendar.png";
 import useAuth from "../../hooks/useAuth";
 import {useNotifications} from "reapop";
 import {PromptModal} from "../modals/PromptModal";
+import {motion} from "framer-motion";
 
 const Schedule = () => {
   const dispatch = useDispatch();
@@ -132,7 +133,7 @@ const Schedule = () => {
   };
 
   return (
-    <div className="flex flex-col items-center  h-screen max-h-dvh  justify-between w-ful bg-white dark:bg-black">
+    <motion.div className="flex flex-col items-center  h-screen max-h-dvh  justify-between w-ful bg-white dark:bg-black">
       <div className="flex sm:flex-row flex-col w-full sm:flex-ro">
         <div className="flex flex-col sm:w-1/2 items-center w-full pr-2 pl-2 border-b-2 sm:border-b-0 sm:border-r-2 border-gray-400/10 rounded-b-xl pb-2">
           <div className="flex items-center justify-between w-full">
@@ -191,7 +192,7 @@ const Schedule = () => {
           title="Zatwierdź opcje"
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 
