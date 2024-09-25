@@ -1,15 +1,15 @@
-import {FC, useEffect, useState} from "react";
-import {DateWithUsers, DayData} from "../../../Utilis/types";
-import {firstDayOfMonth} from "../../../Utilis/scheduleFunctions";
+import { FC, useEffect, useState } from "react";
+import { DateWithUsers, DayData } from "../../../Utilis/types";
+import { firstDayOfMonth } from "../../../Utilis/scheduleFunctions";
 import Day from "./Day";
-import {monthNames, shortDayNames} from "../../../Utilis/data";
-import {addMonthsToDate, formatDateToString} from "../../../Utilis/functions";
-import {IoChevronBackOutline, IoChevronForwardOutline} from "react-icons/io5";
-import {useDispatch} from "react-redux";
-import {setSelectedDayInStore} from "../../../slices/selectedDaySlice";
+import { monthNames, shortDayNames } from "../../../Utilis/data";
+import { addMonthsToDate, formatDateToString } from "../../../Utilis/functions";
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { setSelectedDayInStore } from "../../../slices/selectedDaySlice";
 import useAuth from "../../../hooks/useAuth";
 import HoursPrediction from "../../HoursPrediction";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 interface CustomCalendarProps {
   selectedDate: DateWithUsers;
@@ -27,9 +27,9 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
   data,
 }) => {
   const [days, setDays] = useState<
-    {id: number; date: Date; users: DayData[]; noDay: boolean}[]
+    { id: number; date: Date; users: DayData[]; noDay: boolean }[]
   >([]);
-  const {user}: any = useAuth();
+  const { user }: any = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,10 +70,13 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
         dispatch(setSelectedDayInStore(JSON.stringify(selectedMonth)));
       }
     } else if (selectedDayData) {
-      setSelectedDate({date: selectedDate.date, users: selectedDayData?.users});
+      setSelectedDate({
+        date: selectedDate.date,
+        users: selectedDayData?.users,
+      });
       dispatch(setSelectedDayInStore(JSON.stringify(selectedDate.date)));
     } else if (currentDayData) {
-      setSelectedDate({date: nowDate, users: currentDayData?.users});
+      setSelectedDate({ date: nowDate, users: currentDayData?.users });
     }
   }, [days]);
 
@@ -81,7 +84,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
     <div className="flex flex-col items-center w-full pt-2 rounded-md mb-2">
       <div className="flex flex-row items-center md:pr-5 md:pl-5 pr-1 pl-1 justify-between pb-2 w-full shadow-sm">
         <button
-          style={{padding: "2px "}}
+          style={{ padding: "2px " }}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, -1))}
         >
           <IoChevronBackOutline size={22} color="var(--baseColor)" />
@@ -95,7 +98,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
           </span>
         </div>
         <button
-          style={{padding: "2px"}}
+          style={{ padding: "2px" }}
           onClick={() => setSelectedMonth(addMonthsToDate(selectedMonth, 1))}
         >
           <IoChevronForwardOutline size={22} color="var(--baseColor)" />
@@ -117,9 +120,9 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
         <motion.div
           className="grid grid-cols-7 gap-2 pt2 pb-2"
           key={selectedMonth.getMonth()}
-          initial={{opacity: 0.3}}
-          animate={{opacity: 1, transition: {duration: 0.5}}}
-          exit={{opacity: 0, transition: {duration: 0.1}}}
+          initial={{ opacity: 0.3 }}
+          animate={{ opacity: 1, transition: { duration: 0.5 } }}
+          exit={{ opacity: 0, transition: { duration: 0.1 } }}
         >
           {days.map((item, index) => {
             const isSelected =
@@ -132,7 +135,7 @@ const CustomCalendar: FC<CustomCalendarProps> = ({
                 key={index}
                 className="w-full flex items-center justify-center"
                 onClick={() => {
-                  setSelectedDate({date: item.date, users: item.users});
+                  setSelectedDate({ date: item.date, users: item.users });
                   dispatch(setSelectedDayInStore(JSON.stringify(item.date)));
                 }}
               >

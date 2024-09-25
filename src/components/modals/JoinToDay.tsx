@@ -1,17 +1,17 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useLocation, useNavigate} from "react-router-dom";
-import {selectedDay} from "../../slices/selectedDaySlice";
-import {doc, setDoc} from "firebase/firestore";
-import {db} from "../../services/firebaseConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { selectedDay } from "../../slices/selectedDaySlice";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../services/firebaseConfig";
 import useAuth from "../../hooks/useAuth";
-import {shortDayNames} from "../../Utilis/data";
-import {useEffect, useState} from "react";
-import {useNotifications} from "reapop";
-import {selectedGroup} from "../../slices/selectedGroupSlice";
-import {setReadsCounter} from "../../slices/readsCounterSlice";
-import {formatDateToString} from "../../Utilis/functions";
+import { shortDayNames } from "../../Utilis/data";
+import { useEffect, useState } from "react";
+import { useNotifications } from "reapop";
+import { selectedGroup } from "../../slices/selectedGroupSlice";
+import { setReadsCounter } from "../../slices/readsCounterSlice";
+import { formatDateToString } from "../../Utilis/functions";
 import "react-datetime/css/react-datetime.css";
-import {AnimatePresence, motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 type HoursOption = {
   text: string;
@@ -24,20 +24,20 @@ type HoursOption = {
 const hoursOptions = [
   {
     text: "od 12:00 do 22:00",
-    value: {start: "12:00", end: "22:00"},
+    value: { start: "12:00", end: "22:00" },
   },
   {
     text: "od 14:00 do 22:00",
-    value: {start: "14:00", end: "22:00"},
+    value: { start: "14:00", end: "22:00" },
   },
   {
     text: "od 17:00 do 22:00",
-    value: {start: "17:00", end: "22:00"},
+    value: { start: "17:00", end: "22:00" },
   },
 ];
 export const JoinToDay = () => {
   const navigate = useNavigate();
-  const {notify} = useNotifications();
+  const { notify } = useNotifications();
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -45,7 +45,7 @@ export const JoinToDay = () => {
   const dayDate =
     day && day?.selectedDay ? new Date(JSON.parse(day?.selectedDay)) : null;
   const group = useSelector(selectedGroup);
-  const {user}: any = useAuth();
+  const { user }: any = useAuth();
   const isMyGroup = group?.users?.find((u: any) => u.uid === user.uid);
   const [selectedOption, setSelectedOption] = useState<HoursOption>(
     hoursOptions[0]
@@ -55,7 +55,7 @@ export const JoinToDay = () => {
   const [endTime, setEndTime] = useState("");
 
   const handleStartTimeChange = (e: any) => {
-    setSelectedOption({text: "", value: {end: "", start: ""}});
+    setSelectedOption({ text: "", value: { end: "", start: "" } });
     setStartTime(e.target.value);
   };
 
@@ -173,9 +173,9 @@ export const JoinToDay = () => {
     <motion.div
       className="fixed bg-white/65 dark:bg-black/65 left-0 top-0 h-dvh w-screen flex flex-col items-center justify-center"
       onClick={(e) => navigate(-1)}
-      initial={{opacity: 0}}
-      animate={{opacity: 1, transition: {duration: 0.2}}}
-      exit={{opacity: 0, transition: {duration: 0.1}}}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.2 } }}
+      exit={{ opacity: 0, transition: { duration: 0.1 } }}
     >
       <div
         className="h-fit w-11/12 sm:w-1/3 gap-2 min-w-3.5 flex flex-col justify-between text-black dark:text-white bg-zinc-100 dark:bg-zinc-900 p-5 rounded-md"
@@ -201,7 +201,7 @@ export const JoinToDay = () => {
                   onClick={() => setSelectedOption(option)}
                   style={
                     selectedOption === option
-                      ? {borderColor: "rgb(34 197 94)"}
+                      ? { borderColor: "rgb(34 197 94)" }
                       : {}
                   }
                   className="border-gray-300 dark:border-gray-800 border-b-2 p-1 text-gray-800 cursor-pointer rounded-md hover:border-green-700 dark:text-gray-300"
